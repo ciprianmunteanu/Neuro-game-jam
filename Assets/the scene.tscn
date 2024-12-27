@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://jcvbfx67wgcd"]
+
+[ext_resource type="Texture2D" uid="uid://bat8ycyj6dbuw" path="res://Assets/Background.jpg" id="1_f6g1d"]
+[ext_resource type="Script" path="res://Scripts/MapController.cs" id="2_3jrdh"]
+
+[node name="Root" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_f6g1d")
+
+[node name="MapController" type="Node" parent="." node_paths=PackedStringArray("RootNode")]
+script = ExtResource("2_3jrdh")
+RootNode = NodePath("../Spawner")
+
+[node name="Spawner" type="Node2D" parent="."]

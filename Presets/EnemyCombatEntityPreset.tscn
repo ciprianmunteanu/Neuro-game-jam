@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dswk2pqnct441"]
+
+[ext_resource type="Texture2D" uid="uid://dg36vb3oe76w0" path="res://Assets/Enemy.png" id="1_v2hps"]
+[ext_resource type="Script" path="res://Scripts/EnemyCombatEntity.cs" id="2_8f3na"]
+
+[node name="Enemy" type="Sprite2D"]
+position = Vector2(422, 172)
+scale = Vector2(4.3125, 4.53125)
+texture = ExtResource("1_v2hps")
+script = ExtResource("2_8f3na")
