@@ -6,13 +6,13 @@ using System.Linq;
 public static class CombatEncounterProvider
 {
     public const string PLAYER = "res://Presets/PlayerCombatEntityPreset.tscn";
-    public static Vector2 PlayerPosition = new Vector2(-518, 0);
+    public static Vector2 PlayerPosition = new Vector2(-300, 0);
     public static Vector2[][] EnemyPositions =
     {
         new Vector2[] { },
-        new Vector2[] { new Vector2(518, 0) },
-        new Vector2[] { new Vector2(518, -140), new Vector2(518, 140) },
-        new Vector2[] { new Vector2(518, -330), new Vector2(518, 0), new Vector2(518, 330) },
+        new Vector2[] { new Vector2(300, 0) },
+        new Vector2[] { new Vector2(300, -140), new Vector2(300, 140) },
+        new Vector2[] { new Vector2(300, -330), new Vector2(300, 0), new Vector2(300, 330) },
 
     };
     private const string ENEMY1 = "res://Presets/EnemyCombatEntityPreset.tscn";

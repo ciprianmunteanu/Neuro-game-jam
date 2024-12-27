@@ -17,6 +17,5 @@ public partial class CombatEntity : Node2D
     public override void _Ready()
     {
         HealthBar.Value = CurrentHealth / MaxHealth;
-        Speed = 1;
     }
 }
