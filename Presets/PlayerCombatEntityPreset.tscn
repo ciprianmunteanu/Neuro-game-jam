@@ -1,12 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://tdpb8hvgtnn7"]
+[gd_scene load_steps=4 format=3 uid="uid://tdpb8hvgtnn7"]
 
 [ext_resource type="Texture2D" uid="uid://c08j1dbaq72ut" path="res://Assets/Player.png" id="1_6d35r"]
 [ext_resource type="Script" path="res://Scripts/PlayerCombatEntity.cs" id="2_hmxhn"]
 
-[node name="Player" type="Sprite2D"]
-position = Vector2(-532, 99)
+[sub_resource type="Theme" id="Theme_rc56j"]
+
+[node name="Player" type="Sprite2D" node_paths=PackedStringArray("HealthBar")]
 scale = Vector2(4.21875, 4.09375)
 texture = ExtResource("1_6d35r")
 script = ExtResource("2_hmxhn")
+HealthBar = NodePath("ProgressBar")
 Speed = 5
 MaxHealth = 30
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = -1
+anchor_left = -0.125
+anchor_top = -0.469
+anchor_right = 1.156
+anchor_bottom = -0.125
+offset_left = -16.0
+offset_top = -15.992
+offset_right = -15.992
+offset_bottom = -16.0
+theme = SubResource("Theme_rc56j")
+max_value = 1.0
+value = 1.0
+show_percentage = false
