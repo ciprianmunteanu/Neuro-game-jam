@@ -1,12 +1,11 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
-public class EnemyCombatEntity : CombatEntity
+public partial class EnemyCombatEntity : CombatEntity
 {
-    public int Speed { get; set; }
-
-    public void TakeTurn()
+    public override void TakeTurn()
     {
-
+        Debug.WriteLine("Enemy's turn");
     }
 }

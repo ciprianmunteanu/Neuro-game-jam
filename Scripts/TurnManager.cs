@@ -15,7 +15,7 @@ public class TurnManager
             throw new Exception("Can't start combat with 0 entities");
         }
 
-        m_combatEntities = combatEntities.OrderBy(c => c.Speed);
+        m_combatEntities = combatEntities.OrderByDescending(c => c.Speed);
     }
 
     public void StartCombat()

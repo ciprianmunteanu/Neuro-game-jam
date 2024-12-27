@@ -1,17 +1,10 @@
 using Godot;
-using System;
+using System.Diagnostics;
 
-public partial class PlayerCombatEntity : Node2D, CombatEntity
+public partial class PlayerCombatEntity : CombatEntity
 {
-    public int Speed { get; set ; }
-
-    public override void _Ready()
+    public override void TakeTurn()
     {
-        GD.Print("Hi");
-    }
-
-    public void TakeTurn()
-    {
-        
+        Debug.WriteLine("Player's turn");
     }
 }
