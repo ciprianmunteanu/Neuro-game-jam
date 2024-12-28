@@ -14,19 +14,18 @@ public partial class PlayerCombatEntity : CombatEntity
         if (@event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
         {
             var spaceState = GetWorld2D().DirectSpaceState;
-            // use global coordinates, not local to node
-            // TODO use IntersectPoint instead
             var mousePos = GetGlobalMousePosition();
-            var query = PhysicsRayQueryParameters2D.Create(mousePos, mousePos + new Vector2(0, 1));
-            query.CollideWithAreas = true;
-            query.HitFromInside = true;
-            var result = spaceState.IntersectRay(query);
-            if(result.Any())
+            var query = new PhysicsPointQueryParameters2D() { Position = mousePos, CollideWithAreas = true };
+            var results = spaceState.IntersectPoint(query);
+            foreach(var result in results)
             {
-                var col = result["collider"].Obj as Area2D;
-                if (col.GetParent() is CombatEntity combatEntity)
+                if (result.Any())
                 {
-                    combatEntity.TakeDamage(1);
+                    var col = result["collider"].Obj as Area2D;
+                    if (col.GetParent() is CombatEntity combatEntity)
+                    {
+                        combatEntity.TakeDamage(1);
+                    }
                 }
             }
         }
