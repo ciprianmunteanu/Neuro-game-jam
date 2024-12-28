@@ -17,6 +17,9 @@ public partial class UiController : Control
 
     [Export]
     public Control RewardsMenu { get; set; }
+    [Export]
+    public Button RewardsMenuOkButton { get; set; }
+
 
     [Export]
     public Control SelectTargetPrompt { get; set; }
@@ -33,6 +36,8 @@ public partial class UiController : Control
 
         Instance = this;
         MapController.GenerateMap(MapMenu);
+
+        RewardsMenuOkButton.Pressed += RewardsMenu.Hide;
 
         PopulateCombatMenu();
     }

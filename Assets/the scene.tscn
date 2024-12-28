@@ -14,7 +14,7 @@ texture = ExtResource("1_f6g1d")
 [node name="MapController" type="Node" parent="."]
 script = ExtResource("2_3jrdh")
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "MapMenu", "MapController", "RewardsMenu", "SelectTargetPrompt")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "SelectTargetPrompt")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -24,6 +24,7 @@ CombatMenu = NodePath("Combat")
 MapMenu = NodePath("Map")
 MapController = NodePath("../MapController")
 RewardsMenu = NodePath("Rewards screen")
+RewardsMenuOkButton = NodePath("Rewards screen/Ok Button")
 SelectTargetPrompt = NodePath("Combat/Select target")
 
 [node name="Combat" type="Control" parent="UI"]
@@ -74,3 +75,11 @@ theme_override_font_sizes/font_size = 32
 text = "Victory!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Ok Button" type="Button" parent="UI/Rewards screen"]
+layout_mode = 0
+offset_left = 706.0
+offset_top = 460.0
+offset_right = 816.0
+offset_bottom = 495.0
+text = "Ok"
