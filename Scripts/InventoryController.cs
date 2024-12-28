@@ -7,29 +7,30 @@ public record Item(CombatEntityStats StatModifiers, string Name)
     public Button Button { get; set; }
 }
 
+public record ItemSlot(Vector2 Position, bool isEquipment)
+{
+    public Item HeldItem { get; set; }
+}
+
 public partial class InventoryController : Control
 {
     public static InventoryController Instance;
 
     // these positions are the top left corner
     // to get the center, add half the slot size
-    private static readonly List<Vector2> inventorySlots = new()
+    private static readonly List<ItemSlot> inventorySlots = new()
     {
-        new Vector2(535, 241),
-        new Vector2(733,238),
-        new Vector2(942,234),
-        new Vector2(522,382),
-        new Vector2(726, 379),
-        new Vector2(932, 380),
-        new Vector2(529, 581),
-        new Vector2(723, 581),
-        new Vector2(932, 581)
-    };
-
-    private static readonly List<Vector2> equipmentSlots = new()
-    {
-        new Vector2(153, 143),
-        new Vector2(158, 374)
+        new ItemSlot(new Vector2(535, 241), false),
+        new ItemSlot(new Vector2(733,238), false),
+        new ItemSlot(new Vector2(942,234), false),
+        new ItemSlot(new Vector2(522,382), false),
+        new ItemSlot(new Vector2(726, 379),false),
+        new ItemSlot(new Vector2(932, 380), false),
+        new ItemSlot(new Vector2(529, 581), false),
+        new ItemSlot(new Vector2(723, 581), false),
+        new ItemSlot(new Vector2(932, 581), false),
+        new ItemSlot(new Vector2(153, 143), true),
+        new ItemSlot(new Vector2(158, 374), true)
     };
 
     private readonly int slotSizePx = 180;
@@ -49,7 +50,11 @@ public partial class InventoryController : Control
     public void AddItem(Item item)
     {
         // get the first available inventory slot
-        AddItemInternal(item, inventorySlots[0]);
+        var availableSlot = inventorySlots.First(s => s.isEquipment == false && s.HeldItem == null);
+        if(availableSlot != null)
+        {
+            AddItemInternal(item, availableSlot);
+        }
     }
 
     public void AddItem(Item item, Vector2 position)
@@ -59,25 +64,19 @@ public partial class InventoryController : Control
         position.Y -= slotSizePx / 2;
 
         // get the closest inventory slot
-        var inventorySlot = inventorySlots.OrderBy(v2 => v2.DistanceSquaredTo(position)).First();
-        var inventoryDist = inventorySlot.DistanceSquaredTo(position);
+        var availableSlot = inventorySlots.OrderBy(slot => slot.Position.DistanceSquaredTo(position)).First();
 
-        // get closest equipment slot
-        // TODO these have types and they only accept a matching item type
-        var equipSlot = equipmentSlots.OrderBy(v2 => v2.DistanceSquaredTo(position)).First();
-        var equipDist = equipSlot.DistanceSquaredTo(position);
-
-        if(inventoryDist < equipDist)
+        if(availableSlot.isEquipment)
         {
-            AddItemInternal(item, inventorySlot);
+            EquipItem(item, availableSlot);
         }
         else
         {
-            EquipItem(item, equipSlot);
+            AddItemInternal(item, availableSlot);
         }
     }
 
-    private void AddItemInternal(Item item, Vector2 slot)
+    private void AddItemInternal(Item item, ItemSlot slot)
     {
         if (item.Button == null)
         {
@@ -93,15 +92,18 @@ public partial class InventoryController : Control
             item.Button = button;
         }
 
-        item.Button.Position = slot;
+        item.Button.Position = slot.Position;
 
         items.Add(item);
+        slot.HeldItem = item;
     }
 
-    private void EquipItem(Item item, Vector2 slot)
+    private void EquipItem(Item item, ItemSlot slot)
     {
         PlayerManager.UpdateStats(PlayerManager.Stats + item.StatModifiers);
-        item.Button.Position = slot;
+        item.Button.Position = slot.Position;
+
+        slot.HeldItem = item;
     }
 
     private void OnItemPressed(Item item)
