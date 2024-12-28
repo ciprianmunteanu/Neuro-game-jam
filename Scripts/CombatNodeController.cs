@@ -5,6 +5,8 @@ using System.Linq;
 
 public class CombatNodeController : MapNodeController
 {
+    private CombatEntity spawnedPlayer;
+
     public void StartEncounter(Node rootNode)
     {
         // spawn the player and the enemies at the correct location on the screen
@@ -12,11 +14,11 @@ public class CombatNodeController : MapNodeController
         // start combat
         var encounter = CombatEncounterProvider.GetEncounter(1);
 
-        var player = GD.Load<PackedScene>(CombatEncounterProvider.PLAYER).Instantiate() as CombatEntity;
-        rootNode.AddChild(player);
-        player.Position = CombatEncounterProvider.PlayerPosition;
+        spawnedPlayer = GD.Load<PackedScene>(CombatEncounterProvider.PLAYER).Instantiate() as CombatEntity;
+        rootNode.AddChild(spawnedPlayer);
+        spawnedPlayer.Position = CombatEncounterProvider.PlayerPosition;
         var enemyPositions = CombatEncounterProvider.EnemyPositions[encounter.EnemyPresets.Count()];
-        List<CombatEntity> combatEntities = new() { player };
+        List<CombatEntity> combatEntities = new() { spawnedPlayer };
         for (int i = 0; i< encounter.EnemyPresets.Count(); i++)
         {
             var enemy = GD.Load<PackedScene>(encounter.EnemyPresets[i]).Instantiate() as CombatEntity;
@@ -30,4 +32,12 @@ public class CombatNodeController : MapNodeController
         var turnManager = new TurnManager(combatEntities);
         turnManager.StartCombat();
     }
+
+    public void CleanupEncounter()
+    {
+        spawnedPlayer.Hide();
+        spawnedPlayer.QueueFree();
+    }
+
+    public bool InProgress() => true;
 }
