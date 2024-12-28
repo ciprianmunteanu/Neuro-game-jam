@@ -163,9 +163,6 @@ public partial class InventoryController : Control
         var aux2 = slot1.HeldItem;
         slot1.HeldItem = slot2.HeldItem;
         slot2.HeldItem = aux2;
-
-        item1.Button.Position = item1.Slot.Position;
-        item2.Button.Position = item2.Slot.Position;
     }
 
     private void OnItemPressed(Item item)
