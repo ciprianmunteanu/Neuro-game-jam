@@ -6,6 +6,7 @@ public partial class EnemyCombatEntity : CombatEntity
 {
     public override void TakeTurn(TurnManager turnManager)
     {
-        Debug.WriteLine("Enemy's turn");
+        // get the player
+        // make the player take damage
     }
 }
