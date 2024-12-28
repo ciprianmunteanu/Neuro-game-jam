@@ -15,15 +15,21 @@ public partial class InventoryController : Control
     // to get the center, add half the slot size
     private static readonly List<Vector2> inventorySlots = new()
     {
-        new Vector2(35, 241),
-        new Vector2(233,238),
-        new Vector2(442,234),
-        new Vector2(22,382),
-        new Vector2(226, 379),
-        new Vector2(432, 380),
-        new Vector2(29, 581),
-        new Vector2(223, 581),
-        new Vector2(432, 581)
+        new Vector2(535, 241),
+        new Vector2(733,238),
+        new Vector2(942,234),
+        new Vector2(522,382),
+        new Vector2(726, 379),
+        new Vector2(932, 380),
+        new Vector2(529, 581),
+        new Vector2(723, 581),
+        new Vector2(932, 581)
+    };
+
+    private static readonly List<Vector2> equipmentSlots = new()
+    {
+        new Vector2(153, 143),
+        new Vector2(158, 374)
     };
 
     private readonly int slotSizePx = 180;
@@ -42,18 +48,33 @@ public partial class InventoryController : Control
 
     public void AddItem(Item item)
     {
-        // get the first available slot
+        // get the first available inventory slot
         AddItemInternal(item, inventorySlots[0]);
     }
 
     public void AddItem(Item item, Vector2 position)
     {
-        // get the closest slot
+        // compensate for the center of UI elements being in the top left
         position.X -= slotSizePx / 2;
         position.Y -= slotSizePx / 2;
 
-        var slot = inventorySlots.OrderBy(v2 => v2.DistanceSquaredTo(position)).First();
-        AddItemInternal(item, slot);
+        // get the closest inventory slot
+        var inventorySlot = inventorySlots.OrderBy(v2 => v2.DistanceSquaredTo(position)).First();
+        var inventoryDist = inventorySlot.DistanceSquaredTo(position);
+
+        // get closest equipment slot
+        // TODO these have types and they only accept a matching item type
+        var equipSlot = equipmentSlots.OrderBy(v2 => v2.DistanceSquaredTo(position)).First();
+        var equipDist = equipSlot.DistanceSquaredTo(position);
+
+        if(inventoryDist < equipDist)
+        {
+            AddItemInternal(item, inventorySlot);
+        }
+        else
+        {
+            EquipItem(item, equipSlot);
+        }
     }
 
     private void AddItemInternal(Item item, Vector2 slot)
@@ -75,6 +96,12 @@ public partial class InventoryController : Control
         item.Button.Position = slot;
 
         items.Add(item);
+    }
+
+    private void EquipItem(Item item, Vector2 slot)
+    {
+        PlayerManager.UpdateStats(PlayerManager.Stats + item.StatModifiers);
+        item.Button.Position = slot;
     }
 
     private void OnItemPressed(Item item)
