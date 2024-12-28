@@ -5,7 +5,7 @@ using System.Linq;
 
 public class CombatNodeController : MapNodeController
 {
-    public void StartEncounter(Node2D rootNode)
+    public void StartEncounter(Node rootNode)
     {
         // spawn the player and the enemies at the correct location on the screen
         // create the turn manager and pass those in
@@ -23,6 +23,7 @@ public class CombatNodeController : MapNodeController
             rootNode.AddChild(enemy);
             enemy.Position = enemyPositions[i];
             enemy.CurrentHealth = enemy.MaxHealth;
+            enemy.HealthBar.Value = enemy.CurrentHealth / enemy.MaxHealth;
             combatEntities.Add(enemy);
         }
 

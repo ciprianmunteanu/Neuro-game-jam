@@ -4,12 +4,10 @@ using System.Collections.Generic;
 
 public partial class MapController : Node
 {
-    [Export]
-    public Node2D RootNode { get; set; }
+    private readonly CombatNodeController combatNodeController = new();
 
     public override void _Ready()
     {
-        var currentMapNode = new CombatNodeController();
-        currentMapNode.StartEncounter(RootNode);
+        combatNodeController.StartEncounter(this);
     }
 }

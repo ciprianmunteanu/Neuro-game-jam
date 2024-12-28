@@ -2,5 +2,5 @@
 
 public interface MapNodeController
 {
-    public void StartEncounter(Node2D rootNode);
+    public void StartEncounter(Node rootNode);
 }
