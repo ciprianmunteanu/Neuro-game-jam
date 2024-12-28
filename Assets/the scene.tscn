@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://jcvbfx67wgcd"]
+[gd_scene load_steps=6 format=3 uid="uid://jcvbfx67wgcd"]
 
 [ext_resource type="Texture2D" uid="uid://bat8ycyj6dbuw" path="res://Assets/Background.jpg" id="1_f6g1d"]
 [ext_resource type="Script" path="res://Scripts/MapController.cs" id="2_3jrdh"]
 [ext_resource type="Script" path="res://Scripts/UiController.cs" id="3_80bgt"]
+[ext_resource type="Texture2D" uid="uid://cksfgqunw1ytv" path="res://Assets/InventoryBackground.png" id="4_833bp"]
+[ext_resource type="Script" path="res://Scripts/InventoryController.cs" id="4_ook0n"]
 
 [node name="Root" type="Node2D"]
 
@@ -116,3 +118,12 @@ offset_left = 1176.0
 offset_top = -3.0
 offset_right = 1794.0
 offset_bottom = 964.0
+script = ExtResource("4_ook0n")
+
+[node name="TextureRect" type="TextureRect" parent="UI/Inventory/Inventory items"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 229.0
+offset_right = 615.0
+offset_bottom = 754.0
+texture = ExtResource("4_833bp")

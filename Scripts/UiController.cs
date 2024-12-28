@@ -24,6 +24,7 @@ public partial class UiController : Control
     public Control InventoryScreen { get; set; }
     [Export]
     public Control StatsDisplay { get; set; }
+    private bool isInventoryShown = false;
 
 
     [Export]
@@ -38,6 +39,7 @@ public partial class UiController : Control
         MapMenu.Hide();
         CombatMenu.Hide();
         RewardsMenu.Hide();
+        InventoryScreen.Hide();
 
         Instance = this;
         MapController.GenerateMap(MapMenu);
@@ -87,7 +89,21 @@ public partial class UiController : Control
         else
         {
             MapMenu.Hide();
-            
+
+        }
+    }
+
+    public void ShowInventory(bool shown)
+    {
+        isInventoryShown = shown;
+        if (isInventoryShown)
+        {
+            InventoryScreen.Show();
+        }
+        else
+        {
+            InventoryScreen.Hide();
+
         }
     }
 
@@ -96,6 +112,11 @@ public partial class UiController : Control
         if(@event.IsActionPressed("Map"))
         {
             ShowMap(!isMapShown);
+        }
+
+        if (@event.IsActionPressed("Inventory"))
+        {
+            ShowInventory(!isInventoryShown);
         }
     }
 }
