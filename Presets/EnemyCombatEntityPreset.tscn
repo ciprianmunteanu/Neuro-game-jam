@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dswk2pqnct441"]
+[gd_scene load_steps=4 format=3 uid="uid://dswk2pqnct441"]
 
 [ext_resource type="Texture2D" uid="uid://dg36vb3oe76w0" path="res://Assets/Enemy.png" id="1_v2hps"]
 [ext_resource type="Script" path="res://Scripts/EnemyCombatEntity.cs" id="2_8f3na"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tpxsw"]
+radius = 26.6676
 
 [node name="Enemy" type="Sprite2D" node_paths=PackedStringArray("HealthBar")]
 scale = Vector2(4.3125, 4.53125)
@@ -9,7 +12,7 @@ texture = ExtResource("1_v2hps")
 script = ExtResource("2_8f3na")
 HealthBar = NodePath("ProgressBar")
 Speed = 1
-MaxHealth = 10
+MaxHealth = 10.0
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 anchors_preset = -1
@@ -23,3 +26,8 @@ offset_right = -15.992
 offset_bottom = -16.008
 max_value = 1.0
 show_percentage = false
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_tpxsw")

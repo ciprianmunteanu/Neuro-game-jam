@@ -11,7 +11,7 @@ texture = ExtResource("1_6d35r")
 script = ExtResource("2_hmxhn")
 HealthBar = NodePath("ProgressBar")
 Speed = 5
-MaxHealth = 30
+MaxHealth = 30.0
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 anchors_preset = -1
