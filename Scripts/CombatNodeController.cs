@@ -41,6 +41,8 @@ public class CombatNodeController : MapNodeController
 
     private void OnRoomClear()
     {
+        var reward = new Label() { Text = "10g", Position = new Vector2(50, 100), Size = new Vector2(200, 50) };
+        UiController.Instance.RewardsMenu.AddChild(reward);
         UiController.Instance.RewardsMenu.Show();
     }
 

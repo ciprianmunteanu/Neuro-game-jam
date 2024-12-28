@@ -23,7 +23,7 @@ script = ExtResource("3_80bgt")
 CombatMenu = NodePath("Combat")
 MapMenu = NodePath("Map")
 MapController = NodePath("../MapController")
-RewardsMenu = NodePath("Rewards")
+RewardsMenu = NodePath("Rewards screen")
 SelectTargetPrompt = NodePath("Combat/Select target")
 
 [node name="Combat" type="Control" parent="UI"]
@@ -49,17 +49,28 @@ offset_right = 892.0
 offset_bottom = 481.0
 color = Color(0.101961, 0.101961, 0.101961, 0.498039)
 
-[node name="Rewards" type="Control" parent="UI"]
+[node name="Rewards screen" type="Control" parent="UI"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -759.0
+offset_top = -321.0
+offset_right = 762.0
+offset_bottom = 289.0
 
-[node name="Label" type="Label" parent="UI/Rewards"]
+[node name="ColorRect" type="ColorRect" parent="UI/Rewards screen"]
 layout_mode = 0
-offset_left = -300.0
-offset_top = -112.0
-offset_right = 272.0
-offset_bottom = 92.0
-text = "YOU WON"
+offset_left = 7.0
+offset_top = -1.0
+offset_right = 1520.0
+offset_bottom = 606.0
+color = Color(0, 0, 0, 0.435294)
+
+[node name="Label" type="Label" parent="UI/Rewards screen"]
+layout_mode = 0
+offset_left = 467.0
+offset_top = 16.0
+offset_right = 1048.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 32
+text = "Victory!"
 horizontal_alignment = 1
 vertical_alignment = 1
