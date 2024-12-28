@@ -4,9 +4,9 @@ using System.Diagnostics;
 
 public partial class EnemyCombatEntity : CombatEntity
 {
-    public override void TakeTurn(TurnManager turnManager)
+    public override void TakeTurn()
     {
-        // get the player
-        // make the player take damage
+        PlayerCombatEntity.Instance.TakeDamage(1);
+        TurnManager.Instance.PassTurn();
     }
 }

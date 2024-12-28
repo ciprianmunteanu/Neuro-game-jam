@@ -5,6 +5,8 @@ using System.Linq;
 
 public class TurnManager
 {
+    public static TurnManager Instance { get; set; }
+
     private readonly IOrderedEnumerable<CombatEntity> m_combatEntities;
     private int crtCombatEntityIndex = 0;
 
@@ -16,6 +18,8 @@ public class TurnManager
         }
 
         m_combatEntities = combatEntities.OrderByDescending(c => c.Speed);
+
+        Instance = this;
     }
 
     public void StartCombat()
@@ -27,11 +31,11 @@ public class TurnManager
     public void PassTurn()
     {
         crtCombatEntityIndex += 1;
-        if (crtCombatEntityIndex > m_combatEntities.Count())
+        if (crtCombatEntityIndex >= m_combatEntities.Count())
         {
             crtCombatEntityIndex = 0;
         }
 
-        m_combatEntities.ElementAt(crtCombatEntityIndex).TakeTurn(this);
+        m_combatEntities.ElementAt(crtCombatEntityIndex).TakeTurn();
     }
 }

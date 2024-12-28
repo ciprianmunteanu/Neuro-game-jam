@@ -18,8 +18,6 @@ public partial class UiController : Control
     {
         Instance = this;
 
-        CombatMenu.Hide();
-        CombatMenu.Show();
         SelectTargetPrompt.Hide();
 
         PopulateCombatMenu();
@@ -33,6 +31,13 @@ public partial class UiController : Control
         attackButton.Text = "Attack";
         CombatMenu.AddChild(attackButton);
         buttons.Add(attackButton);
+
+        var passButton = new CombatActionButton(new PassCombatAction());
+        passButton.Position = new Vector2(-733, 440);
+        passButton.Size = new Vector2(180, 74);
+        passButton.Text = "Pass";
+        CombatMenu.AddChild(passButton);
+        buttons.Add(passButton);
     }
 
     public void SetEnabled(bool enabled)

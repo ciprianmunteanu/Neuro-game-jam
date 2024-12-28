@@ -4,7 +4,23 @@ using System.Linq;
 public partial class CombatActionButton : Button
 {
     private readonly ICombatAction combatAction;
-    private bool isSelectingTarget = false;
+    private bool m_isSelectingTarget = false;
+    private bool IsSelectingTarget {
+        get => m_isSelectingTarget;
+        set
+        {
+            m_isSelectingTarget = value;
+            UiController.Instance.SetEnabled(!value);
+            if (value)
+            {
+                UiController.Instance.SelectTargetPrompt.Show();
+            }
+            else
+            {
+                UiController.Instance.SelectTargetPrompt.Hide();
+            }
+        }
+    }
 
     public CombatActionButton(ICombatAction action)
     {
@@ -18,15 +34,20 @@ public partial class CombatActionButton : Button
 
     protected void OnButtonPressed()
     {
-        // prompt to select targets
-        UiController.Instance.SetEnabled(false);
-        UiController.Instance.SelectTargetPrompt.Show();
-        isSelectingTarget = true;
+        if(combatAction.RequiresTarget())
+        {
+            IsSelectingTarget = true;
+        }
+        else
+        {
+            combatAction.Do();
+        }
+        
     }
 
     public override void _Input(InputEvent @event)
     {
-        if (isSelectingTarget && @event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
+        if (IsSelectingTarget && @event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
         {
             var spaceState = GetWorld2D().DirectSpaceState;
             var mousePos = GetGlobalMousePosition();
@@ -41,9 +62,7 @@ public partial class CombatActionButton : Button
                     {
                         combatAction.Do(combatEntity);
 
-                        UiController.Instance.CombatMenu.Hide();
-                        UiController.Instance.SelectTargetPrompt.Hide();
-                        isSelectingTarget = false;
+                        IsSelectingTarget = false;
                     }
                 }
             }
