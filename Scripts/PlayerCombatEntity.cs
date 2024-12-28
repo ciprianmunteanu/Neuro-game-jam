@@ -8,8 +8,8 @@ public partial class PlayerCombatEntity : CombatEntity
 
     public override void _Ready()
     {
-        MaxHealth = PlayerManager.MaxHp;
-        CurrentHealth = PlayerManager.CurrentHp;
+        MaxHealth = PlayerManager.Stats.MaxHealth;
+        CurrentHealth = PlayerManager.Stats.CurrentHealth;
         HealthBar.Value = CurrentHealth / MaxHealth;
 
         Instance = this;

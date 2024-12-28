@@ -20,6 +20,11 @@ public partial class UiController : Control
     [Export]
     public Button RewardsMenuOkButton { get; set; }
 
+    [Export]
+    public Control InventoryScreen { get; set; }
+    [Export]
+    public Control StatsDisplay { get; set; }
+
 
     [Export]
     public Control SelectTargetPrompt { get; set; }
@@ -41,11 +46,13 @@ public partial class UiController : Control
         RewardsMenuOkButton.Pressed += MapMenu.Show;
 
         PopulateCombatMenu();
+
+        PlayerManager.InitStatsDisplay();
     }
 
     private void PopulateCombatMenu()
     {
-        var attackButton = new CombatActionButton(new DamageCombatAction() { Damage = 10 });
+        var attackButton = new CombatActionButton(new DamageCombatAction() { Damage = PlayerManager.Stats.AttackDamage });
         attackButton.Position = new Vector2(-933, 440);
         attackButton.Size = new Vector2(180, 74);
         attackButton.Text = "Attack";
