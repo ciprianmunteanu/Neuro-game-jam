@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsik4k0gramql"]
+
+[ext_resource type="Texture2D" uid="uid://crx10ypf4amtk" path="res://Assets/Attack_animation/Attack1.png" id="1_djiih"]
+[ext_resource type="Texture2D" uid="uid://c5t3rh8ufnscl" path="res://Assets/Attack_animation/Attack2.png" id="2_nkfvj"]
+[ext_resource type="Texture2D" uid="uid://bkymu04poh76o" path="res://Assets/Attack_animation/Attack3.png" id="3_jt8e7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_23441"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_djiih")
+}, {
+"duration": 2.0,
+"texture": ExtResource("2_nkfvj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jt8e7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="AttackAnimation" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_23441")
