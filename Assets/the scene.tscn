@@ -17,23 +17,26 @@ RootNode = NodePath("../Spawner")
 
 [node name="Spawner" type="Node2D" parent="."]
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "SelectTargetPrompt")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_80bgt")
 CombatMenu = NodePath("Combat")
+SelectTargetPrompt = NodePath("Combat/Select target")
 
 [node name="Combat" type="Control" parent="UI"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="UI/Combat"]
+[node name="Select target" type="Label" parent="UI/Combat"]
 layout_mode = 0
-offset_left = -933.0
-offset_top = 441.0
-offset_right = -753.0
-offset_bottom = 515.0
-text = "Attack"
+offset_left = -177.0
+offset_top = 207.0
+offset_right = 167.0
+offset_bottom = 240.0
+text = "Select target"
+horizontal_alignment = 1
+vertical_alignment = 1
