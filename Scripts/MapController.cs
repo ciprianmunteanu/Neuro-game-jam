@@ -10,7 +10,7 @@ public partial class MapController : Node
     private readonly CombatNodeController combatNodeController = new();
 
     private const int buttonSize = 100;
-    private const int buttonSpacing = 20;
+    private const int buttonSpacing = 25;
 
     private List<List<MapNode>> MapNodes = new();
     private MapNode currentNode;
@@ -20,7 +20,7 @@ public partial class MapController : Node
         // TODO generate this
         int[] floorSizes = { 1, 3, 5, 11, 6, 2, 1 };
         // add starting location
-        currentNode = new MapNode(new List<MapNode>(), GenerateStartingLocationButton(mapRoot));
+        currentNode = new MapNode(new List<MapNode>(), GenerateStartingLocationButton(mapRoot, new Vector2(900, 0)));
         MapNodes.Add(new List<MapNode>() { currentNode });
         Random rand = new();
 
@@ -44,10 +44,10 @@ public partial class MapController : Node
                 nrOfConnectionsBag.Add(crtNr);
             }
             int prevFloorRoomIndex = 0;
+            float btnSpacingY = (1800 - (floorSizes[floorIndex] * buttonSize)) / floorSizes[floorIndex];
             for (int roomIndex = 0; roomIndex < floorSizes[floorIndex]; roomIndex ++)
             {
-                // TODO verify vector2
-                var btn = GenerateRandomButton(mapRoot, new Vector2((buttonSize + buttonSpacing) * roomIndex, (buttonSize + buttonSpacing) * floorIndex));
+                var btn = GenerateRandomButton(mapRoot, new Vector2((buttonSize + btnSpacingY) * roomIndex + btnSpacingY / 2, (buttonSize + buttonSpacing) * floorIndex));
                 var currentRoom = new MapNode(new List<MapNode>(), btn);
 
                 // take a random number of connections from the bag
@@ -82,9 +82,10 @@ public partial class MapController : Node
         }
 
         EnableConnectedMapButtons();
+        CreateConnectionLines(mapRoot);
     }
 
-    private Button GenerateRandomButton(Control mapRoot,Vector2 position)
+    private Button GenerateRandomButton(Control mapRoot, Vector2 position)
     {
         var testButton = new Button()
         {
@@ -103,13 +104,13 @@ public partial class MapController : Node
         return testButton;
     }
 
-    private Button GenerateStartingLocationButton(Control mapRoot)
+    private Button GenerateStartingLocationButton(Control mapRoot, Vector2 position)
     {
         var testButton = new Button()
         {
             Text = "[Start]",
             Size = new Vector2(buttonSize, buttonSize),
-            Position = new Vector2(0, 0),
+            Position = position,
             Disabled = true
         };
         mapRoot.AddChild(testButton);
@@ -122,6 +123,29 @@ public partial class MapController : Node
         foreach(var node in currentNode.childern)
         {
             node.uiButton.Disabled = false;
+        }
+    }
+
+    private void CreateConnectionLines(Control mapRoot)
+    {
+        foreach(var floor in MapNodes)
+        {
+            foreach(var room in floor)
+            {
+                Vector2 btnPos = room.uiButton.Position + new Vector2(buttonSize / 2, buttonSize / 2);
+                foreach (var connectedRoom in room.childern)
+                {
+                    Vector2 connectedBtnPos = connectedRoom.uiButton.Position + new Vector2(buttonSize / 2, buttonSize / 2);
+                    var line = new ColorRect()
+                    {
+                        Size = new Vector2(7, btnPos.DistanceTo(connectedBtnPos)),
+                        Position = btnPos,
+                        Rotation = (float)Math.Atan((connectedBtnPos.X - btnPos.X) / (btnPos.Y - connectedBtnPos.Y)),
+                        Color = new Color(255, 255, 255, 0.5f)
+                    };
+                    mapRoot.AddChild(line);
+                }
+            }
         }
     }
 }
