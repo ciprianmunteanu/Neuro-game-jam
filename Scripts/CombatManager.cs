@@ -5,8 +5,10 @@ using System.Linq;
 
 public static class CombatManager
 {
-    private static IOrderedEnumerable<CombatEntity> m_combatEntities;
+    private static List<CombatEntity> m_combatEntities;
     private static int crtCombatEntityIndex = 0;
+
+    public static event Action OnCombatClear;
 
     public static void StartCombat(List<CombatEntity> combatEntities)
     {
@@ -15,7 +17,7 @@ public static class CombatManager
             throw new Exception("Can't start combat with 0 entities");
         }
 
-        m_combatEntities = combatEntities.OrderByDescending(c => c.Speed);
+        m_combatEntities = combatEntities.OrderByDescending(c => c.Speed).ToList();
 
         crtCombatEntityIndex = -1;
         PassTurn();
@@ -30,5 +32,15 @@ public static class CombatManager
         }
 
         m_combatEntities.ElementAt(crtCombatEntityIndex).TakeTurn();
+    }
+
+    public static void RemoveEntityFromCombat(CombatEntity entity)
+    {
+        m_combatEntities.Remove(entity);
+        if(m_combatEntities.Count() == 1)
+        {
+            // the player won
+            OnCombatClear?.Invoke();
+        }
     }
 }

@@ -29,6 +29,7 @@ public class CombatNodeController : MapNodeController
             combatEntities.Add(enemy);
         }
 
+        CombatManager.OnCombatClear += OnRoomClear;
         CombatManager.StartCombat(combatEntities);
     }
 
@@ -36,6 +37,11 @@ public class CombatNodeController : MapNodeController
     {
         spawnedPlayer.Hide();
         spawnedPlayer.QueueFree();
+    }
+
+    private void OnRoomClear()
+    {
+        UiController.Instance.RewardsMenu.Show();
     }
 
     public bool InProgress() => true;

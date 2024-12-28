@@ -10,4 +10,14 @@ public partial class EnemyCombatEntity : CombatEntity
         combatAction.OnActionDone += CombatManager.PassTurn;
         combatAction.Do(PlayerCombatEntity.Instance, this);
     }
+
+    protected override void OnDeath()
+    {
+        CombatManager.RemoveEntityFromCombat(this);
+        
+        // TODO death animation
+        Hide();
+
+        QueueFree();
+    }
 }

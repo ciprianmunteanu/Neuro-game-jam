@@ -23,5 +23,12 @@ public partial class CombatEntity : Node2D
     {
         CurrentHealth -= damage;
         HealthBar.Value = CurrentHealth / MaxHealth;
+
+        if (CurrentHealth <= 0)
+        {
+            OnDeath();
+        }
     }
+
+    protected virtual void OnDeath() { }
 }
