@@ -31,6 +31,7 @@ public partial class PlayerCombatEntity : CombatEntity
                         combatEntity.TakeDamage(1);
                         IsPlayersTurn = false;
                         turn.PassTurn();
+                        UiController.Instance.CombatMenu.Hide();
                     }
                 }
             }

@@ -28,5 +28,7 @@ public class CombatNodeController : MapNodeController
 
         var turnManager = new TurnManager(combatEntities);
         turnManager.StartCombat();
+
+        //UiController.Instance.CombatMenu.Show();
     }
 }
