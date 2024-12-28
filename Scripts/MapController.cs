@@ -18,7 +18,7 @@ public partial class MapController : Node
     public void GenerateMap(Control mapRoot)
     {
         // TODO generate this
-        int[] floorSizes = { 1, 3, 5, 11, 6, 2, 1 };
+        int[] floorSizes = { 1, 3, 5, 7, 6, 2, 1 };
         // add starting location
         currentNode = new MapNode(new List<MapNode>(), GenerateStartingLocationButton(mapRoot, new Vector2(900, 0)));
         MapNodes.Add(new List<MapNode>() { currentNode });
