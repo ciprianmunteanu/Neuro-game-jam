@@ -15,3 +15,17 @@ script = ExtResource("2_3jrdh")
 RootNode = NodePath("../Spawner")
 
 [node name="Spawner" type="Node2D" parent="."]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = -933.0
+offset_top = 441.0
+offset_right = -753.0
+offset_bottom = 515.0
+text = "Attack"
