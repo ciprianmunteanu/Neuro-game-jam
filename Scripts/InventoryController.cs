@@ -5,11 +5,47 @@ using System.Linq;
 public record Item(CombatEntityStats StatModifiers, string Name)
 {
     public Button Button { get; set; }
+
+    private ItemSlot slot;
+
+    public ItemSlot Slot {
+        get => slot;
+        set
+        {
+            slot = value;
+            Button.Position = slot.Position;
+        }
+    }
 }
 
 public record ItemSlot(Vector2 Position, bool isEquipment)
 {
-    public Item HeldItem { get; set; }
+    private Item heldItem;
+    public Item HeldItem { 
+        get => heldItem; 
+        set
+        {
+            if(isEquipment)
+            {
+                var newStats = PlayerManager.Stats;
+
+                if(value != null)
+                {
+                    newStats = newStats + value.StatModifiers;
+                }
+
+                // if we're unequipping an item
+                if (heldItem != null)
+                {
+                    newStats = newStats - heldItem.StatModifiers;
+                }
+
+                PlayerManager.UpdateStats(newStats);
+            }
+
+            heldItem = value;
+        }
+    }
 }
 
 public partial class InventoryController : Control
@@ -45,6 +81,7 @@ public partial class InventoryController : Control
         Instance = this;
 
         AddItem(new Item(new CombatEntityStats() { MaxHealth = 10, CurrentHealth = 10 }, "+Health armor"));
+        AddItem(new Item(new CombatEntityStats() { AttackDamage = 10 }, "+Damage sword"));
     }
 
     public void AddItem(Item item)
@@ -66,14 +103,7 @@ public partial class InventoryController : Control
         // get the closest inventory slot
         var availableSlot = inventorySlots.OrderBy(slot => slot.Position.DistanceSquaredTo(position)).First();
 
-        if(availableSlot.isEquipment)
-        {
-            EquipItem(item, availableSlot);
-        }
-        else
-        {
-            AddItemInternal(item, availableSlot);
-        }
+        AddItemInternal(item, availableSlot);
     }
 
     private void AddItemInternal(Item item, ItemSlot slot)
@@ -92,18 +122,39 @@ public partial class InventoryController : Control
             item.Button = button;
         }
 
-        item.Button.Position = slot.Position;
+        // we have 2 cases, based on whether or not the slot has an item already
 
-        items.Add(item);
-        slot.HeldItem = item;
+        if (slot.HeldItem == null)
+        {
+            if(item.Slot != null)
+            {
+                item.Slot.HeldItem = null;
+            }
+
+            slot.HeldItem = item;
+            item.Slot = slot;
+        }
+        else
+        {
+            SwapItemSlots(item, slot.HeldItem);
+        }
     }
 
-    private void EquipItem(Item item, ItemSlot slot)
+    private void SwapItemSlots(Item item1, Item item2)
     {
-        PlayerManager.UpdateStats(PlayerManager.Stats + item.StatModifiers);
-        item.Button.Position = slot.Position;
+        var slot1 = item1.Slot;
+        var slot2 = item2.Slot;
 
-        slot.HeldItem = item;
+        var aux = item1.Slot;
+        item1.Slot = item2.Slot;
+        item2.Slot = aux;
+
+        var aux2 = slot1.HeldItem;
+        slot1.HeldItem = slot2.HeldItem;
+        slot2.HeldItem = aux2;
+
+        item1.Button.Position = item1.Slot.Position;
+        item2.Button.Position = item2.Slot.Position;
     }
 
     private void OnItemPressed(Item item)
