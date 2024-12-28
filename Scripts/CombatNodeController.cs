@@ -29,8 +29,7 @@ public class CombatNodeController : MapNodeController
             combatEntities.Add(enemy);
         }
 
-        var turnManager = new TurnManager(combatEntities);
-        turnManager.StartCombat();
+        CombatManager.StartCombat(combatEntities);
     }
 
     public void CleanupEncounter()

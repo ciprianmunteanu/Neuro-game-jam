@@ -11,19 +11,18 @@
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_f6g1d")
 
-[node name="MapController" type="Node" parent="." node_paths=PackedStringArray("RootNode")]
+[node name="MapController" type="Node" parent="."]
 script = ExtResource("2_3jrdh")
-RootNode = NodePath("../Spawner")
 
-[node name="Spawner" type="Node2D" parent="."]
-
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "SelectTargetPrompt")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "MapMenu", "MapController", "SelectTargetPrompt")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_80bgt")
 CombatMenu = NodePath("Combat")
+MapMenu = NodePath("Map")
+MapController = NodePath("../MapController")
 SelectTargetPrompt = NodePath("Combat/Select target")
 
 [node name="Combat" type="Control" parent="UI"]
@@ -40,3 +39,11 @@ offset_bottom = 240.0
 text = "Select target"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Map" type="ColorRect" parent="UI"]
+layout_mode = 0
+offset_left = -905.0
+offset_top = -479.0
+offset_right = 892.0
+offset_bottom = 481.0
+color = Color(0.101961, 0.101961, 0.101961, 0.498039)

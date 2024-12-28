@@ -3,32 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class TurnManager
+public static class CombatManager
 {
-    public static TurnManager Instance { get; set; }
+    private static IOrderedEnumerable<CombatEntity> m_combatEntities;
+    private static int crtCombatEntityIndex = 0;
 
-    private readonly IOrderedEnumerable<CombatEntity> m_combatEntities;
-    private int crtCombatEntityIndex = 0;
-
-    public TurnManager(List<CombatEntity> combatEntities)
+    public static void StartCombat(List<CombatEntity> combatEntities)
     {
-        if(!combatEntities.Any())
+        if (!combatEntities.Any())
         {
             throw new Exception("Can't start combat with 0 entities");
         }
 
         m_combatEntities = combatEntities.OrderByDescending(c => c.Speed);
 
-        Instance = this;
-    }
-
-    public void StartCombat()
-    {
         crtCombatEntityIndex = -1;
         PassTurn();
     }
 
-    public void PassTurn()
+    public static void PassTurn()
     {
         crtCombatEntityIndex += 1;
         if (crtCombatEntityIndex >= m_combatEntities.Count())
