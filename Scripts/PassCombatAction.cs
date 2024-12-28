@@ -9,6 +9,6 @@
     public void Do()
     {
         TurnManager.Instance.PassTurn();
-        //UiController.Instance.CombatMenu.Hide();
+        UiController.Instance.CombatMenu.Hide();
     }
 }
