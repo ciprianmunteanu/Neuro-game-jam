@@ -32,10 +32,12 @@ public partial class UiController : Control
         CombatMenu.AddChild(attackButton);
         buttons.Add(attackButton);
 
-        var passButton = new CombatActionButton(new PassCombatAction());
+        var passButton = new Button();
         passButton.Position = new Vector2(-733, 440);
         passButton.Size = new Vector2(180, 74);
         passButton.Text = "Pass";
+        passButton.Pressed += TurnManager.Instance.PassTurn;
+        passButton.Pressed += CombatMenu.Hide;
         CombatMenu.AddChild(passButton);
         buttons.Add(passButton);
     }

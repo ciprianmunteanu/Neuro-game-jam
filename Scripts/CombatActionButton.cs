@@ -34,14 +34,7 @@ public partial class CombatActionButton : Button
 
     protected void OnButtonPressed()
     {
-        if(combatAction.RequiresTarget())
-        {
-            IsSelectingTarget = true;
-        }
-        else
-        {
-            combatAction.Do();
-        }
+        IsSelectingTarget = true;
         
     }
 
