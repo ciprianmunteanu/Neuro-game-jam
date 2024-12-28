@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public record Item(CombatEntityStats StatModifiers, string Name)
+public enum ItemType { NONE, WEAPON, ARMOR }
+
+public record Item(CombatEntityStats StatModifiers, string Name, ItemType Type)
 {
     public Button Button { get; set; }
 
@@ -20,6 +22,8 @@ public record Item(CombatEntityStats StatModifiers, string Name)
 
 public record ItemSlot(Vector2 Position, bool isEquipment)
 {
+    public ItemType Type { get; set; } = ItemType.NONE;
+
     private Item heldItem;
     public Item HeldItem { 
         get => heldItem; 
@@ -60,13 +64,13 @@ public partial class InventoryController : Control
         new ItemSlot(new Vector2(733,238), false),
         new ItemSlot(new Vector2(942,234), false),
         new ItemSlot(new Vector2(522,382), false),
-        new ItemSlot(new Vector2(726, 379),false),
+        new ItemSlot(new Vector2(726, 379), false),
         new ItemSlot(new Vector2(932, 380), false),
         new ItemSlot(new Vector2(529, 581), false),
         new ItemSlot(new Vector2(723, 581), false),
         new ItemSlot(new Vector2(932, 581), false),
-        new ItemSlot(new Vector2(153, 143), true),
-        new ItemSlot(new Vector2(158, 374), true)
+        new ItemSlot(new Vector2(153, 143), true) {Type = ItemType.WEAPON},
+        new ItemSlot(new Vector2(158, 374), true) {Type = ItemType.ARMOR}
     };
 
     private readonly int slotSizePx = 180;
@@ -80,8 +84,8 @@ public partial class InventoryController : Control
     {
         Instance = this;
 
-        AddItem(new Item(new CombatEntityStats() { MaxHealth = 10, CurrentHealth = 10 }, "+Health armor"));
-        AddItem(new Item(new CombatEntityStats() { AttackDamage = 10 }, "+Damage sword"));
+        AddItem(new Item(new CombatEntityStats() { MaxHealth = 10, CurrentHealth = 10 }, "+Health armor", ItemType.ARMOR));
+        AddItem(new Item(new CombatEntityStats() { AttackDamage = 10 }, "+Damage sword", ItemType.WEAPON));
     }
 
     public void AddItem(Item item)
@@ -120,6 +124,13 @@ public partial class InventoryController : Control
             button.Pressed += () => OnItemPressed(item);
 
             item.Button = button;
+        }
+
+        // ignore cases where we're trying to equip the wrong item type
+        if(slot.isEquipment && item.Type != slot.Type)
+        {
+            item.Button.Position = item.Slot.Position;
+            return;
         }
 
         // we have 2 cases, based on whether or not the slot has an item already
