@@ -15,6 +15,11 @@ public partial class MapController : Node
     private List<List<MapNode>> MapNodes = new();
     private MapNode currentNode;
 
+    public MapController()
+    {
+        combatNodeController.OnRoomClear += () => EnableConnectedMapButtons(true);
+    }
+
     public void GenerateMap(Control mapRoot)
     {
         // TODO generate this
@@ -49,6 +54,7 @@ public partial class MapController : Node
             {
                 var btn = GenerateRandomButton(mapRoot, new Vector2((buttonSize + btnSpacingY) * roomIndex + btnSpacingY / 2, (buttonSize + buttonSpacing) * floorIndex));
                 var currentRoom = new MapNode(new List<MapNode>(), btn);
+                btn.Pressed += () => { currentNode = currentRoom; };
 
                 // take a random number of connections from the bag
                 int currentRoomNrOfConnections = nrOfConnectionsBag[rand.Next(nrOfConnectionsBag.Count())];
@@ -99,6 +105,7 @@ public partial class MapController : Node
         {
             combatNodeController.StartEncounter(this);
             UiController.Instance.ShowMap(false);
+            EnableConnectedMapButtons(false);
         };
 
         return testButton;
@@ -118,11 +125,11 @@ public partial class MapController : Node
         return testButton;
     }
 
-    private void EnableConnectedMapButtons()
+    public void EnableConnectedMapButtons(bool enabled = true)
     {
         foreach(var node in currentNode.childern)
         {
-            node.uiButton.Disabled = false;
+            node.uiButton.Disabled = !enabled;
         }
     }
 

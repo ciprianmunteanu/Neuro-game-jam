@@ -38,6 +38,7 @@ public partial class UiController : Control
         MapController.GenerateMap(MapMenu);
 
         RewardsMenuOkButton.Pressed += RewardsMenu.Hide;
+        RewardsMenuOkButton.Pressed += MapMenu.Show;
 
         PopulateCombatMenu();
     }

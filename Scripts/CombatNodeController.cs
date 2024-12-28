@@ -7,7 +7,7 @@ public class CombatNodeController : MapNodeController
 {
     private CombatEntity spawnedPlayer;
 
-    public void StartEncounter(Node rootNode)
+    public override void StartEncounter(Node rootNode)
     {
         // spawn the player and the enemies at the correct location on the screen
         // create the turn manager and pass those in
@@ -29,23 +29,14 @@ public class CombatNodeController : MapNodeController
             combatEntities.Add(enemy);
         }
 
-        CombatManager.OnCombatClear += OnRoomClear;
+        CombatManager.OnCombatClear += RoomCleared;
         CombatManager.StartCombat(combatEntities);
     }
 
-    public void CleanupEncounter()
+    public override void CleanupEncounter()
     {
         spawnedPlayer.Hide();
         spawnedPlayer.QueueFree();
+        CombatManager.OnCombatClear -= RoomCleared;
     }
-
-    private void OnRoomClear()
-    {
-        var reward = new Label() { Text = "10g", Position = new Vector2(50, 100), Size = new Vector2(200, 50) };
-        UiController.Instance.RewardsMenu.AddChild(reward);
-        UiController.Instance.RewardsMenu.Show();
-        UiController.Instance.CombatMenu.Hide();
-    }
-
-    public bool InProgress() => true;
 }
