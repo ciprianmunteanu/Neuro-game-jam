@@ -3,7 +3,7 @@ using System.Linq;
 
 public partial class CombatActionButton : Button
 {
-    private readonly ICombatAction combatAction;
+    private readonly CombatAction combatAction;
     private bool m_isSelectingTarget = false;
     private bool IsSelectingTarget {
         get => m_isSelectingTarget;
@@ -22,7 +22,7 @@ public partial class CombatActionButton : Button
         }
     }
 
-    public CombatActionButton(ICombatAction action)
+    public CombatActionButton(CombatAction action)
     {
         combatAction = action;
     }
@@ -53,7 +53,7 @@ public partial class CombatActionButton : Button
                     var col = result["collider"].Obj as Area2D;
                     if (col.GetParent() is CombatEntity combatEntity)
                     {
-                        combatAction.Do(combatEntity);
+                        combatAction.Do(combatEntity, GetTree().Root);
 
                         IsSelectingTarget = false;
                     }

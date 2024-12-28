@@ -1,9 +1,10 @@
-﻿public class DamageCombatAction : ICombatAction
+﻿public class DamageCombatAction : CombatAction
 {
     public float Damage { get; set; } = 0;
 
-    public void Do(CombatEntity target)
+    protected override void DoEffect(CombatEntity target)
     {
         target.TakeDamage(Damage);
+
     }
 }
