@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 public partial class EnemyCombatEntity : CombatEntity
 {
-    public override void TakeTurn()
+    public override void TakeTurn(TurnManager turnManager)
     {
         Debug.WriteLine("Enemy's turn");
     }

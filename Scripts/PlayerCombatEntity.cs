@@ -4,14 +4,18 @@ using System.Linq;
 
 public partial class PlayerCombatEntity : CombatEntity
 {
-    public override void TakeTurn()
+    private bool IsPlayersTurn = false;
+    private TurnManager turn;
+
+    public override void TakeTurn(TurnManager turnManager)
     {
-        Debug.WriteLine("Player's turn");
+        turn = turnManager;
+        IsPlayersTurn = true;
     }
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
+        if (turn != null && IsPlayersTurn && @event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
         {
             var spaceState = GetWorld2D().DirectSpaceState;
             var mousePos = GetGlobalMousePosition();
@@ -25,6 +29,8 @@ public partial class PlayerCombatEntity : CombatEntity
                     if (col.GetParent() is CombatEntity combatEntity)
                     {
                         combatEntity.TakeDamage(1);
+                        IsPlayersTurn = false;
+                        turn.PassTurn();
                     }
                 }
             }

@@ -12,7 +12,7 @@ public partial class CombatEntity : Node2D
 
     public float CurrentHealth { get; set; }
 
-    public virtual void TakeTurn() { }
+    public virtual void TakeTurn(TurnManager turnManager) { }
 
     public override void _Ready()
     {

@@ -32,6 +32,6 @@ public class TurnManager
             crtCombatEntityIndex = 0;
         }
 
-        m_combatEntities.ElementAt(crtCombatEntityIndex).TakeTurn();
+        m_combatEntities.ElementAt(crtCombatEntityIndex).TakeTurn(this);
     }
 }
