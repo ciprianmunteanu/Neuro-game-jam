@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Linq;
 
 public partial class CombatActionButton : Button
@@ -25,6 +26,22 @@ public partial class CombatActionButton : Button
     public CombatActionButton(CombatAction action)
     {
         combatAction = action;
+        combatAction.OnCooldownChanged += OnActionCooldownChanged;
+        Text = combatAction.Name;
+    }
+
+    private void OnActionCooldownChanged(int newCooldown)
+    {
+        if(newCooldown <= 0)
+        {
+            Disabled = false;
+            Text = combatAction.Name;
+        }
+        else
+        {
+            Disabled = true;
+            Text = $"{combatAction.Name} ({newCooldown})";
+        }
     }
 
     public override void _Ready()

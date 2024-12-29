@@ -5,10 +5,11 @@ using System.Linq;
 
 public static class CombatManager
 {
+    public static event Action OnCombatClear;
+    public static event Action OnNewTurn;
+
     private static List<CombatEntity> m_combatEntities;
     private static int crtCombatEntityIndex = 0;
-
-    public static event Action OnCombatClear;
 
     public static void StartCombat(List<CombatEntity> combatEntities)
     {
@@ -29,6 +30,8 @@ public static class CombatManager
         if (crtCombatEntityIndex >= m_combatEntities.Count())
         {
             crtCombatEntityIndex = 0;
+
+            OnNewTurn?.Invoke();
         }
 
         m_combatEntities.ElementAt(crtCombatEntityIndex).TakeTurn();

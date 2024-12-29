@@ -18,6 +18,8 @@ public record Item(CombatEntityStats StatModifiers, string Name, ItemType Type)
             Button.Position = slot.Position;
         }
     }
+
+    public IEnumerable<CombatAction> Skills { get; set; } = new List<CombatAction>();
 }
 
 public record ItemSlot(Vector2 Position, bool isEquipment)

@@ -54,7 +54,7 @@ public partial class UiController : Control
 
     private void PopulateCombatMenu()
     {
-        var attackButton = new CombatActionButton(new DamageCombatAction() { Damage = PlayerManager.Stats.AttackDamage });
+        var attackButton = new CombatActionButton(new DamageCombatAction() { Damage = PlayerManager.Stats.AttackDamage, Cooldown = 1, Name = "Attack" });
         attackButton.Position = new Vector2(-933, 440);
         attackButton.Size = new Vector2(180, 74);
         attackButton.Text = "Attack";

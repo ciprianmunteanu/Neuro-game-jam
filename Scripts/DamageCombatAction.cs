@@ -5,6 +5,5 @@
     protected override void DoEffect(CombatEntity target)
     {
         target.TakeDamage(Damage);
-
     }
 }
