@@ -50,7 +50,7 @@ public partial class CombatEntity : Node2D
         Collider.AddChild(ColliderShape);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(double damage)
     {
         Stats.CurrentHealth -= damage;
         HealthBar.Value = Stats.CurrentHealth / Stats.MaxHealth;

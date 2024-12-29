@@ -35,7 +35,7 @@ public partial class GhostEnemy : EnemyCombatEntity
 
         Stats = Stats * StatModifier;
 
-        CombatActions.Add(new DamageCombatAction() { Cooldown = 1, Damage = 10 });
+        CombatActions.Add(new DamageCombatAction() { Cooldown = 1, DamageMultiplier = 1 });
     }
 
     private void SaveGhostData(GhostData ghostData)

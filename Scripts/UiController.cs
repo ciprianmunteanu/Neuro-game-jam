@@ -78,7 +78,7 @@ public partial class UiController : Control
     {
         Vector2 buttonPosition = new Vector2(0, 0);
 
-        var attackButton = new CombatActionButton(new DamageCombatAction() { Damage = PlayerManager.Stats.AttackDamage, Cooldown = 1, Name = "Attack" });
+        var attackButton = new CombatActionButton(new DamageCombatAction() { DamageMultiplier = 1, Cooldown = 1, Name = "Attack" });
         PositionCombatButton(attackButton, ref buttonPosition);
         BasicCombatActionsMenu.AddChild(attackButton);
         buttons.Add(attackButton);

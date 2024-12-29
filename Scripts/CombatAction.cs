@@ -31,7 +31,7 @@ public abstract class CombatAction
         CombatManager.OnCombatStart += () => RemainingCooldown = 0;
     }
 
-    public void Do(CombatEntity target, Node VfxParent)
+    public void Do(CombatEntity user, CombatEntity target, Node VfxParent)
     {
         var animation = new AnimatedSprite2D();
         VfxParent.AddChild(animation);
@@ -41,7 +41,7 @@ public abstract class CombatAction
         
         animation.AnimationLooped += () =>
         {
-            DoEffect(target);
+            DoEffect(user, target);
 
             RemainingCooldown = Cooldown;
 
@@ -56,5 +56,5 @@ public abstract class CombatAction
         animation.Play();
     }
 
-    protected abstract void DoEffect(CombatEntity target);
+    protected abstract void DoEffect(CombatEntity user, CombatEntity target);
 }

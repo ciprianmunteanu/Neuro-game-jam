@@ -1,9 +1,9 @@
 ﻿public class DamageCombatAction : CombatAction
 {
-    public float Damage { get; set; } = 0;
+    public double DamageMultiplier { get; set; } = 0;
 
-    protected override void DoEffect(CombatEntity target)
+    protected override void DoEffect(CombatEntity user, CombatEntity target)
     {
-        target.TakeDamage(Damage);
+        target.TakeDamage(user.Stats.AttackDamage * DamageMultiplier);
     }
 }

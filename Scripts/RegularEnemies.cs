@@ -9,6 +9,6 @@
     }) 
     {
         SpriteResourcePath = "res://Assets/Enemy.png";
-        CombatActions.Add(new DamageCombatAction() { Damage = 1 });
+        CombatActions.Add(new DamageCombatAction() { DamageMultiplier = 1 });
     }
 }

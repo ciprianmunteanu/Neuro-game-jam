@@ -19,7 +19,7 @@ public partial class EnemyCombatEntity : CombatEntity
     {
         chosenCombatAction = CombatActions.ElementAt(random.Next(CombatActions.Count));
         chosenCombatAction.OnActionDone += OnCombatActionDone;
-        chosenCombatAction.Do(PlayerCombatEntity.Instance, this);
+        chosenCombatAction.Do(this, PlayerCombatEntity.Instance, this);
     }
 
     private void OnCombatActionDone()

@@ -71,7 +71,7 @@ public partial class CombatActionButton : Button
                     var col = result["collider"].Obj as Area2D;
                     if (col.GetParent() is CombatEntity combatEntity)
                     {
-                        combatAction.Do(combatEntity, GetTree().Root);
+                        combatAction.Do(PlayerCombatEntity.Instance, combatEntity, GetTree().Root);
 
                         IsSelectingTarget = false;
                     }
