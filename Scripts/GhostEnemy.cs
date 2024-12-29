@@ -34,6 +34,11 @@ public partial class GhostEnemy : EnemyCombatEntity
         }
 
         Stats = Stats * StatModifier;
+        // Cap speed so you don't get punished for stacking speed
+        if(Stats.Speed > 20)
+        {
+            Stats.Speed = 20;
+        }
 
         AddBasicAttack();
     }

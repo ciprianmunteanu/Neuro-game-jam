@@ -20,7 +20,7 @@ public partial class PlayerCombatEntity : CombatEntity
 
     public override void TakeTurn()
     {
-        if(UiController.Instance != null)
+        if( UiController.Instance != null)
         {
             UiController.Instance.CombatMenu.Show();
         }

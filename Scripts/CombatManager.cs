@@ -30,26 +30,29 @@ public static class CombatManager
 
     public static void PassTurn()
     {
-        crtCombatEntityIndex += 1;
-        if (crtCombatEntityIndex >= CombatEntities.Count())
+        if (CombatEntities.Any(c => c.IsEnemy) == false)
         {
-            crtCombatEntityIndex = 0;
-
-            // re-order in between turns in case speed changed or creatures were summoned
-            CombatEntities = CombatEntities.OrderByDescending(c => c.Stats.Speed).ToList();
-
-            OnNewTurn?.Invoke();
+            OnCombatClear?.Invoke();
         }
+        else
+        {
+            crtCombatEntityIndex += 1;
+            if (crtCombatEntityIndex >= CombatEntities.Count())
+            {
+                crtCombatEntityIndex = 0;
 
-        CombatEntities.ElementAt(crtCombatEntityIndex).TakeTurn();
+                // re-order in between turns in case speed changed or creatures were summoned
+                CombatEntities = CombatEntities.OrderByDescending(c => c.Stats.Speed).ToList();
+
+                OnNewTurn?.Invoke();
+            }
+
+            CombatEntities.ElementAt(crtCombatEntityIndex).TakeTurn();
+        }
     }
 
     public static void RemoveEntityFromCombat(CombatEntity entity)
     {
         CombatEntities.Remove(entity);
-        if(CombatEntities.Any(c => c.IsEnemy) == false)
-        {
-            OnCombatClear?.Invoke();
-        }
     }
 }
