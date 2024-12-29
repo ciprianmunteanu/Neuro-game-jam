@@ -1,14 +1,32 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 public partial class EnemyCombatEntity : CombatEntity
 {
+    public List<CombatAction> CombatActions { get; set; } = new();
+
+    private Random random = new();
+    private CombatAction chosenCombatAction;
+
+    public EnemyCombatEntity()
+    {
+        CombatActions.Add(new DamageCombatAction() { Damage = 1 });
+    }
+
     public override void TakeTurn()
     {
-        var combatAction = new DamageCombatAction() { Damage = 1 };
-        combatAction.OnActionDone += CombatManager.PassTurn;
-        combatAction.Do(PlayerCombatEntity.Instance, this);
+        chosenCombatAction = CombatActions.ElementAt(random.Next(CombatActions.Count));
+        chosenCombatAction.OnActionDone += OnCombatActionDone;
+        chosenCombatAction.Do(PlayerCombatEntity.Instance, this);
+    }
+
+    private void OnCombatActionDone()
+    {
+        CombatManager.PassTurn();
+        chosenCombatAction.OnActionDone -= OnCombatActionDone;
     }
 
     protected override void OnDeath()
