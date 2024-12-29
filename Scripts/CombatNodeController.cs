@@ -39,4 +39,13 @@ public class CombatNodeController : MapNodeController
         spawnedPlayer.QueueFree();
         CombatManager.OnCombatClear -= RoomCleared;
     }
+
+    protected override Rewards GetRewards()
+    {
+        var itemReward = new Item(new CombatEntityStats() { }, "Sword + 1", ItemType.WEAPON);
+        return new Rewards()
+        {
+            Items = new List<Item>() { itemReward }
+        };
+    }
 }
