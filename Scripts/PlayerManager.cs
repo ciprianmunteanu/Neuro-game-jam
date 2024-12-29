@@ -4,13 +4,15 @@ using System.Reflection;
 
 public static class PlayerManager
 {
-    public static CombatEntityStats Stats { get; private set; } = new CombatEntityStats()
+    public static readonly CombatEntityStats StartingPlayerStats = new CombatEntityStats()
     {
         MaxHealth = 30,
         CurrentHealth = 30,
         AttackDamage = 10,
         Speed = 10
     };
+
+    public static CombatEntityStats Stats { get; private set; } = StartingPlayerStats;
 
     public static List<CombatAction> CombatActions { get; set; }
 

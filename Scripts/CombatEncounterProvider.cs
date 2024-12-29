@@ -18,8 +18,7 @@ public static class CombatEncounterProvider
     // Possible encounters
     private static CombatEncounter[] Level1Encounters =
     {
-        new CombatEncounter(new List<Type>() { typeof(TrashMob) } ),
-        new CombatEncounter(new List<Type>() { typeof(TrashMob), typeof(TrashMob) } ),
+        new CombatEncounter(new List<Type>() { typeof(GhostEnemy) } ),
     };
 
     private static Random random = new();

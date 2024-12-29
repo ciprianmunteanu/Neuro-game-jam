@@ -1,15 +1,19 @@
 ﻿using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 public enum ItemType { NONE, WEAPON, ARMOR }
 
 public record Item(CombatEntityStats StatModifiers, string Name, ItemType Type)
 {
+    [JsonIgnore]
     public Button Button { get; set; }
 
+    [JsonIgnore]
     private ItemSlot slot;
 
+    [JsonIgnore]
     public ItemSlot Slot {
         get => slot;
         set
