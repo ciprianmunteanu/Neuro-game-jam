@@ -6,13 +6,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_tpxsw"]
 radius = 26.6676
 
-[node name="Enemy" type="Sprite2D" node_paths=PackedStringArray("HealthBar")]
+[node name="Enemy" type="Sprite2D"]
 scale = Vector2(4.3125, 4.53125)
 texture = ExtResource("1_v2hps")
 script = ExtResource("2_8f3na")
-HealthBar = NodePath("ProgressBar")
-Speed = 1
-MaxHealth = 10.0
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 anchors_preset = -1
