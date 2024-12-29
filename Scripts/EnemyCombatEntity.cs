@@ -24,6 +24,7 @@ public partial class EnemyCombatEntity : CombatEntity
 
     private void OnCombatActionDone()
     {
+        OnTurnEnd();
         CombatManager.PassTurn();
         chosenCombatAction.OnActionDone -= OnCombatActionDone;
     }

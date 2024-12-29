@@ -1,9 +1,21 @@
 using Godot;
+using System.Collections.Generic;
+
+/// <summary>
+/// Bufffs and debuffs
+/// </summary>
+public record CombatEffect
+{
+    public int Duration { get; set; } = 1;
+    public double DamageAmp { get; set; } = 1;
+    public double DefenseAmp { get; set; } = 1;
+}
 
 public partial class CombatEntity : Node2D
 {
     public CombatEntityStats Stats { get; init; }
     public string SpriteResourcePath { get; set; } = "res://Assets/Player.png";
+    public List<CombatEffect> CombatEffects = new();
 
     private ProgressBar HealthBar { get; set; }
     private Sprite2D Sprite { get; set; }
@@ -15,7 +27,14 @@ public partial class CombatEntity : Node2D
         Stats = stats;
     }
 
-    public virtual void TakeTurn() { }
+    public virtual void TakeTurn() 
+    {
+    }
+
+    public void OnTurnEnd()
+    {
+        CombatEffects.RemoveAll(effect => --effect.Duration <= 0);
+    }
 
     public override void _Ready()
     {

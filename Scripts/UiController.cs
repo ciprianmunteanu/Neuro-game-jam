@@ -100,8 +100,12 @@ public partial class UiController : Control
         var passButton = new Button();
         PositionCombatButton(passButton, ref buttonPosition);
         passButton.Text = "Pass";
-        passButton.Pressed += CombatManager.PassTurn;
-        passButton.Pressed += CombatMenu.Hide;
+        passButton.Pressed += () =>
+        {
+            CombatManager.PassTurn();
+            CombatMenu.Hide();
+            PlayerCombatEntity.Instance.OnTurnEnd();
+        };
         BasicCombatActionsMenu.AddChild(passButton);
         buttons.Add(passButton);
     }
