@@ -9,7 +9,7 @@ public static class CombatManager
     public static event Action OnCombatClear;
     public static event Action OnNewTurn;
 
-    private static List<CombatEntity> m_combatEntities;
+    public static List<CombatEntity> CombatEntities;
     private static int crtCombatEntityIndex = 0;
 
     public static void StartCombat(List<CombatEntity> combatEntities)
@@ -19,7 +19,7 @@ public static class CombatManager
             throw new Exception("Can't start combat with 0 entities");
         }
 
-        m_combatEntities = combatEntities.OrderByDescending(c => c.Stats.Speed).ToList();
+        CombatEntities = combatEntities.OrderByDescending(c => c.Stats.Speed).ToList();
 
         crtCombatEntityIndex = -1;
 
@@ -31,20 +31,23 @@ public static class CombatManager
     public static void PassTurn()
     {
         crtCombatEntityIndex += 1;
-        if (crtCombatEntityIndex >= m_combatEntities.Count())
+        if (crtCombatEntityIndex >= CombatEntities.Count())
         {
             crtCombatEntityIndex = 0;
+
+            // re-order in between turns in case speed changed or creatures were summoned
+            CombatEntities = CombatEntities.OrderByDescending(c => c.Stats.Speed).ToList();
 
             OnNewTurn?.Invoke();
         }
 
-        m_combatEntities.ElementAt(crtCombatEntityIndex).TakeTurn();
+        CombatEntities.ElementAt(crtCombatEntityIndex).TakeTurn();
     }
 
     public static void RemoveEntityFromCombat(CombatEntity entity)
     {
-        m_combatEntities.Remove(entity);
-        if(m_combatEntities.Count() == 1)
+        CombatEntities.Remove(entity);
+        if(CombatEntities.Count() == 1)
         {
             // the player won
             OnCombatClear?.Invoke();

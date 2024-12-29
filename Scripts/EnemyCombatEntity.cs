@@ -38,4 +38,11 @@ public partial class EnemyCombatEntity : CombatEntity
 
         QueueFree();
     }
+
+    protected void AddBasicAttack()
+    {
+        var basicAttackCA = new CombatAction() { Cooldown = 1 };
+        basicAttackCA.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 1 });
+        CombatActions.Add(basicAttackCA);
+    }
 }

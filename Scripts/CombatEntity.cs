@@ -19,6 +19,7 @@ public partial class CombatEntity : Node2D
     public string SpriteResourcePath { get; set; } = "res://Assets/Player.png";
     public List<CombatEffect> CombatEffects = new();
     public bool IsEnemy = true;
+    public bool IsSummon = false;
 
     private ProgressBar HealthBar { get; set; }
     private Sprite2D Sprite { get; set; }

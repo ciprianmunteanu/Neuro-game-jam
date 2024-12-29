@@ -132,6 +132,8 @@ public partial class InventoryController : Control
 
         AddItem(new Harpoon());
         AddItem(new BananaRum());
+        AddItem(new Drones());
+
         AddItem(new RobotBody());
         AddItem(new ClownOutfit());
     }

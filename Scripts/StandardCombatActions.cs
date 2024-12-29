@@ -1,5 +1,7 @@
 ﻿// These things are meant to be stateless for the most part
 
+using Godot;
+using System;
 using System.Collections.Generic;
 
 public class DamageCombatAction : ICombatActionEffect
@@ -36,14 +38,37 @@ public class ApplyEffectCombatAction: ICombatActionEffect
     }
 }
 
-/// <summary>
-/// In this case, the target would be the thing to summon, and we assume it's already summoned, but hidden?
-/// </summary>
 public class SummonCombatAction : ICombatActionEffect
 {
+    public Type SummonCombatEnityType { get; set; }
+
     public void DoEffect(CombatEntity user, CombatEntity target)
     {
-        target.Show();
+        var summon = Activator.CreateInstance(SummonCombatEnityType) as CombatEntity;
+        summon.IsEnemy = user.IsEnemy;
+        int nrOfOtherFriendlySummons = CombatManager.CombatEntities.FindAll(ce => ce.IsSummon && ce.IsEnemy == summon.IsEnemy).Count;
+        if(nrOfOtherFriendlySummons >= CombatEncounterProvider.MAX_NR_SUMMONS)
+        {
+            // we reached max
+            summon.Hide();
+            summon.QueueFree();
+            return;
+        }
+
+        user.AddChild(summon);
+        Vector2 pos;
+        if(summon.IsEnemy)
+        {
+            pos = CombatEncounterProvider.EnemySummonPositions[0];
+        }
+        else
+        {
+            pos = CombatEncounterProvider.PlayerSummonPositions[0];
+        }
+        summon.GlobalPosition = pos;
+        summon.IsSummon = true;
+
+        CombatManager.CombatEntities.Add(summon);
     }
 }
 

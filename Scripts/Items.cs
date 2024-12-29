@@ -38,7 +38,7 @@ public class Harpoon : Item
         s1.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 3f });
         Skills.Add(s1);
 
-        var s2 = new CombatAction() { Name = "Reel in", Cooldown = 1 };
+        var s2 = new CombatAction() { Name = "Reel in", Cooldown = 2 };
         s2.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 0, Duration = 1 } });
         Skills.Add(s2);
     }
@@ -58,6 +58,23 @@ public class BananaRum : Item
         s2.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 1.5 });
         s2.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 0.7, Duration = 2 } });
         Skills.Add(s2);
+    }
+}
+
+public partial class DroneSummon : EnemyCombatEntity
+{
+    public DroneSummon() : base(new CombatEntityStats() { AttackDamage = 10, MaxHealth = 10, CurrentHealth = 10, Speed = 1})
+    {
+        AddBasicAttack();
+    }
+}
+public class Drones : Item
+{
+    public Drones() : base(new CombatEntityStats() { AttackDamage = 10, MaxHealth = 10, CurrentHealth = 10, Speed = 10 }, "Drone controller", ItemType.WEAPON)
+    {
+        var s1 = new CombatAction() { Name = "Call drone", Cooldown = 1 };
+        s1.CombatActionEffects.Add(new SummonCombatAction() { SummonCombatEnityType = typeof(DroneSummon) });
+        Skills.Add(s1);
     }
 }
 
@@ -106,6 +123,7 @@ public static class AllItems
     {
         new Harpoon(),
         new BananaRum(),
+        new Drones(),
         new RobotBody(),
         new ClownOutfit()
     };

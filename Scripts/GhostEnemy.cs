@@ -35,9 +35,7 @@ public partial class GhostEnemy : EnemyCombatEntity
 
         Stats = Stats * StatModifier;
 
-        var basicAttackCA = new CombatAction() { Cooldown = 1 };
-        basicAttackCA.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 1 });
-        CombatActions.Add(basicAttackCA);
+        AddBasicAttack();
     }
 
     private void SaveGhostData(GhostData ghostData)
