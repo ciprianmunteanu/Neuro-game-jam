@@ -16,7 +16,7 @@ public class CombatAction
     public int Cooldown { get; set; } = 1;
     public List<ICombatActionEffect> CombatActionEffects = new();
 
-    private int remainingCooldown = 0;
+    public int remainingCooldown = 0;
     protected int RemainingCooldown 
     {
         get => remainingCooldown;

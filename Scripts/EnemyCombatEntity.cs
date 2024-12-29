@@ -17,9 +17,30 @@ public partial class EnemyCombatEntity : CombatEntity
 
     public override void TakeTurn()
     {
-        chosenCombatAction = CombatActions.ElementAt(random.Next(CombatActions.Count));
-        chosenCombatAction.OnActionDone += OnCombatActionDone;
-        chosenCombatAction.Do(this, PlayerCombatEntity.Instance, this);
+        var validActions = CombatActions.FindAll(a => a.remainingCooldown <= 0);
+        if(validActions.Any())
+        {
+            chosenCombatAction = validActions.OrderByDescending(a => a.Cooldown).First();
+            //chosenCombatAction = CombatActions.ElementAt(random.Next(CombatActions.Count));
+            chosenCombatAction.OnActionDone += OnCombatActionDone;
+
+            CombatEntity target;
+            if(IsEnemy)
+            {
+                target = PlayerCombatEntity.Instance;
+            }
+            else
+            {
+                var enemies = CombatManager.CombatEntities.FindAll(ce => ce.IsEnemy);
+                target = enemies.ElementAt(random.Next(enemies.Count));
+            }
+
+            chosenCombatAction.Do(this, target, this);
+        }
+        else
+        {
+            CombatManager.PassTurn();
+        }
     }
 
     private void OnCombatActionDone()
