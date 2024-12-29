@@ -174,11 +174,19 @@ public partial class UiController : Control
         if(@event.IsActionPressed("Map"))
         {
             ShowMap(!isMapShown);
+            if(isMapShown && isInventoryShown)
+            {
+                ShowInventory(false);
+            }
         }
 
         if (@event.IsActionPressed("Inventory"))
         {
             ShowInventory(!isInventoryShown);
+            if (isMapShown && isInventoryShown)
+            {
+                ShowMap(false);
+            }
         }
     }
 }
