@@ -5,6 +5,7 @@ using System.Linq;
 
 public static class CombatManager
 {
+    public static event Action OnCombatStart;
     public static event Action OnCombatClear;
     public static event Action OnNewTurn;
 
@@ -21,6 +22,9 @@ public static class CombatManager
         m_combatEntities = combatEntities.OrderByDescending(c => c.Speed).ToList();
 
         crtCombatEntityIndex = -1;
+
+        OnCombatStart.Invoke();
+
         PassTurn();
     }
 

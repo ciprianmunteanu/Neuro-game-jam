@@ -16,13 +16,15 @@ texture = ExtResource("1_f6g1d")
 [node name="MapController" type="Node" parent="."]
 script = ExtResource("2_3jrdh")
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "BasicCombatActionsMenu", "SkillsMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_80bgt")
 CombatMenu = NodePath("Combat")
+BasicCombatActionsMenu = NodePath("Combat/Basic actions")
+SkillsMenu = NodePath("Combat/Skills")
 MapMenu = NodePath("Map")
 MapController = NodePath("../MapController")
 RewardsMenu = NodePath("Rewards screen")
@@ -45,6 +47,23 @@ offset_bottom = 240.0
 text = "Select target"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Basic actions" type="Control" parent="UI/Combat"]
+anchors_preset = 0
+offset_left = -894.0
+offset_top = 260.0
+offset_right = 884.0
+offset_bottom = 454.0
+mouse_filter = 2
+
+[node name="Skills" type="Control" parent="UI/Combat"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -894.0
+offset_top = 274.0
+offset_right = 884.0
+offset_bottom = 468.0
+mouse_filter = 2
 
 [node name="Map" type="ColorRect" parent="UI"]
 layout_mode = 0

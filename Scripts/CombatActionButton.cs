@@ -78,4 +78,13 @@ public partial class CombatActionButton : Button
             }
         }
     }
+
+
+    /// <summary>
+    /// A manual version of Dispose
+    /// </summary>
+    public void Cleanup()
+    {
+        combatAction.OnCooldownChanged -= OnActionCooldownChanged;
+    }
 }

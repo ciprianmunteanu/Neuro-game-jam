@@ -19,7 +19,7 @@ public record Item(CombatEntityStats StatModifiers, string Name, ItemType Type)
         }
     }
 
-    public IEnumerable<CombatAction> Skills { get; set; } = new List<CombatAction>();
+    public List<CombatAction> Skills { get; set; } = new();
 }
 
 public record ItemSlot(Vector2 Position, bool isEquipment)
@@ -57,6 +57,10 @@ public record ItemSlot(Vector2 Position, bool isEquipment)
 public partial class InventoryController : Control
 {
     public static InventoryController Instance;
+    public IEnumerable<Item> GetEquippedItems()
+    {
+        return inventorySlots.Where(slot => slot.isEquipment && slot.HeldItem != null).Select(slot => slot.HeldItem);
+    }
 
     // these positions are the top left corner
     // to get the center, add half the slot size
@@ -86,8 +90,13 @@ public partial class InventoryController : Control
     {
         Instance = this;
 
+
         AddItem(new Item(new CombatEntityStats() { MaxHealth = 10, CurrentHealth = 10 }, "+Health armor", ItemType.ARMOR));
-        AddItem(new Item(new CombatEntityStats() { AttackDamage = 10 }, "+Damage sword", ItemType.WEAPON));
+        var swordItem = new Item(new CombatEntityStats() { AttackDamage = 10 }, "+Damage sword", ItemType.WEAPON);
+        var slashSkill = new DamageCombatAction() { Name = "Slash", Cooldown = 2, Damage = 200 };
+        swordItem.Skills.Add(slashSkill);
+        AddItem(swordItem);
+
     }
 
     public void AddItem(Item item)
