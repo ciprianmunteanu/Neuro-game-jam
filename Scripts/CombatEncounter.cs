@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class CombatEncounter
 {
-    public List<string> EnemyPresets { get; init; }
+    public List<Type> EnemyTypes { get; init; }
 
-    public CombatEncounter(List<string> enemyPresets)
+    public CombatEncounter(List<Type> enemyPresets)
     {
-        EnemyPresets = enemyPresets;
+        EnemyTypes = enemyPresets;
     }
 
 }

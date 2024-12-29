@@ -5,7 +5,6 @@ using System.Linq;
 
 public static class CombatEncounterProvider
 {
-    public const string PLAYER = "res://Presets/PlayerCombatEntityPreset.tscn";
     public static Vector2 PlayerPosition = new Vector2(-300, 0);
     public static Vector2[][] EnemyPositions =
     {
@@ -15,13 +14,12 @@ public static class CombatEncounterProvider
         new Vector2[] { new Vector2(300, -330), new Vector2(300, 0), new Vector2(300, 330) },
 
     };
-    private const string ENEMY1 = "res://Presets/EnemyCombatEntityPreset.tscn";
 
     // Possible encounters
     private static CombatEncounter[] Level1Encounters =
     {
-        new CombatEncounter(new List<string>() { ENEMY1, ENEMY1} ),
-        new CombatEncounter(new List<string>() { ENEMY1, ENEMY1, ENEMY1} ),
+        new CombatEncounter(new List<Type>() { typeof(TrashMob) } ),
+        new CombatEncounter(new List<Type>() { typeof(TrashMob), typeof(TrashMob) } ),
     };
 
     private static Random random = new();

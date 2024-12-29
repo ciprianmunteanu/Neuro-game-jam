@@ -13,7 +13,6 @@ public partial class EnemyCombatEntity : CombatEntity
 
     public EnemyCombatEntity(CombatEntityStats stats) : base(stats)
     {
-        CombatActions.Add(new DamageCombatAction() { Damage = 1 });
     }
 
     public override void TakeTurn()

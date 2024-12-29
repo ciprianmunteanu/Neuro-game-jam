@@ -8,7 +8,8 @@ public static class PlayerManager
     {
         MaxHealth = 30,
         CurrentHealth = 30,
-        AttackDamage = 10
+        AttackDamage = 10,
+        Speed = 10
     };
 
     public static List<CombatAction> CombatActions { get; set; }

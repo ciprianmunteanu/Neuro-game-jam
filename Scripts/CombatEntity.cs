@@ -45,7 +45,7 @@ public partial class CombatEntity : Node2D
 
         ColliderShape = new CollisionShape2D()
         {
-            Shape = new CircleShape2D() { Radius = 27 }
+            Shape = new CircleShape2D() { Radius = 100 }
         };
         Collider.AddChild(ColliderShape);
     }
