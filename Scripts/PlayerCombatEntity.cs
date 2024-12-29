@@ -4,15 +4,17 @@ using System.Linq;
 
 public partial class PlayerCombatEntity : CombatEntity
 {
+    public PlayerCombatEntity() : base(PlayerManager.Stats)
+    {
+    }
+
     public static PlayerCombatEntity Instance { get; set; }
 
     public override void _Ready()
     {
-        MaxHealth = PlayerManager.Stats.MaxHealth;
-        CurrentHealth = PlayerManager.Stats.CurrentHealth;
-        HealthBar.Value = CurrentHealth / MaxHealth;
-
         Instance = this;
+
+        base._Ready();
     }
 
     public override void TakeTurn()

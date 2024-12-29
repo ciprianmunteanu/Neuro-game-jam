@@ -11,7 +11,7 @@ public partial class EnemyCombatEntity : CombatEntity
     private Random random = new();
     private CombatAction chosenCombatAction;
 
-    public EnemyCombatEntity()
+    public EnemyCombatEntity(CombatEntityStats stats) : base(stats)
     {
         CombatActions.Add(new DamageCombatAction() { Damage = 1 });
     }

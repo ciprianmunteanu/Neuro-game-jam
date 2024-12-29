@@ -19,7 +19,7 @@ public static class CombatManager
             throw new Exception("Can't start combat with 0 entities");
         }
 
-        m_combatEntities = combatEntities.OrderByDescending(c => c.Speed).ToList();
+        m_combatEntities = combatEntities.OrderByDescending(c => c.Stats.Speed).ToList();
 
         crtCombatEntityIndex = -1;
 

@@ -2,29 +2,60 @@ using Godot;
 
 public partial class CombatEntity : Node2D
 {
-    [Export]
-    public ProgressBar HealthBar { get; set; }
+    public CombatEntityStats Stats { get; init; }
+    public string SpriteResourcePath { get; set; } = "res://Assets/Player.png";
 
-    [Export]
-    public int Speed { get; set; }
-    [Export]
-    public float MaxHealth { get; set; }
+    private ProgressBar HealthBar { get; set; }
+    private Sprite2D Sprite { get; set; }
+    private Area2D Collider { get; set; }
+    private CollisionShape2D ColliderShape { get; set; }
 
-    public float CurrentHealth { get; set; }
+    public CombatEntity(CombatEntityStats stats)
+    {
+        Stats = stats;
+    }
 
     public virtual void TakeTurn() { }
 
     public override void _Ready()
     {
-        HealthBar.Value = CurrentHealth / MaxHealth;
+        Sprite = new Sprite2D()
+        {
+            Texture = GD.Load<Texture2D>(SpriteResourcePath),
+            Scale = new Vector2(4, 4)
+        };
+        AddChild(Sprite);
+
+        HealthBar = new ProgressBar()
+        {
+            MinValue = 0,
+            MaxValue = 1,
+            ShowPercentage = false,
+            Position = new Vector2(-40, -100),
+            Size = new Vector2(80,20),
+            Value = Stats.CurrentHealth / Stats.MaxHealth
+        };
+        AddChild(HealthBar);
+
+        Collider = new Area2D()
+        {
+
+        };
+        AddChild(Collider);
+
+        ColliderShape = new CollisionShape2D()
+        {
+            Shape = new CircleShape2D() { Radius = 27 }
+        };
+        Collider.AddChild(ColliderShape);
     }
 
     public void TakeDamage(float damage)
     {
-        CurrentHealth -= damage;
-        HealthBar.Value = CurrentHealth / MaxHealth;
+        Stats.CurrentHealth -= damage;
+        HealthBar.Value = Stats.CurrentHealth / Stats.MaxHealth;
 
-        if (CurrentHealth <= 0)
+        if (Stats.CurrentHealth <= 0)
         {
             OnDeath();
         }

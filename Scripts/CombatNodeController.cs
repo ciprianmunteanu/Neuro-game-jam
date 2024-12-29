@@ -14,18 +14,19 @@ public class CombatNodeController : MapNodeController
         // start combat
         var encounter = CombatEncounterProvider.GetEncounter(1);
 
-        spawnedPlayer = GD.Load<PackedScene>(CombatEncounterProvider.PLAYER).Instantiate() as CombatEntity;
+        //spawnedPlayer = GD.Load<PackedScene>(CombatEncounterProvider.PLAYER).Instantiate() as CombatEntity;
+        spawnedPlayer = new PlayerCombatEntity();
         rootNode.AddChild(spawnedPlayer);
         spawnedPlayer.Position = CombatEncounterProvider.PlayerPosition;
         var enemyPositions = CombatEncounterProvider.EnemyPositions[encounter.EnemyPresets.Count()];
         List<CombatEntity> combatEntities = new() { spawnedPlayer };
         for (int i = 0; i< encounter.EnemyPresets.Count(); i++)
         {
-            var enemy = GD.Load<PackedScene>(encounter.EnemyPresets[i]).Instantiate() as CombatEntity;
+            //var enemy = GD.Load<PackedScene>(encounter.EnemyPresets[i]).Instantiate() as CombatEntity;
+            var enemyStats = new CombatEntityStats() { MaxHealth = 10, CurrentHealth = 10 };
+            var enemy = new EnemyCombatEntity(enemyStats) { SpriteResourcePath = "res://Assets/Enemy.png" };
             rootNode.AddChild(enemy);
             enemy.Position = enemyPositions[i];
-            enemy.CurrentHealth = enemy.MaxHealth;
-            enemy.HealthBar.Value = enemy.CurrentHealth / enemy.MaxHealth;
             combatEntities.Add(enemy);
         }
 
