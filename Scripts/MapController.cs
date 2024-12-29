@@ -7,7 +7,10 @@ internal record MapNode(List<MapNode> childern, Button uiButton);
 
 public partial class MapController : Node
 {
+    public static MapController Instance;
+
     private readonly CombatNodeController combatNodeController = new();
+    private readonly FinalNodeController finalNodeController = new();
 
     private const int buttonSize = 100;
     private const int buttonSpacing = 25;
@@ -17,13 +20,22 @@ public partial class MapController : Node
 
     public MapController()
     {
+        Instance = this;
+
         combatNodeController.OnRoomClear += () => EnableConnectedMapButtons(true);
     }
 
-    public void GenerateMap(Control mapRoot)
+    public void GenerateMap()
     {
+        MapNodes = new List<List<MapNode>>();
+        Control mapRoot = UiController.Instance.MapMenu;
+        foreach(var n in mapRoot.GetChildren())
+        {
+            n.Free();
+        }
         // TODO generate this
-        int[] floorSizes = { 1, 3, 5, 7, 6, 2, 1 };
+        //int[] floorSizes = { 1, 3, 5, 7, 6, 2, 1 };
+        int[] floorSizes = { 1, 3 };
         // add starting location
         currentNode = new MapNode(new List<MapNode>(), GenerateStartingLocationButton(mapRoot, new Vector2(900, 0)));
         MapNodes.Add(new List<MapNode>() { currentNode });
@@ -87,6 +99,17 @@ public partial class MapController : Node
             MapNodes.Add(currentFloor);
         }
 
+        // add final node
+        var finalButton = GenerateFinalLocationButton(mapRoot, new Vector2(900, MapNodes.Last().Last().uiButton.Position.Y + buttonSize + buttonSpacing));
+        var finalNode = new MapNode(new List<MapNode>() , finalButton);
+        foreach(var n in MapNodes.Last())
+        {
+            n.childern.Add(finalNode);
+        }
+
+        List<MapNode> finalFloor = new() { finalNode };
+        MapNodes.Add(finalFloor);
+
         EnableConnectedMapButtons();
         CreateConnectionLines(mapRoot);
     }
@@ -124,6 +147,26 @@ public partial class MapController : Node
 
         return testButton;
     }
+
+    private Button GenerateFinalLocationButton(Control mapRoot, Vector2 position)
+    {
+        var testButton = new Button()
+        {
+            Text = "[End]",
+            Size = new Vector2(buttonSize, buttonSize),
+            Position = position,
+            Disabled = true
+        };
+        mapRoot.AddChild(testButton);
+        testButton.Pressed += () =>
+        {
+            finalNodeController.StartEncounter(this);
+            UiController.Instance.ShowMap(false);
+        };
+
+        return testButton;
+    }
+
 
     public void EnableConnectedMapButtons(bool enabled = true)
     {

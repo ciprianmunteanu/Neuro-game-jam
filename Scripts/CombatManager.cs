@@ -12,8 +12,11 @@ public static class CombatManager
     public static List<CombatEntity> CombatEntities;
     private static int crtCombatEntityIndex = 0;
 
+    private static bool isCombatOver = false;
+
     public static void StartCombat(List<CombatEntity> combatEntities)
     {
+        isCombatOver = false;
         if (!combatEntities.Any())
         {
             throw new Exception("Can't start combat with 0 entities");
@@ -30,8 +33,9 @@ public static class CombatManager
 
     public static void PassTurn()
     {
-        if (CombatEntities.Any(c => c.IsEnemy) == false)
+        if (!isCombatOver && CombatEntities.Any(c => c.IsEnemy) == false)
         {
+            isCombatOver = true;
             OnCombatClear?.Invoke();
         }
         else
@@ -54,5 +58,11 @@ public static class CombatManager
     public static void RemoveEntityFromCombat(CombatEntity entity)
     {
         CombatEntities.Remove(entity);
+
+        if (!isCombatOver && CombatEntities.Any(c => c.IsEnemy) == false)
+        {
+            isCombatOver = true;
+            OnCombatClear?.Invoke();
+        }
     }
 }

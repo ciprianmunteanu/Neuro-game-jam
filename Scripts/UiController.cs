@@ -46,7 +46,7 @@ public partial class UiController : Control
         InventoryScreen.Hide();
 
         Instance = this;
-        MapController.GenerateMap(MapMenu);
+        MapController.GenerateMap();
 
         RewardsMenuOkButton.Pressed += RewardsMenu.Hide;
         RewardsMenuOkButton.Pressed += MapMenu.Show;

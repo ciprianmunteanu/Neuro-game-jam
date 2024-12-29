@@ -41,12 +41,23 @@ public static class CombatEncounterProvider
         new CombatEncounter(new List<Type>() { typeof(TrashMob), typeof(DifficultTrashMob) } ),
     };
 
+    // Possible encounters
+    private static CombatEncounter[] Level1BossEncounters =
+    {
+        new CombatEncounter(new List<Type>() { typeof(DifficultTrashMob), typeof(GhostEnemy), typeof(DifficultTrashMob) } ),
+    };
+
     private static Random random = new();
 
 
     public static CombatEncounter GetEncounter(int level)
     {
-        var randIndex = random.Next(0, Level1Encounters.Count());
-        return Level1Encounters.ElementAt(randIndex);
+        return Level1Encounters.ElementAt(random.Next(Level1Encounters.Count()));
+    }
+
+    public static CombatEncounter GetBossEncounter(int level)
+    {
+        return Level1BossEncounters.ElementAt(random.Next(Level1BossEncounters.Count()));
+
     }
 }

@@ -16,7 +16,7 @@ public abstract class MapNodeController
 
     public event Action OnRoomClear;
 
-    protected void RoomCleared()
+    protected virtual void RoomCleared()
     {
         var rewards = GetRewards();
         DisplayRewards(rewards);

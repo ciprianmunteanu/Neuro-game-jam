@@ -8,12 +8,17 @@ public class CombatNodeController : MapNodeController
 {
     private CombatEntity spawnedPlayer;
 
+    protected virtual CombatEncounter GetEncounter()
+    {
+        return CombatEncounterProvider.GetEncounter(1);
+    }
+
     public override void StartEncounter(Node rootNode)
     {
         // spawn the player and the enemies at the correct location on the screen
         // create the turn manager and pass those in
         // start combat
-        var encounter = CombatEncounterProvider.GetEncounter(1);
+        var encounter = GetEncounter();
 
         spawnedPlayer = new PlayerCombatEntity();
         rootNode.AddChild(spawnedPlayer);
