@@ -23,5 +23,12 @@
             Speed = a.Speed + b.Speed
         };
 
-
+    public static CombatEntityStats operator *(CombatEntityStats stats, float mul) =>
+        new CombatEntityStats()
+        {
+            MaxHealth = stats.MaxHealth * mul,
+            CurrentHealth = stats.CurrentHealth * mul,
+            AttackDamage = (int)(stats.AttackDamage * mul),
+            Speed = (int)(stats.Speed * mul)
+        };
 }

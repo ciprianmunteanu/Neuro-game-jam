@@ -1,27 +1,39 @@
 ﻿using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 
 internal record GhostData(string PlayerName, List<Item> Items);
 
 public partial class GhostEnemy : EnemyCombatEntity
 {
+    public const float StatModifier = 0.5f;
+
     public GhostEnemy() : base(new CombatEntityStats())
     {
         SpriteResourcePath = "res://Assets/Ghost.png";
-        
-        var startingStats = PlayerManager.StartingPlayerStats;
 
+        Stats = PlayerManager.StartingPlayerStats;
 
+        /*
         var dummyGhostData = new GhostData("Dummy", new List<Item>());
-        dummyGhostData.Items.Add(new Item(new CombatEntityStats() { AttackDamage = 15}, "Ghost sword", ItemType.WEAPON));
+        dummyGhostData.Items.Add(new Sword());
         SaveGhostData(dummyGhostData);
+        */
+
         var deserializedGhostData = LoadGhostData();
 
-        // load a player ghost
-        // set the stats
-        // set the items
-        // set the sprite
+        foreach(var item in deserializedGhostData.Items)
+        {
+            Stats = Stats + item.BaseStats;
+            if(item.StatModifiers != null)
+            {
+                Stats = Stats + item.StatModifiers;
+            }
+            CombatActions.AddRange(item.Skills);
+        }
+
+        Stats = Stats * StatModifier;
     }
 
     private void SaveGhostData(GhostData ghostData)
@@ -33,9 +45,23 @@ public partial class GhostEnemy : EnemyCombatEntity
 
     private GhostData LoadGhostData()
     {
+        // todo load all the saved ghosts, not just the first one
         using var ghostDataFile = FileAccess.Open("user://ghostData.json", FileAccess.ModeFlags.Read);
         var line = ghostDataFile.GetLine();
         var ghostData = JsonSerializer.Deserialize<GhostData>(line);
+
+        // have a dict with the default versions of items
+        // we store to disk only the name ( to find it in the dict with) and the stat modifiers
+        // everything else we load from the dict
+        foreach (var item in ghostData.Items)
+        {
+            var baseItem = AllItems.ItemsList.Find(i => i.Name == item.Name);
+            if(baseItem != null)
+            {
+                item.LoadFromBaseItem(baseItem);
+            }
+        }
+
         return ghostData;
     }
 }

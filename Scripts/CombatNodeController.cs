@@ -43,7 +43,7 @@ public class CombatNodeController : MapNodeController
 
     protected override Rewards GetRewards()
     {
-        var itemReward = new Item(new CombatEntityStats() { }, "Sword + 1", ItemType.WEAPON);
+        var itemReward = new Sword();
         return new Rewards()
         {
             Items = new List<Item>() { itemReward }

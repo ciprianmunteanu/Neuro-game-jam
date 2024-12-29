@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 public enum ItemType { NONE, WEAPON, ARMOR }
 
-public record Item(CombatEntityStats StatModifiers, string Name, ItemType Type)
+public class Item
 {
     [JsonIgnore]
     public Button Button { get; set; }
@@ -23,7 +23,43 @@ public record Item(CombatEntityStats StatModifiers, string Name, ItemType Type)
         }
     }
 
+    [JsonIgnore]
     public List<CombatAction> Skills { get; set; } = new();
+
+    [JsonIgnore]
+    public CombatEntityStats BaseStats { get; set; }
+
+    public string Name { get; init; }
+
+    [JsonIgnore]
+    public ItemType Type { get; set; }
+
+    public CombatEntityStats StatModifiers { get; init; }
+
+    public Item(CombatEntityStats statModifiers, string name, ItemType type)
+    {
+        BaseStats = statModifiers;
+        Name = name;
+        Type = type;
+    }
+
+    [JsonConstructor]
+    public Item(string name, CombatEntityStats statModifiers) 
+    {
+        Name = name;
+        StatModifiers = statModifiers;
+    }
+
+    /// <summary>
+    /// This is mostly for ghosts. Ghost data doesn't save things like skills to disk, instead it is loaded from the base version of the item.
+    /// </summary>
+    /// <param name="baseItem">The item to laod data from</param>
+    public void LoadFromBaseItem(Item baseItem)
+    {
+        Skills = baseItem.Skills;
+        BaseStats = baseItem.BaseStats;
+        Type = baseItem.Type;
+    }
 }
 
 public record ItemSlot(Vector2 Position, bool isEquipment)
@@ -41,13 +77,13 @@ public record ItemSlot(Vector2 Position, bool isEquipment)
 
                 if(value != null)
                 {
-                    newStats = newStats + value.StatModifiers;
+                    newStats = newStats + value.BaseStats;
                 }
 
                 // if we're unequipping an item
                 if (heldItem != null)
                 {
-                    newStats = newStats - heldItem.StatModifiers;
+                    newStats = newStats - heldItem.BaseStats;
                 }
 
                 PlayerManager.UpdateStats(newStats);
@@ -94,12 +130,7 @@ public partial class InventoryController : Control
     {
         Instance = this;
 
-
-        AddItem(new Item(new CombatEntityStats() { MaxHealth = 10, CurrentHealth = 10 }, "+Health armor", ItemType.ARMOR));
-        var swordItem = new Item(new CombatEntityStats() { AttackDamage = 10 }, "+Damage sword", ItemType.WEAPON);
-        var slashSkill = new DamageCombatAction() { Name = "Slash", Cooldown = 2, Damage = 200 };
-        swordItem.Skills.Add(slashSkill);
-        AddItem(swordItem);
+        AddItem(new Sword());
 
     }
 
