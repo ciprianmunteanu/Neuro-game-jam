@@ -31,14 +31,9 @@ RewardsMenu = NodePath("Rewards screen")
 RewardsMenuOkButton = NodePath("Rewards screen/Ok Button")
 InventoryScreen = NodePath("Inventory")
 StatsDisplay = NodePath("Inventory/Stats")
-SelectTargetPrompt = NodePath("Combat/Select target")
+SelectTargetPrompt = NodePath("Select target")
 
-[node name="Combat" type="Control" parent="UI"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Select target" type="Label" parent="UI/Combat"]
+[node name="Select target" type="Label" parent="UI"]
 layout_mode = 0
 offset_left = -177.0
 offset_top = 207.0
@@ -47,6 +42,11 @@ offset_bottom = 240.0
 text = "Select target"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Combat" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Basic actions" type="Control" parent="UI/Combat"]
 anchors_preset = 0
@@ -115,6 +115,7 @@ offset_right = 899.0
 offset_bottom = 488.0
 
 [node name="Background" type="ColorRect" parent="UI/Inventory"]
+layout_mode = 0
 offset_right = 1797.0
 offset_bottom = 960.0
 color = Color(0.101961, 0.101961, 0.101961, 1)
@@ -155,6 +156,7 @@ offset_bottom = 107.0
 text = "Sword"
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Inventory/Inventory"]
+layout_mode = 0
 offset_left = 158.0
 offset_top = 374.0
 offset_right = 334.0

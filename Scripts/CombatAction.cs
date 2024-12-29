@@ -28,7 +28,7 @@ public abstract class CombatAction
     public CombatAction()
     {
         CombatManager.OnNewTurn += () => RemainingCooldown--;
-        //CombatManager.OnCombatStart += () => RemainingCooldown = 0;
+        CombatManager.OnCombatStart += () => RemainingCooldown = 0;
     }
 
     public void Do(CombatEntity target, Node VfxParent)

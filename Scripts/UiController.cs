@@ -141,14 +141,6 @@ public partial class UiController : Control
         position.X += 200;
     }
 
-    public void SetEnabled(bool enabled)
-    {
-        foreach(var button in buttons)
-        {
-            button.Disabled = !enabled;
-        }
-    }
-
     public void ShowMap(bool shown)
     {
         isMapShown = shown;

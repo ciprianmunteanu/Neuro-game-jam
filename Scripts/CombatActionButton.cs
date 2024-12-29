@@ -11,14 +11,15 @@ public partial class CombatActionButton : Button
         set
         {
             m_isSelectingTarget = value;
-            UiController.Instance.SetEnabled(!value);
             if (value)
             {
                 UiController.Instance.SelectTargetPrompt.Show();
+                UiController.Instance.CombatMenu.Hide();
             }
             else
             {
                 UiController.Instance.SelectTargetPrompt.Hide();
+                UiController.Instance.CombatMenu.Show();
             }
         }
     }
