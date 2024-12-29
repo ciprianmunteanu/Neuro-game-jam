@@ -106,6 +106,12 @@ public partial class InventoryController : Control
 
         // get the closest inventory slot
         var availableSlot = inventorySlots.OrderBy(slot => slot.Position.DistanceSquaredTo(position)).First();
+        var distance = availableSlot.Position.DistanceSquaredTo(position);
+        if (distance > slotSizePx * slotSizePx)
+        {
+            item.Button.Position = item.Slot.Position;
+            return;
+        }
 
         AddItemInternal(item, availableSlot);
     }
