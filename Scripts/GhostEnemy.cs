@@ -17,7 +17,7 @@ public partial class GhostEnemy : EnemyCombatEntity
 
         /*
         var dummyGhostData = new GhostData("Dummy", new List<Item>());
-        dummyGhostData.Items.Add(new Sword());
+        dummyGhostData.Items.Add(new Harpoon());
         SaveGhostData(dummyGhostData);
         */
 
@@ -35,7 +35,9 @@ public partial class GhostEnemy : EnemyCombatEntity
 
         Stats = Stats * StatModifier;
 
-        CombatActions.Add(new DamageCombatAction() { Cooldown = 1, DamageMultiplier = 1 });
+        var basicAttackCA = new CombatAction() { Cooldown = 1 };
+        basicAttackCA.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 1 });
+        CombatActions.Add(basicAttackCA);
     }
 
     private void SaveGhostData(GhostData ghostData)

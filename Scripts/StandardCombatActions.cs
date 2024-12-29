@@ -1,10 +1,12 @@
 ﻿// These things are meant to be stateless for the most part
 
-public class DamageCombatAction : CombatAction
+using System.Collections.Generic;
+
+public class DamageCombatAction : ICombatActionEffect
 {
     public double DamageMultiplier { get; set; } = 1;
 
-    protected override void DoEffect(CombatEntity user, CombatEntity target)
+    public void DoEffect(CombatEntity user, CombatEntity target)
     {
         double userDamageMod = 1;
         foreach(var effect in user.CombatEffects)
@@ -24,11 +26,11 @@ public class DamageCombatAction : CombatAction
 /// <summary>
 /// This is for buffs and debuffs
 /// </summary>
-public class ApplyEffectCombatAction: CombatAction
+public class ApplyEffectCombatAction: ICombatActionEffect
 {
     public CombatEffect Effect { get; set; } = new CombatEffect();
 
-    protected override void DoEffect(CombatEntity user, CombatEntity target)
+    public void DoEffect(CombatEntity user, CombatEntity target)
     {
         target.CombatEffects.Add(Effect);
     }
@@ -37,24 +39,33 @@ public class ApplyEffectCombatAction: CombatAction
 /// <summary>
 /// In this case, the target would be the thing to summon, and we assume it's already summoned, but hidden?
 /// </summary>
-public class SummonCombatAction : CombatAction
+public class SummonCombatAction : ICombatActionEffect
 {
-    protected override void DoEffect(CombatEntity user, CombatEntity target)
+    public void DoEffect(CombatEntity user, CombatEntity target)
     {
         target.Show();
     }
 }
 
-public class HealingCombatAction : CombatAction
+public class HealingCombatAction : ICombatActionEffect
 {
     public double HealingAmount { get; set; } = 0;
 
-    protected override void DoEffect(CombatEntity user, CombatEntity target)
+    public void DoEffect(CombatEntity user, CombatEntity target)
     {
         target.Stats.CurrentHealth += HealingAmount;
         if(target.Stats.CurrentHealth > target.Stats.MaxHealth)
         {
             target.Stats.CurrentHealth = target.Stats.MaxHealth;
         }
+    }
+}
+
+
+public class CleanseCombatAction : ICombatActionEffect
+{
+    public void DoEffect(CombatEntity user, CombatEntity target)
+    {
+        target.CombatEffects.RemoveAll(ce => ce.IsBuff == false);
     }
 }

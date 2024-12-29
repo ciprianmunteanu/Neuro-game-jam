@@ -9,6 +9,8 @@ public record CombatEffect
     public int Duration { get; set; } = 1;
     public double DamageAmp { get; set; } = 1;
     public double DefenseAmp { get; set; } = 1;
+
+    public bool IsBuff => DamageAmp > 1 || DefenseAmp > 1;
 }
 
 public partial class CombatEntity : Node2D
@@ -16,6 +18,7 @@ public partial class CombatEntity : Node2D
     public CombatEntityStats Stats { get; init; }
     public string SpriteResourcePath { get; set; } = "res://Assets/Player.png";
     public List<CombatEffect> CombatEffects = new();
+    public bool IsEnemy = true;
 
     private ProgressBar HealthBar { get; set; }
     private Sprite2D Sprite { get; set; }

@@ -1,11 +1,12 @@
 ﻿using Godot;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// This is basically a skill and everything related to that skill: effect, animation, icon, cooldown etc.
 /// This is also used for basic actions like the basic attack
 /// </summary>
-public abstract class CombatAction
+public class CombatAction
 {
     public event Action OnActionDone;
     public event Action<int> OnCooldownChanged;
@@ -13,6 +14,7 @@ public abstract class CombatAction
     public string Name { get; set; } = "CombatAction";
     public string AnimationResourcePath { get; set; } = "res://Assets/Attack_animation/AttackAnimation.tres";
     public int Cooldown { get; set; } = 1;
+    public List<ICombatActionEffect> CombatActionEffects = new();
 
     private int remainingCooldown = 0;
     protected int RemainingCooldown 
@@ -41,7 +43,10 @@ public abstract class CombatAction
         
         animation.AnimationLooped += () =>
         {
-            DoEffect(user, target);
+            foreach(var eff in CombatActionEffects)
+            {
+                eff.DoEffect(user, target);
+            }
 
             RemainingCooldown = Cooldown;
 
@@ -56,5 +61,9 @@ public abstract class CombatAction
         animation.Play();
     }
 
-    protected abstract void DoEffect(CombatEntity user, CombatEntity target);
+}
+
+public interface ICombatActionEffect
+{
+    public void DoEffect(CombatEntity user, CombatEntity target);
 }

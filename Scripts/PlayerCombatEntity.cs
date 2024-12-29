@@ -6,6 +6,7 @@ public partial class PlayerCombatEntity : CombatEntity
 {
     public PlayerCombatEntity() : base(PlayerManager.Stats)
     {
+        IsEnemy = false;
     }
 
     public static PlayerCombatEntity Instance { get; set; }

@@ -9,6 +9,8 @@
     }) 
     {
         SpriteResourcePath = "res://Assets/Enemy.png";
-        CombatActions.Add(new DamageCombatAction() { DamageMultiplier = 1 });
+        var basicAttackCA = new CombatAction() { Cooldown = 1, Name = "Attack" };
+        basicAttackCA.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 1 });
+        CombatActions.Add(basicAttackCA);
     }
 }
