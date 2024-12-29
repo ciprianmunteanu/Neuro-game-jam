@@ -86,6 +86,21 @@ public record ItemSlot(Vector2 Position, bool isEquipment)
                     newStats = newStats - heldItem.BaseStats;
                 }
 
+                string newSprite = null;
+                if(value != null)
+                {
+                    // TODO get the sprite path from the item
+                    newSprite = "res://Assets/Weapon.png";
+                }
+                if(Type == ItemType.WEAPON)
+                {
+                    PlayerManager.PlayerWeaponSpritePath = newSprite;
+                }
+                else if (Type == ItemType.ARMOR)
+                {
+                    PlayerManager.PlayerArmorSpritePath = newSprite;
+                }
+
                 PlayerManager.UpdateStats(newStats);
             }
 

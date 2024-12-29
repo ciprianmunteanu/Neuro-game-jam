@@ -13,9 +13,19 @@ public partial class PlayerCombatEntity : CombatEntity
 
     public override void _Ready()
     {
+        base._Ready();
+
         Instance = this;
 
-        base._Ready();
+        if(PlayerManager.PlayerWeaponSpritePath != null)
+        {
+            WeaponSprite.Texture = GD.Load<Texture2D>(PlayerManager.PlayerWeaponSpritePath);
+        }
+
+        if(PlayerManager.PlayerArmorSpritePath != null)
+        {
+            ArmorSprite.Texture = GD.Load<Texture2D>(PlayerManager.PlayerArmorSpritePath);
+        }
     }
 
     public override void TakeTurn()
