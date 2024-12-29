@@ -47,9 +47,8 @@ public static class CombatManager
     public static void RemoveEntityFromCombat(CombatEntity entity)
     {
         CombatEntities.Remove(entity);
-        if(CombatEntities.Count() == 1)
+        if(CombatEntities.Any(c => c.IsEnemy) == false)
         {
-            // the player won
             OnCombatClear?.Invoke();
         }
     }
