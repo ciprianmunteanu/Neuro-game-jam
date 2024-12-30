@@ -19,6 +19,7 @@ public partial class MapController : Node
 
     private List<List<MapNode>> MapNodes = new();
     private MapNode currentNode;
+    private Random random = new Random();
 
     public MapController()
     {
@@ -116,7 +117,25 @@ public partial class MapController : Node
 
     private Button GenerateRandomButton(Control mapRoot, Vector2 position)
     {
-        return GenerateRandomButton(mapRoot, position, 2);
+        int roomType;
+        int randomNr = random.Next(100);
+        if(randomNr < 60)
+        {
+            // 60% combat
+            roomType = 0;
+        }
+        else if(randomNr < 80)
+        {
+            // 20% treasure
+            roomType = 1;
+        }
+        else
+        {
+            // 20% rest
+            roomType = 2;
+        }
+
+        return GenerateRandomButton(mapRoot, position, roomType);
     }
 
     private Button GenerateRandomButton(Control mapRoot, Vector2 position, int roomType)
