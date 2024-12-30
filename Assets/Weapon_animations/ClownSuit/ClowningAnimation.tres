@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://o20wo5brw57v"]
+
+[ext_resource type="Texture2D" uid="uid://bm6teb23iw3ie" path="res://Assets/Weapon_animations/ClownSuit/Clowning1.png" id="1_n72ko"]
+[ext_resource type="Texture2D" uid="uid://cur03bitaud3p" path="res://Assets/Weapon_animations/ClownSuit/Clowning2.png" id="2_kjo4o"]
+[ext_resource type="Texture2D" uid="uid://da3rtkvuqj7do" path="res://Assets/Weapon_animations/ClownSuit/Clowning3.png" id="3_mgnh2"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_n72ko")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_kjo4o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mgnh2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

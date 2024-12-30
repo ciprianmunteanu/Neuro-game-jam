@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://dt7nvprvolr0g"]
+
+[ext_resource type="Texture2D" uid="uid://b68uewm1c8uyl" path="res://Assets/Weapon_animations/Rum/Throw1.png" id="1_7xa30"]
+[ext_resource type="Texture2D" uid="uid://bbp4w27fr02pv" path="res://Assets/Weapon_animations/Rum/Throw2.png" id="2_gtpnc"]
+[ext_resource type="Texture2D" uid="uid://4dtiwkapjgqm" path="res://Assets/Weapon_animations/Rum/Throw3.png" id="3_bqmqy"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7xa30")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gtpnc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bqmqy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

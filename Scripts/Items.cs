@@ -50,13 +50,15 @@ public class BananaRum : Item
 {
     public BananaRum() : base(new CombatEntityStats() { AttackDamage = 15, MaxHealth = 10, CurrentHealth = 10 }, "Banana rum", ItemType.WEAPON)
     {
-        var s1 = new CombatAction() { Name = "Chug", Cooldown = 1 };
+        SpritePath = "res://Assets/Rum.png";
+
+        var s1 = new CombatAction() { Name = "Chug", Cooldown = 1, AnimationResourcePath = "res://Assets/Weapon_animations/Rum/ChugAnimation.tres" };
         s1.CombatActionEffects.Add(new HealingCombatAction() { HealingAmount = 5 });
         s1.CombatActionEffects.Add(new CleanseCombatAction());
         s1.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 1.2, Duration = 2 } });
         Skills.Add(s1);
 
-        var s2 = new CombatAction() { Name = "Throw", Cooldown = 2 };
+        var s2 = new CombatAction() { Name = "Throw", Cooldown = 2, AnimationResourcePath = "res://Assets/Weapon_animations/Rum/Throw.tres" };
         s2.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 1.5 });
         s2.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 0.7, Duration = 2 } });
         Skills.Add(s2);
@@ -74,7 +76,8 @@ public class Drones : Item
 {
     public Drones() : base(new CombatEntityStats() { AttackDamage = 10, MaxHealth = 10, CurrentHealth = 10, Speed = 10 }, "Drone controller", ItemType.WEAPON)
     {
-        var s1 = new CombatAction() { Name = "Call drone", Cooldown = 1 };
+        SpritePath = "res://Assets/DroneRemote.png";
+        var s1 = new CombatAction() { Name = "Call drone", Cooldown = 1, AnimationResourcePath = "res://Assets/Weapon_animations/Drone/SummonAnimation.tres" };
         s1.CombatActionEffects.Add(new SummonCombatAction() { SummonCombatEnityType = typeof(DroneSummon) });
         Skills.Add(s1);
     }
@@ -86,11 +89,13 @@ public class RobotBody : Item
 {
     public RobotBody() : base(new CombatEntityStats() { AttackDamage = 10, MaxHealth = 20, CurrentHealth = 20 }, "Crazy fucking robot body", ItemType.ARMOR)
     {
-        var s1 = new CombatAction() { Name = "I don't need anybody", Cooldown = 5 };
+        SpritePath = "res://Assets/RobotBody.png";
+
+        var s1 = new CombatAction() { Name = "I don't need anybody", Cooldown = 5, AnimationResourcePath = "res://Assets/Weapon_animations/RobotBody/AnybodyAnimation.tres" };
         s1.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 1.5, DefenseAmp = 1.25, Duration = 2 } });
         Skills.Add(s1);
 
-        var s2 = new CombatAction() { Name = "Destroy you", Cooldown = 2, ActionCost = 2 };
+        var s2 = new CombatAction() { Name = "Destroy you", Cooldown = 2, ActionCost = 2, AnimationResourcePath = "res://Assets/Weapon_animations/RobotBody/DestroyAnimation.tres" };
         //s2.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 4 });
         // TODO somehow make it check for buffs and remove the buff after use
         // until then, this is a generic damage skill
@@ -103,13 +108,15 @@ public class ClownOutfit : Item
 {
     public ClownOutfit() : base(new CombatEntityStats() { MaxHealth = 30, CurrentHealth = 30 }, "Clown outfit", ItemType.ARMOR)
     {
+        SpritePath = "res://Assets/Clown.png";
+
         // TODO this is supposed to remove actions, figure out later how to do that
-        var s1 = new CombatAction() { Name = "Clowning around", Cooldown = 3 };
+        var s1 = new CombatAction() { Name = "Clowning around", Cooldown = 3, AnimationResourcePath = "res://Assets/Weapon_animations/ClownSuit/ClowningAnimation.tres" };
         s1.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 0, Duration = 1 } });
         Skills.Add(s1);
 
         // TODO this is supposed to be AOE def down
-        var s2 = new CombatAction() { Name = "Honk", Cooldown = 2 };
+        var s2 = new CombatAction() { Name = "Honk", Cooldown = 2, AnimationResourcePath = "res://Assets/Weapon_animations/ClownSuit/HonkAnimation.tres" };
         s2.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DefenseAmp = 0.66, Duration = 2 } });
         Skills.Add(s2);
     }
