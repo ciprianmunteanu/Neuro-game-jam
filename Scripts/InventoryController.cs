@@ -168,6 +168,11 @@ public partial class InventoryController : Control
         AddItem(new ClownOutfit());
     }
 
+    public int GetNumberOfEmptyInventorySlots()
+    {
+        return inventorySlots.FindAll(s => s.isEquipment == false && s.IsTrash == false && s.HeldItem == null).Count;
+    }
+
     public void AddItem(Item item)
     {
         // get the first available inventory slot

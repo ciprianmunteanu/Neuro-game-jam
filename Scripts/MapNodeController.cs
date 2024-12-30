@@ -76,6 +76,14 @@ public abstract class MapNodeController
         const int labelSizeY = 50;
         const int labelPositionX = 50;
         int currentY = 100;
+
+        if(rewards.Items != null && rewards.Items.Count() > InventoryController.Instance.GetNumberOfEmptyInventorySlots())
+        {
+            var goldLabel = new Label() { Text = "You can't carry this many items!", Position = new Vector2(labelPositionX, currentY), Size = new Vector2(200, labelSizeY) };
+            UiController.Instance.RewardsMenu.AddChild(goldLabel);
+            currentY += labelSizeY;
+        }
+
         if (rewards.Gold > 0)
         {
             var goldLabel = new Label() { Text = $"{rewards.Gold} gold", Position = new Vector2(labelPositionX, currentY), Size = new Vector2(200, labelSizeY) };
@@ -83,9 +91,9 @@ public abstract class MapNodeController
             currentY += labelSizeY;
         }
 
-        foreach (var item in rewards.Items)
+        foreach (var item in rewards.Items ?? new List<Item>())
         {
-            var itemLabel = new Label() { Text = $"{item.Name}(item)", Position = new Vector2(labelPositionX, currentY), Size = new Vector2(200, labelSizeY) };
+            var itemLabel = new Label() { Text = $"{item.Name}", Position = new Vector2(labelPositionX, currentY), Size = new Vector2(200, labelSizeY) };
             UiController.Instance.RewardsMenu.AddChild(itemLabel);
             currentY += labelSizeY;
         }
