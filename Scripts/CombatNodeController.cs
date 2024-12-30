@@ -51,7 +51,7 @@ public class CombatNodeController : MapNodeController
         var itemReward = new Sword();
         return new Rewards()
         {
-            Items = new List<Item>() { itemReward }
+            Items = new List<Item>() { GetRandomItemReward() }
         };
     }
 }

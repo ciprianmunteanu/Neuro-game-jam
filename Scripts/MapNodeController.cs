@@ -14,6 +14,13 @@ public abstract class MapNodeController
     public abstract void StartEncounter(Node rootNode);
     public abstract void CleanupEncounter();
 
+    private static Type[] RewardableItemTypes =
+    {
+        typeof(Harpoon), typeof(BananaRum), typeof(Drones),
+        typeof(RobotBody), typeof(ClownOutfit)
+    };
+    private static Random random = new();
+
     public event Action OnRoomClear;
 
     protected virtual void RoomCleared()
@@ -57,6 +64,16 @@ public abstract class MapNodeController
         {
             InventoryController.Instance.AddItem(item);
         }
+    }
+
+    protected Item GetRandomItemReward()
+    {
+        // step 1: Choose the base item
+        var baseItemType = RewardableItemTypes[random.Next(RewardableItemTypes.Count())];
+        var item = Activator.CreateInstance(baseItemType) as Item;
+        item.StatModifiers.AttackDamage = 10;
+
+        return item;
     }
 
     protected abstract Rewards GetRewards();

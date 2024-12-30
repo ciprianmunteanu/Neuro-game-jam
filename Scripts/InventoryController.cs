@@ -32,12 +32,14 @@ public class Item
     [JsonIgnore]
     public string SpritePath { get; set; } = "res://Assets/Weapon.png";
 
-    public string Name { get; init; }
+    public string Name { get; set; }
 
     [JsonIgnore]
     public ItemType Type { get; set; }
 
-    public CombatEntityStats StatModifiers { get; init; }
+    public CombatEntityStats StatModifiers { get; set; } = new();
+
+    public Item() { }
 
     public Item(CombatEntityStats statModifiers, string name, ItemType type)
     {
@@ -81,13 +83,13 @@ public record ItemSlot(Vector2 Position, bool isEquipment)
 
                 if(value != null)
                 {
-                    newStats = newStats + value.BaseStats;
+                    newStats = newStats + value.BaseStats + value.StatModifiers;
                 }
 
                 // if we're unequipping an item
                 if (heldItem != null)
                 {
-                    newStats = newStats - heldItem.BaseStats;
+                    newStats = newStats - heldItem.BaseStats - heldItem.StatModifiers;
                 }
 
                 if(Type == ItemType.WEAPON)
