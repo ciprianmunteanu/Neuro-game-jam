@@ -178,7 +178,12 @@ public partial class InventoryController : Control
             {
                 continue;
             }
-            slot.HeldItem = null;
+            if(slot.HeldItem != null)
+            {
+                slot.HeldItem.Button.Hide();
+                slot.HeldItem.Button.QueueFree();
+                slot.HeldItem = null;
+            }
         }
     }
 

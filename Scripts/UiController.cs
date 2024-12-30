@@ -91,9 +91,6 @@ public partial class UiController : Control
 
         Instance = this;
 
-        RewardsMenuOkButton.Pressed += RewardsMenu.Hide;
-        RewardsMenuOkButton.Pressed += MapMenu.Show;
-
         PopulateCombatMenu();
 
         CombatManager.OnCombatStart += () =>

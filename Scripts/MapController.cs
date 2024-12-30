@@ -19,7 +19,7 @@ public partial class MapController : Node
 
     private List<List<MapNode>> MapNodes = new();
     private MapNode currentNode;
-    private Random random = new Random();
+    private Random random = new Random(Guid.NewGuid().GetHashCode());
 
     public MapController()
     {

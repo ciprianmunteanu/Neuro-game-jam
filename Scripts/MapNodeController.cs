@@ -14,6 +14,8 @@ public abstract class MapNodeController
 {
     public event Action OnRoomClear;
 
+    private Rewards rewards;
+
     public virtual void StartEncounter(Node rootNode)
     {
         RoomCleared();
@@ -46,10 +48,24 @@ public abstract class MapNodeController
 
     protected virtual void RoomCleared()
     {
-        var rewards = GetRewards();
+        rewards = GetRewards();
         DisplayRewards(rewards);
 
-        UiController.Instance.RewardsMenuOkButton.Pressed += () => ClaimRewards(rewards);
+        var otherB = UiController.Instance.RewardsMenuOkButton;
+
+        var aaaaaaaa = new Button()
+        {
+            Size = otherB.Size,
+            Position = otherB.Position,
+            Text = otherB.Text
+        };
+        otherB.GetParent().AddChild(aaaaaaaa);
+        otherB.Hide();
+        otherB.QueueFree();
+
+        UiController.Instance.RewardsMenuOkButton = aaaaaaaa;
+
+        UiController.Instance.RewardsMenuOkButton.Pressed += ClaimRewards;
 
         CleanupEncounter();
 
@@ -109,7 +125,7 @@ public abstract class MapNodeController
         UiController.Instance.CombatMenu.Hide();
     }
 
-    private void ClaimRewards(Rewards rewards)
+    private void ClaimRewards()
     {
         foreach(var item in rewards.Items)
         {
@@ -122,6 +138,9 @@ public abstract class MapNodeController
         }
 
         MapController.Instance.EnableConnectedMapButtons();
+
+        UiController.Instance.RewardsMenu.Hide();
+        UiController.Instance.MapMenu.Show();
     }
 
     protected Item GetRandomItemReward()
