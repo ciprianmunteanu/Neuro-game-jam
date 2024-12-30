@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 
 enum GameState { MAIN_MENU, PLAYING }
 
@@ -39,7 +40,16 @@ public partial class UiController : Control
     [Export]
     public Button MainMenuPlayButton { get; set; }
     [Export]
+    public Button MainMenuSettingsButton { get; set; }
+    [Export]
     public Button MainMenuExitButton { get; set; }
+
+    [Export]
+    public Control SettingsMenu { get; set; }
+    [Export]
+    public CheckButton FullScreenButton { get; set; }
+    [Export]
+    public Button SettingsBackButton { get; set; }
 
     private bool isMapShown = false;
     private GameState CurrentGameState = GameState.MAIN_MENU;
@@ -52,6 +62,7 @@ public partial class UiController : Control
         RewardsMenu.Hide();
         InventoryScreen.Hide();
         MainMenuScreen.Show();
+        SettingsMenu.Hide();
 
         MainMenuPlayButton.Pressed += Play;
         MainMenuExitButton.Pressed += Quit;
@@ -82,6 +93,20 @@ public partial class UiController : Control
         };
 
         PlayerManager.InitStatsDisplay();
+
+        MainMenuSettingsButton.Pressed += () =>
+        {
+            MainMenuScreen.Hide();
+            SettingsMenu.Show();
+        };
+
+        SettingsBackButton.Pressed += () =>
+        {
+            MainMenuScreen.Show();
+            SettingsMenu.Hide();
+        };
+
+        FullScreenButton.Toggled += (toggleMode) => DisplayServer.WindowSetMode(toggleMode ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed);
     }
 
     private void Play()
