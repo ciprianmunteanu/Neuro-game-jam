@@ -267,10 +267,12 @@ public partial class UiController : Control
 
     public override void _Input(InputEvent @event)
     {
+        /*
         if ((SkillsBackButton?.IsHovered() ?? false) || (SkillsButton?.IsHovered() ?? false) || (PassButton?.IsHovered() ?? false))
         {
             SkillDescriptionLabel.Text = "";
         }
+        */
         if(CurrentGameState == GameState.PLAYING)
         {
             if (@event.IsActionPressed("Map"))

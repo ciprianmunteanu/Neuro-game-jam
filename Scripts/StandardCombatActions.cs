@@ -55,15 +55,15 @@ public class SummonCombatAction : ICombatActionEffect
             return;
         }
 
-        user.AddChild(summon);
+        user.GetParent().AddChild(summon);
         Vector2 pos;
         if(summon.IsEnemy)
         {
-            pos = CombatEncounterProvider.EnemySummonPositions[0];
+            pos = CombatEncounterProvider.EnemySummonPositions[nrOfOtherFriendlySummons];
         }
         else
         {
-            pos = CombatEncounterProvider.PlayerSummonPositions[0];
+            pos = CombatEncounterProvider.PlayerSummonPositions[nrOfOtherFriendlySummons];
         }
         summon.GlobalPosition = pos;
         summon.IsSummon = true;

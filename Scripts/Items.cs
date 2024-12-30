@@ -68,6 +68,7 @@ public partial class DroneSummon : EnemyCombatEntity
 {
     public DroneSummon() : base(new CombatEntityStats() { AttackDamage = 20, MaxHealth = 20, CurrentHealth = 20, Speed = 1})
     {
+        SpriteResourcePath = "res://Assets/Drone.png";
         AddBasicAttack();
     }
 }
