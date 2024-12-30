@@ -1,5 +1,7 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 
 internal record GhostData(string PlayerName, List<Item> Items);
@@ -51,28 +53,43 @@ public partial class GhostEnemy : EnemyCombatEntity
     {
         // todo load all the saved ghosts, not just the first one
         using var ghostDataFile = FileAccess.Open("user://ghostData.json", FileAccess.ModeFlags.Read);
-        if(ghostDataFile == null)
+        string line = "";
+        if (ghostDataFile != null) { 
+            line = ghostDataFile.GetLine();
+        }
+        if (String.IsNullOrEmpty(line))
         {
             GhostData dummyGhostData = new GhostData("Dummy", new List<Item>());
             dummyGhostData.Items.Add(new Harpoon());
             dummyGhostData.Items.Add(new RobotBody());
             return dummyGhostData;
         }
-        var line = ghostDataFile.GetLine();
-        var ghostData = JsonSerializer.Deserialize<GhostData>(line);
 
-        // have a dict with the default versions of items
-        // we store to disk only the name ( to find it in the dict with) and the stat modifiers
-        // everything else we load from the dict
-        foreach (var item in ghostData.Items)
+        var ghostData = JsonSerializer.Deserialize<GhostData[]>(line);
+
+        if(ghostData.Any())
         {
-            var baseItem = AllItems.ItemsList.Find(i => i.Name == item.Name);
-            if(baseItem != null)
+            var chosenGhostData = ghostData.ElementAt(new Random().Next(ghostData.Count()));
+
+            // have a dict with the default versions of items
+            // we store to disk only the name ( to find it in the dict with) and the stat modifiers
+            // everything else we load from the dict
+            foreach (var item in chosenGhostData.Items)
             {
-                item.LoadFromBaseItem(baseItem);
+                var baseItem = AllItems.ItemsList.Find(i => i.Name == item.Name);
+                if (baseItem != null)
+                {
+                    item.LoadFromBaseItem(baseItem);
+                }
             }
+
+            return chosenGhostData;
         }
 
-        return ghostData;
+
+        GhostData dummyGhostData2 = new GhostData("Dummy", new List<Item>());
+        dummyGhostData2.Items.Add(new Harpoon());
+        dummyGhostData2.Items.Add(new RobotBody());
+        return dummyGhostData2;
     }
 }

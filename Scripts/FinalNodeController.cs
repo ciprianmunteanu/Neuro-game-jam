@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 
 public class FinalNodeController : CombatNodeController
@@ -22,9 +23,30 @@ public class FinalNodeController : CombatNodeController
 
     private void SaveGhostData(GhostData ghostData)
     {
+        List<GhostData> existingData = GetExistingGhostData();
+
         using var ghostDataFile = FileAccess.Open("user://ghostData.json", FileAccess.ModeFlags.Write);
-        var jsonData = JsonSerializer.Serialize(ghostData);
+        existingData.Add(ghostData);
+        var jsonData = JsonSerializer.Serialize(existingData);
         ghostDataFile.StoreLine(jsonData);
+    }
+
+    private List<GhostData> GetExistingGhostData()
+    {
+        List<GhostData> existingData = new();
+
+        using var ghostDataFile = FileAccess.Open("user://ghostData.json", FileAccess.ModeFlags.Read);
+        if(ghostDataFile != null)
+        {
+            var line = ghostDataFile.GetLine();
+
+            if (!string.IsNullOrEmpty(line))
+            {
+                existingData = JsonSerializer.Deserialize<GhostData[]>(line).ToList();
+            }
+        }
+
+        return existingData;
     }
 
     protected override void RoomCleared()
