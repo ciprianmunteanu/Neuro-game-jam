@@ -16,7 +16,7 @@ texture = ExtResource("1_f6g1d")
 [node name="MapController" type="Node" parent="."]
 script = ExtResource("2_3jrdh")
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "BasicCombatActionsMenu", "SkillsMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "BasicCombatActionsMenu", "SkillsMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt", "MainMenuScreen", "MainMenuPlayButton", "MainMenuExitButton")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -32,6 +32,9 @@ RewardsMenuOkButton = NodePath("Rewards screen/Ok Button")
 InventoryScreen = NodePath("Inventory screen")
 StatsDisplay = NodePath("Inventory screen/Stats")
 SelectTargetPrompt = NodePath("Select target")
+MainMenuScreen = NodePath("Main menu")
+MainMenuPlayButton = NodePath("Main menu/Play button")
+MainMenuExitButton = NodePath("Main menu/Quit")
 
 [node name="Select target" type="Label" parent="UI"]
 layout_mode = 0
@@ -189,3 +192,25 @@ offset_left = 502.0
 offset_top = 104.0
 offset_right = 542.0
 offset_bottom = 144.0
+
+[node name="Main menu" type="Control" parent="UI"]
+anchors_preset = 0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+
+[node name="Play button" type="Button" parent="UI/Main menu"]
+layout_mode = 0
+offset_left = 776.0
+offset_top = 322.0
+offset_right = 1147.0
+offset_bottom = 426.0
+text = "Play"
+
+[node name="Quit" type="Button" parent="UI/Main menu"]
+offset_left = 774.0
+offset_top = 560.0
+offset_right = 1145.0
+offset_bottom = 664.0
+text = "Quit"

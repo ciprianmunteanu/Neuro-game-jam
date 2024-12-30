@@ -1,8 +1,6 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using static System.Net.Mime.MediaTypeNames;
+
+enum GameState { MAIN_MENU, PLAYING }
 
 public partial class UiController : Control
 {
@@ -36,7 +34,15 @@ public partial class UiController : Control
     [Export]
     public Control SelectTargetPrompt { get; set; }
 
+    [Export]
+    public Control MainMenuScreen { get; set; }
+    [Export]
+    public Button MainMenuPlayButton { get; set; }
+    [Export]
+    public Button MainMenuExitButton { get; set; }
+
     private bool isMapShown = false;
+    private GameState CurrentGameState = GameState.MAIN_MENU;
 
     public override void _Ready()
     {
@@ -45,9 +51,12 @@ public partial class UiController : Control
         CombatMenu.Hide();
         RewardsMenu.Hide();
         InventoryScreen.Hide();
+        MainMenuScreen.Show();
+
+        MainMenuPlayButton.Pressed += Play;
+        MainMenuExitButton.Pressed += Quit;
 
         Instance = this;
-        MapController.GenerateMap();
 
         RewardsMenuOkButton.Pressed += RewardsMenu.Hide;
         RewardsMenuOkButton.Pressed += MapMenu.Show;
@@ -73,6 +82,18 @@ public partial class UiController : Control
         };
 
         PlayerManager.InitStatsDisplay();
+    }
+
+    private void Play()
+    {
+        MapController.GenerateMap();
+        MainMenuScreen.Hide();
+        ShowMap(true);
+    }
+
+    private void Quit()
+    {
+        GetTree().Quit();
     }
 
     public void RefreshSkillButtonState()
