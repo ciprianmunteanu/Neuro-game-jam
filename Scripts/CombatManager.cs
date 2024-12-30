@@ -37,6 +37,11 @@ public static class CombatManager
         {
             isCombatOver = true;
             OnCombatClear?.Invoke();
+            foreach (var ent in CombatEntities)
+            {
+                ent.Hide();
+                ent.QueueFree();
+            }
         }
         else
         {
@@ -63,6 +68,11 @@ public static class CombatManager
         {
             isCombatOver = true;
             OnCombatClear?.Invoke();
+            foreach(var ent in CombatEntities)
+            {
+                ent.Hide();
+                ent.QueueFree();
+            }
         }
     }
 }
