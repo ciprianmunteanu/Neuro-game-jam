@@ -8,7 +8,7 @@
         Speed = 1
     })
     {
-        SpriteResourcePath = "res://Assets/Enemy.png";
+        SpriteResourcePath = "res://Assets/EvilFumo.png";
         AddBasicAttack();
     }
 }
@@ -23,7 +23,7 @@ public partial class DifficultTrashMob : EnemyCombatEntity
         Speed = 1
     })
     {
-        SpriteResourcePath = "res://Assets/Enemy.png";
+        SpriteResourcePath = "res://Assets/Evil.png";
         AddBasicAttack();
     }
 }

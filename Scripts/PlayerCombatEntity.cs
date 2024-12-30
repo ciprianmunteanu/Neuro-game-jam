@@ -8,6 +8,8 @@ public partial class PlayerCombatEntity : CombatEntity
 
         WeaponItem = PlayerManager.WeaponItem;
         ArmorItem = PlayerManager.ArmorItem;
+
+        SpriteResourcePath = "res://Assets/Neuro.png";
     }
 
     public static PlayerCombatEntity Instance { get; set; }

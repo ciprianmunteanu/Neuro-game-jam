@@ -93,7 +93,8 @@ public partial class CombatEntity : Node2D
             {
                 Position = new Vector2(50, 0),
                 Scale = new Vector2(2, 2),
-                Texture = GD.Load<Texture2D>(WeaponItem.SpritePath)
+                Texture = GD.Load<Texture2D>(WeaponItem.SpritePath),
+                
             };
             AddChild(WeaponSprite);
         }
