@@ -19,7 +19,7 @@ public class Sword : Item
 /// </summary>
 public class Armor : Item
 {
-    public Armor() : base(new CombatEntityStats() { MaxHealth = 20, CurrentHealth = 20 }, "Armor", ItemType.ARMOR)
+    public Armor() : base(new CombatEntityStats() { MaxHealth = 50, CurrentHealth = 50 }, "Armor", ItemType.ARMOR)
     {
         var slashSkill = new CombatAction() { Name = "Slash", Cooldown = 2 };
         var damageCombatAction = new DamageCombatAction() { DamageMultiplier = 2 };
@@ -47,7 +47,7 @@ public class Harpoon : Item
 
 public class BananaRum : Item
 {
-    public BananaRum() : base(new CombatEntityStats() { AttackDamage = 15, MaxHealth = 10, CurrentHealth = 10 }, "Banana rum", ItemType.WEAPON)
+    public BananaRum() : base(new CombatEntityStats() { AttackDamage = 15, MaxHealth = 25, CurrentHealth = 25 }, "Banana rum", ItemType.WEAPON)
     {
         SpritePath = "res://Assets/Rum.png";
 
@@ -66,7 +66,7 @@ public class BananaRum : Item
 
 public partial class DroneSummon : EnemyCombatEntity
 {
-    public DroneSummon() : base(new CombatEntityStats() { AttackDamage = 20, MaxHealth = 20, CurrentHealth = 20, Speed = 1})
+    public DroneSummon() : base(new CombatEntityStats() { AttackDamage = 20, MaxHealth = 50, CurrentHealth = 50, Speed = 1})
     {
         SpriteResourcePath = "res://Assets/Drone.png";
         AddBasicAttack();
@@ -74,7 +74,7 @@ public partial class DroneSummon : EnemyCombatEntity
 }
 public class Drones : Item
 {
-    public Drones() : base(new CombatEntityStats() { AttackDamage = 10, MaxHealth = 10, CurrentHealth = 10, Speed = 10 }, "Drone controller", ItemType.WEAPON)
+    public Drones() : base(new CombatEntityStats() { AttackDamage = 10, MaxHealth = 25, CurrentHealth = 25, Speed = 10 }, "Drone controller", ItemType.WEAPON)
     {
         SpritePath = "res://Assets/DroneRemote.png";
         var s1 = new CombatAction() { Name = "Call drone", Cooldown = 1, AnimationResourcePath = "res://Assets/Weapon_animations/Drone/SummonAnimation.tres", Description = "Summons a drone that fights for you. The drone has 20 AD, 20 HP and 1 speed" };
@@ -87,7 +87,7 @@ public class Drones : Item
 
 public class RobotBody : Item
 {
-    public RobotBody() : base(new CombatEntityStats() { AttackDamage = 10, MaxHealth = 20, CurrentHealth = 20 }, "Crazy fucking robot body", ItemType.ARMOR)
+    public RobotBody() : base(new CombatEntityStats() { AttackDamage = 10, MaxHealth = 50, CurrentHealth = 50 }, "Crazy fucking robot body", ItemType.ARMOR)
     {
         SpritePath = "res://Assets/RobotBody.png";
 
@@ -106,7 +106,7 @@ public class RobotBody : Item
 
 public class ClownOutfit : Item
 {
-    public ClownOutfit() : base(new CombatEntityStats() { MaxHealth = 30, CurrentHealth = 30 }, "Clown outfit", ItemType.ARMOR)
+    public ClownOutfit() : base(new CombatEntityStats() { MaxHealth = 75, CurrentHealth = 75 }, "Clown outfit", ItemType.ARMOR)
     {
         SpritePath = "res://Assets/Clown.png";
 
