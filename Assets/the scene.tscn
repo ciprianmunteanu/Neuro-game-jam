@@ -16,7 +16,7 @@ texture = ExtResource("1_f6g1d")
 [node name="MapController" type="Node" parent="."]
 script = ExtResource("2_3jrdh")
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "BasicCombatActionsMenu", "SkillsMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt", "MainMenuScreen", "MainMenuPlayButton", "MainMenuSettingsButton", "MainMenuExitButton", "SettingsMenu", "FullScreenButton", "SettingsBackButton", "ActionPointRect1", "ActionPointRect2")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "BasicCombatActionsMenu", "SkillsMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt", "MainMenuScreen", "MainMenuPlayButton", "MainMenuSettingsButton", "MainMenuExitButton", "SettingsMenu", "FullScreenButton", "SettingsBackButton", "ActionPointRect1", "ActionPointRect2", "SkillDescriptionLabel")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -39,8 +39,9 @@ MainMenuExitButton = NodePath("Main menu/Quit")
 SettingsMenu = NodePath("Settings menu")
 FullScreenButton = NodePath("Settings menu/CheckButton")
 SettingsBackButton = NodePath("Settings menu/Button")
-ActionPointRect1 = NodePath("Combat/Control/ColorRect")
-ActionPointRect2 = NodePath("Combat/Control/ColorRect2")
+ActionPointRect1 = NodePath("Combat/Action points/ColorRect")
+ActionPointRect2 = NodePath("Combat/Action points/ColorRect2")
+SkillDescriptionLabel = NodePath("Combat/Skill description/Label")
 
 [node name="Select target" type="Label" parent="UI"]
 visible = false
@@ -63,32 +64,32 @@ anchors_preset = 0
 offset_left = -894.0
 offset_top = 260.0
 offset_right = 884.0
-offset_bottom = 454.0
+offset_bottom = 339.0
 mouse_filter = 2
 
 [node name="Skills" type="Control" parent="UI/Combat"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -894.0
-offset_top = 274.0
+offset_top = 260.0
 offset_right = 884.0
-offset_bottom = 468.0
+offset_bottom = 337.0
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="UI/Combat"]
+[node name="Action points" type="Control" parent="UI/Combat"]
 anchors_preset = 0
 offset_left = -876.0
 offset_top = 206.0
 offset_right = 38.0
 offset_bottom = 281.0
 
-[node name="Label" type="Label" parent="UI/Combat/Control"]
+[node name="Label" type="Label" parent="UI/Combat/Action points"]
 layout_mode = 0
 offset_right = 134.0
 offset_bottom = 41.0
 text = "Action points"
 
-[node name="ColorRect" type="ColorRect" parent="UI/Combat/Control"]
+[node name="ColorRect" type="ColorRect" parent="UI/Combat/Action points"]
 layout_mode = 0
 offset_left = 128.0
 offset_top = -2.0
@@ -96,12 +97,30 @@ offset_right = 159.0
 offset_bottom = 29.0
 color = Color(0.281915, 0.494959, 7.70092e-07, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="UI/Combat/Control"]
+[node name="ColorRect2" type="ColorRect" parent="UI/Combat/Action points"]
 offset_left = 177.0
 offset_top = -2.0
 offset_right = 208.0
 offset_bottom = 29.0
 color = Color(0.33749, 0.315423, 0.321062, 1)
+
+[node name="Skill description" type="Control" parent="UI/Combat"]
+anchors_preset = 0
+offset_left = -890.0
+offset_top = 347.0
+offset_right = 894.0
+offset_bottom = 461.0
+
+[node name="ColorRect" type="ColorRect" parent="UI/Combat/Skill description"]
+layout_mode = 0
+offset_right = 1770.0
+offset_bottom = 110.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="UI/Combat/Skill description"]
+layout_mode = 0
+offset_right = 1764.0
+offset_bottom = 110.0
 
 [node name="Map" type="ColorRect" parent="UI"]
 visible = false

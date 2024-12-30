@@ -11,6 +11,7 @@ public class CombatAction
     public event Action OnActionDone;
 
     public string Name { get; set; } = "CombatAction";
+    public string Description { get; set; } = "";
     public string AnimationResourcePath { get; set; } = "res://Assets/Attack_animation/AttackAnimation.tres";
     public int Cooldown { get; set; } = 1;
     public List<ICombatActionEffect> CombatActionEffects = new();

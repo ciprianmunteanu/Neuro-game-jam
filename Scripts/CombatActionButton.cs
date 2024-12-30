@@ -62,6 +62,11 @@ public partial class CombatActionButton : Button
 
     public override void _Input(InputEvent @event)
     {
+        if(IsHovered())
+        {
+            UiController.Instance.SkillDescriptionLabel.Text = $"{combatAction.Description}. Cooldown: {combatAction.Cooldown}. Cost: {combatAction.ActionCost}";
+        }
+
         if (IsSelectingTarget && @event is InputEventMouseButton mouseEvent && mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
         {
             var spaceState = GetWorld2D().DirectSpaceState;

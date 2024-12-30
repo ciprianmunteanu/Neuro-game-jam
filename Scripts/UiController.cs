@@ -57,6 +57,9 @@ public partial class UiController : Control
     public ColorRect ActionPointRect2 { get; set; }
 
 
+    [Export]
+    public Label SkillDescriptionLabel { get; set; }
+
     private bool isMapShown = false;
     private GameState CurrentGameState = GameState.MAIN_MENU;
 
@@ -161,7 +164,7 @@ public partial class UiController : Control
     {
         Vector2 buttonPosition = new Vector2(0, 0);
 
-        var basicAttackCA = new CombatAction() { Cooldown = 1, Name = "Attack" };
+        var basicAttackCA = new CombatAction() { Cooldown = 1, Name = "Attack", Description = "Deal 100% AD damage" };
         basicAttackCA.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 1 });
         BasicAttackButton = new CombatActionButton(basicAttackCA);
         PositionCombatButton(BasicAttackButton, ref buttonPosition);
