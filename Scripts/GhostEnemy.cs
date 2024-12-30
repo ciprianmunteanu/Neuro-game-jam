@@ -1,6 +1,5 @@
 ﻿using Godot;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 
 internal record GhostData(string PlayerName, List<Item> Items);
@@ -14,12 +13,6 @@ public partial class GhostEnemy : EnemyCombatEntity
         SpriteResourcePath = "res://Assets/Ghost.png";
 
         Stats = PlayerManager.StartingPlayerStats;
-
-        /*
-        var dummyGhostData = new GhostData("Dummy", new List<Item>());
-        dummyGhostData.Items.Add(new Harpoon());
-        SaveGhostData(dummyGhostData);
-        */
 
         var deserializedGhostData = LoadGhostData();
 
@@ -50,13 +43,6 @@ public partial class GhostEnemy : EnemyCombatEntity
         }
 
         AddBasicAttack();
-    }
-
-    private void SaveGhostData(GhostData ghostData)
-    {
-        using var ghostDataFile = FileAccess.Open("user://ghostData.json", FileAccess.ModeFlags.Write);
-        var jsonData = JsonSerializer.Serialize(ghostData);
-        ghostDataFile.StoreLine(jsonData);
     }
 
     private GhostData LoadGhostData()
