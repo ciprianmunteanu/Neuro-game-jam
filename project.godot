@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="Neuro game jam 2024"
+config/version="1.0.0"
 run/main_scene="res://Assets/the scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Assets/Evil.png"
 
 [display]
 
