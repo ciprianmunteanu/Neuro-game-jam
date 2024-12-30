@@ -7,14 +7,18 @@ public record Rewards
 {
     public int Gold { get; set; } = 0;
     public IEnumerable<Item> Items { get; set; } = new List<Item>();
+    public int Healing { get; set; } = 0;
 }
 
 public abstract class MapNodeController
 {
     public event Action OnRoomClear;
 
-    public abstract void StartEncounter(Node rootNode);
-    public abstract void CleanupEncounter();
+    public virtual void StartEncounter(Node rootNode)
+    {
+        RoomCleared();
+    }
+    public virtual void CleanupEncounter() { }
 
     private static Type[] RewardableItemTypes =
     {
@@ -54,6 +58,21 @@ public abstract class MapNodeController
 
     private void DisplayRewards(Rewards rewards)
     {
+        bool skippedTitle = false;
+        foreach(var c in UiController.Instance.RewardsMenu.GetChildren())
+        {
+            if(c is Label labelChild)
+            {
+                if(!skippedTitle)
+                {
+                    skippedTitle = true;
+                    continue;
+                }
+                labelChild.Hide();
+                labelChild.QueueFree();
+            }
+        }
+
         const int labelSizeY = 50;
         const int labelPositionX = 50;
         int currentY = 100;
@@ -81,6 +100,8 @@ public abstract class MapNodeController
         {
             InventoryController.Instance.AddItem(item);
         }
+
+        MapController.Instance.EnableConnectedMapButtons();
     }
 
     protected Item GetRandomItemReward()

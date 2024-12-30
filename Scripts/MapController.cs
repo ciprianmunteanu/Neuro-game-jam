@@ -10,6 +10,8 @@ public partial class MapController : Node
     public static MapController Instance;
 
     private readonly CombatNodeController combatNodeController = new();
+    private readonly TreasureNodeController treasureNodeController = new();
+    private readonly CampfireNodeController restNodeController = new();
     private readonly FinalNodeController finalNodeController = new();
 
     private const int buttonSize = 100;
@@ -21,8 +23,6 @@ public partial class MapController : Node
     public MapController()
     {
         Instance = this;
-
-        combatNodeController.OnRoomClear += () => EnableConnectedMapButtons(true);
     }
 
     public void GenerateMap()
@@ -116,9 +116,33 @@ public partial class MapController : Node
 
     private Button GenerateRandomButton(Control mapRoot, Vector2 position)
     {
+        return GenerateRandomButton(mapRoot, position, 1);
+    }
+
+    private Button GenerateRandomButton(Control mapRoot, Vector2 position, int roomType)
+    {
+        string roomName;
+        MapNodeController roomController;
+        if (roomType == 0)
+        {
+            roomName = "[Combat]";
+            roomController = combatNodeController;
+        }
+        else if (roomType == 1)
+        {
+            roomName = "[Treasure]";
+            roomController = treasureNodeController;
+        }
+        else
+        {
+            roomName = "[Rest]";
+            roomController = restNodeController;
+        }
+
+
         var testButton = new Button()
         {
-            Text = "[Combat]",
+            Text = roomName,
             Size = new Vector2(buttonSize, buttonSize),
             Position = position,
             Disabled = true
@@ -126,7 +150,7 @@ public partial class MapController : Node
         mapRoot.AddChild(testButton);
         testButton.Pressed += () =>
         {
-            combatNodeController.StartEncounter(this);
+            roomController.StartEncounter(this);
             UiController.Instance.ShowMap(false);
             EnableConnectedMapButtons(false);
         };

@@ -171,7 +171,7 @@ public partial class InventoryController : Control
     public void AddItem(Item item)
     {
         // get the first available inventory slot
-        var availableSlot = inventorySlots.First(s => s.isEquipment == false && s.HeldItem == null);
+        var availableSlot = inventorySlots.FirstOrDefault(s => s.isEquipment == false && s.IsTrash == false && s.HeldItem == null);
         if(availableSlot != null)
         {
             AddItemInternal(item, availableSlot);
