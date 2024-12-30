@@ -33,14 +33,14 @@ public class Harpoon : Item
 {
     public Harpoon() : base(new CombatEntityStats() { AttackDamage = 20 }, "Harpoon", ItemType.WEAPON)
     {
-        SpritePath = "res://Assets/Weapon.png";
+        SpritePath = "res://Assets/Harpoon.png";
 
         // TODO this is supposed to use 2 actions
-        var s1 = new CombatAction() { Name = "Shoot", Cooldown = 3, ActionCost = 2 };
+        var s1 = new CombatAction() { Name = "Shoot", Cooldown = 3, ActionCost = 2 , AnimationResourcePath = "res://Assets/Weapon_animations/Harpoon/ShootAnimation.tres" };
         s1.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 4f });
         Skills.Add(s1);
 
-        var s2 = new CombatAction() { Name = "Reel in", Cooldown = 2 };
+        var s2 = new CombatAction() { Name = "Reel in", Cooldown = 2, AnimationResourcePath = "res://Assets/Weapon_animations/Harpoon/ReelInAnimation.tres" };
         s2.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 0, Duration = 1 } });
         Skills.Add(s2);
     }

@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://ctlh8ge781lso"]
+
+[ext_resource type="Texture2D" uid="uid://ree5fpd1354t" path="res://Assets/Weapon_animations/Drone/Summon1.png" id="1_x13mg"]
+[ext_resource type="Texture2D" uid="uid://dwuhvrrkgeime" path="res://Assets/Weapon_animations/Drone/Summon2.png" id="2_gg0yq"]
+[ext_resource type="Texture2D" uid="uid://basufhjlsss0g" path="res://Assets/Weapon_animations/Drone/Summon3.png" id="3_rmxyb"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_x13mg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gg0yq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rmxyb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
