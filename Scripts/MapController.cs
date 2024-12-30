@@ -65,7 +65,16 @@ public partial class MapController : Node
             float btnSpacingY = (1800 - (floorSizes[floorIndex] * buttonSize)) / floorSizes[floorIndex];
             for (int roomIndex = 0; roomIndex < floorSizes[floorIndex]; roomIndex ++)
             {
-                var btn = GenerateRandomButton(mapRoot, new Vector2((buttonSize + btnSpacingY) * roomIndex + btnSpacingY / 2, (buttonSize + buttonSpacing) * floorIndex));
+                var pos = new Vector2((buttonSize + btnSpacingY) * roomIndex + btnSpacingY / 2, (buttonSize + buttonSpacing) * floorIndex);
+                Button btn;
+                if (floorIndex == 1)
+                {
+                    btn = GenerateRandomButton(mapRoot, pos, 1);
+                }
+                else
+                {
+                    btn = GenerateRandomButton(mapRoot, pos);
+                }
                 var currentRoom = new MapNode(new List<MapNode>(), btn);
                 btn.Pressed += () => { currentNode = currentRoom; };
 
