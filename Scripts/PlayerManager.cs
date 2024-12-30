@@ -40,6 +40,10 @@ public static class PlayerManager
     public static void UpdateStats(CombatEntityStats newStats)
     {
         Stats = newStats;
+        if(Stats.CurrentHealth > Stats.MaxHealth)
+        {
+            Stats.CurrentHealth = Stats.MaxHealth;
+        }
 
         var children = UiController.Instance.StatsDisplay.GetChildren();
 

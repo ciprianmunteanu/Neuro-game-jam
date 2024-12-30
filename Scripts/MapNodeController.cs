@@ -91,6 +91,13 @@ public abstract class MapNodeController
             currentY += labelSizeY;
         }
 
+        if (rewards.Healing > 0)
+        {
+            var goldLabel = new Label() { Text = $"Healed {rewards.Healing} HP", Position = new Vector2(labelPositionX, currentY), Size = new Vector2(200, labelSizeY) };
+            UiController.Instance.RewardsMenu.AddChild(goldLabel);
+            currentY += labelSizeY;
+        }
+
         foreach (var item in rewards.Items ?? new List<Item>())
         {
             var itemLabel = new Label() { Text = $"{item.Name}", Position = new Vector2(labelPositionX, currentY), Size = new Vector2(200, labelSizeY) };
@@ -107,6 +114,11 @@ public abstract class MapNodeController
         foreach(var item in rewards.Items)
         {
             InventoryController.Instance.AddItem(item);
+        }
+
+        if(rewards.Healing > 0)
+        {
+            PlayerManager.UpdateStats(PlayerManager.Stats + new CombatEntityStats() { CurrentHealth = rewards.Healing });
         }
 
         MapController.Instance.EnableConnectedMapButtons();

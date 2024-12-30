@@ -116,7 +116,7 @@ public partial class MapController : Node
 
     private Button GenerateRandomButton(Control mapRoot, Vector2 position)
     {
-        return GenerateRandomButton(mapRoot, position, 1);
+        return GenerateRandomButton(mapRoot, position, 2);
     }
 
     private Button GenerateRandomButton(Control mapRoot, Vector2 position, int roomType)
