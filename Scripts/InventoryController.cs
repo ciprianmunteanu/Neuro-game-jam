@@ -72,6 +72,8 @@ public record ItemSlot(Vector2 Position, bool isEquipment)
 {
     public ItemType Type { get; set; } = ItemType.NONE;
 
+    public bool IsTrash = false;
+
     private Item heldItem;
     public Item HeldItem { 
         get => heldItem; 
@@ -104,7 +106,16 @@ public record ItemSlot(Vector2 Position, bool isEquipment)
                 PlayerManager.UpdateStats(newStats);
             }
 
-            heldItem = value;
+            if (IsTrash)
+            {
+                value.Slot.HeldItem = null;
+                value.Button.Hide();
+                value.Button.Free();
+            }
+            else
+            {
+                heldItem = value;
+            }
         }
     }
 }
@@ -131,7 +142,8 @@ public partial class InventoryController : Control
         new ItemSlot(new Vector2(723, 581), false),
         new ItemSlot(new Vector2(932, 581), false),
         new ItemSlot(new Vector2(153, 143), true) {Type = ItemType.WEAPON},
-        new ItemSlot(new Vector2(158, 374), true) {Type = ItemType.ARMOR}
+        new ItemSlot(new Vector2(158, 374), true) {Type = ItemType.ARMOR},
+        new ItemSlot(new Vector2(1018, 841), false) {IsTrash = true}
     };
 
     private readonly int slotSizePx = 180;
