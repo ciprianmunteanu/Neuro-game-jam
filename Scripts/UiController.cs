@@ -51,6 +51,12 @@ public partial class UiController : Control
     [Export]
     public Button SettingsBackButton { get; set; }
 
+    [Export]
+    public ColorRect ActionPointRect1 { get; set; }
+    [Export]
+    public ColorRect ActionPointRect2 { get; set; }
+
+
     private bool isMapShown = false;
     private GameState CurrentGameState = GameState.MAIN_MENU;
 
@@ -132,6 +138,22 @@ public partial class UiController : Control
         }
 
         BasicAttackButton.RefreshButtonState();
+    }
+
+    public void RefreshActionPointIndicator()
+    {
+        int playerActionsLeft = PlayerCombatEntity.Instance.ActionsLeft;
+        ActionPointRect1.Color = new Color(0.5f, 0.5f, 0.5f);
+        ActionPointRect2.Color = new Color(0.5f, 0.5f, 0.5f);
+        if (playerActionsLeft > 0)
+        {
+            ActionPointRect1.Color = new Color(0, 1, 0);
+        }
+        if(playerActionsLeft > 1)
+        {
+            ActionPointRect2.Color = new Color(0, 1, 0);
+        }
+
     }
 
     private void PopulateCombatMenu()

@@ -1,5 +1,3 @@
-using System;
-
 public partial class PlayerCombatEntity : CombatEntity
 {
     public PlayerCombatEntity() : base(PlayerManager.Stats)
@@ -29,6 +27,7 @@ public partial class PlayerCombatEntity : CombatEntity
         {
             UiController.Instance.RefreshSkillButtonState();
             UiController.Instance.CombatMenu.Show();
+            UiController.Instance.RefreshActionPointIndicator();
         }
     }
 }

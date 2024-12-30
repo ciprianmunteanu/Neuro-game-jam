@@ -78,6 +78,7 @@ public partial class CombatActionButton : Button
                         combatAction.Do(PlayerCombatEntity.Instance, combatEntity, GetTree().Root);
 
                         UiController.Instance.RefreshSkillButtonState();
+                        UiController.Instance.RefreshActionPointIndicator();
 
                         IsSelectingTarget = false;
                     }
