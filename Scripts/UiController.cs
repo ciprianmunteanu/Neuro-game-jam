@@ -31,11 +31,11 @@ public partial class UiController : Control
     public Control StatsDisplay { get; set; }
     private bool isInventoryShown = false;
 
+    private CombatActionButton BasicAttackButton;
 
     [Export]
     public Control SelectTargetPrompt { get; set; }
 
-    private List<Button> buttons = new();
     private bool isMapShown = false;
 
     public override void _Ready()
@@ -77,13 +77,15 @@ public partial class UiController : Control
 
     public void RefreshSkillButtonState()
     {
-        foreach (var child in UiController.Instance.SkillsMenu.GetChildren())
+        foreach (var child in SkillsMenu.GetChildren())
         {
             if (child is CombatActionButton actionButton)
             {
                 actionButton.RefreshButtonState();
             }
         }
+
+        BasicAttackButton.RefreshButtonState();
     }
 
     private void PopulateCombatMenu()
@@ -92,10 +94,9 @@ public partial class UiController : Control
 
         var basicAttackCA = new CombatAction() { Cooldown = 1, Name = "Attack" };
         basicAttackCA.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 1 });
-        var attackButton = new CombatActionButton(basicAttackCA);
-        PositionCombatButton(attackButton, ref buttonPosition);
-        BasicCombatActionsMenu.AddChild(attackButton);
-        buttons.Add(attackButton);
+        BasicAttackButton = new CombatActionButton(basicAttackCA);
+        PositionCombatButton(BasicAttackButton, ref buttonPosition);
+        BasicCombatActionsMenu.AddChild(BasicAttackButton);
 
         var skillsButton = new Button()
         {
@@ -109,7 +110,6 @@ public partial class UiController : Control
         };
 
         BasicCombatActionsMenu.AddChild(skillsButton);
-        buttons.Add(skillsButton);
 
         var passButton = new Button();
         PositionCombatButton(passButton, ref buttonPosition);
@@ -121,7 +121,6 @@ public partial class UiController : Control
             PlayerCombatEntity.Instance.OnTurnEnd();
         };
         BasicCombatActionsMenu.AddChild(passButton);
-        buttons.Add(passButton);
     }
 
     private void PopulateSkillMenu()
