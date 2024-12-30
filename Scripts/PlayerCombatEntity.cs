@@ -30,4 +30,10 @@ public partial class PlayerCombatEntity : CombatEntity
             UiController.Instance.RefreshActionPointIndicator();
         }
     }
+
+    protected override void OnDeath() 
+    {
+        UiController.Instance.GameOver();
+    }
+
 }

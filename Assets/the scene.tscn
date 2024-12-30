@@ -16,7 +16,7 @@ texture = ExtResource("1_f6g1d")
 [node name="MapController" type="Node" parent="."]
 script = ExtResource("2_3jrdh")
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "BasicCombatActionsMenu", "SkillsMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt", "MainMenuScreen", "MainMenuPlayButton", "MainMenuSettingsButton", "MainMenuExitButton", "SettingsMenu", "FullScreenButton", "SettingsBackButton", "ActionPointRect1", "ActionPointRect2", "SkillDescriptionLabel", "ItemStatsLabel")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "BasicCombatActionsMenu", "SkillsMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt", "MainMenuScreen", "MainMenuPlayButton", "MainMenuSettingsButton", "MainMenuExitButton", "SettingsMenu", "FullScreenButton", "SettingsBackButton", "ActionPointRect1", "ActionPointRect2", "SkillDescriptionLabel", "ItemStatsLabel", "GameOverScreen", "RetryButton")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -43,6 +43,8 @@ ActionPointRect1 = NodePath("Combat/Action points/ColorRect")
 ActionPointRect2 = NodePath("Combat/Action points/ColorRect2")
 SkillDescriptionLabel = NodePath("Combat/Skill description/Label")
 ItemStatsLabel = NodePath("Inventory screen/Item stats")
+GameOverScreen = NodePath("Game over")
+RetryButton = NodePath("Game over/Button")
 
 [node name="Select target" type="Label" parent="UI"]
 visible = false
@@ -317,3 +319,32 @@ offset_top = 957.0
 offset_right = 198.0
 offset_bottom = 1017.0
 text = "Back"
+
+[node name="Game over" type="Control" parent="UI"]
+anchors_preset = 0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+
+[node name="ColorRect" type="ColorRect" parent="UI/Game over"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.882353)
+
+[node name="Label" type="Label" parent="UI/Game over"]
+layout_mode = 0
+offset_left = 908.0
+offset_top = 163.0
+offset_right = 1089.0
+offset_bottom = 217.0
+text = "Game over"
+
+[node name="Button" type="Button" parent="UI/Game over"]
+layout_mode = 0
+offset_left = 851.0
+offset_top = 392.0
+offset_right = 1071.0
+offset_bottom = 491.0
+text = "Retry"

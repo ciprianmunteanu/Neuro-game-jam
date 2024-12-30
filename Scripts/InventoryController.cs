@@ -160,12 +160,26 @@ public partial class InventoryController : Control
     {
         Instance = this;
 
+        /*
         AddItem(new Harpoon());
         AddItem(new BananaRum());
         AddItem(new Drones());
 
         AddItem(new RobotBody());
         AddItem(new ClownOutfit());
+        */
+    }
+
+    public void Reset()
+    {
+        foreach(var slot in inventorySlots)
+        {
+            if(slot.IsTrash)
+            {
+                continue;
+            }
+            slot.HeldItem = null;
+        }
     }
 
     public int GetNumberOfEmptyInventorySlots()

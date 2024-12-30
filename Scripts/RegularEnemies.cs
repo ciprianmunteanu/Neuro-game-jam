@@ -4,7 +4,7 @@
     {
         MaxHealth = 10,
         CurrentHealth = 10,
-        AttackDamage = 1,
+        AttackDamage = 100,
         Speed = 1
     })
     {
@@ -19,7 +19,7 @@ public partial class DifficultTrashMob : EnemyCombatEntity
     {
         MaxHealth = 20,
         CurrentHealth = 20,
-        AttackDamage = 3,
+        AttackDamage = 300,
         Speed = 1
     })
     {

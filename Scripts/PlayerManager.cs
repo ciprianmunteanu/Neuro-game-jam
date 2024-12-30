@@ -1,10 +1,11 @@
 ﻿using Godot;
 using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
 
 public static class PlayerManager
 {
-    public static readonly CombatEntityStats StartingPlayerStats = new CombatEntityStats()
+    public static CombatEntityStats StartingPlayerStats => new CombatEntityStats()
     {
         MaxHealth = 30,
         CurrentHealth = 30,
@@ -54,5 +55,14 @@ public static class PlayerManager
                 label.Text = $"{statsPropertyInfo[i].Name}: {statsPropertyInfo[i].GetValue(Stats)}";
             }
         }
+    }
+
+    public static void Restart()
+    {
+        InventoryController.Instance.Reset();
+        UpdateStats(StartingPlayerStats);
+        WeaponItem = null;
+        ArmorItem = null;
+        CombatActions = new List<CombatAction>();
     }
 }

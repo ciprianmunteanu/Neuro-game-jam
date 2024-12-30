@@ -6,7 +6,14 @@ using System.Linq;
 
 public class CombatNodeController : MapNodeController
 {
+    public static CombatNodeController Instance { get; set; }
+
     private CombatEntity spawnedPlayer;
+
+    public CombatNodeController()
+    {
+        Instance = this;
+    }
 
     protected virtual CombatEncounter GetEncounter()
     {

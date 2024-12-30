@@ -35,8 +35,8 @@ public partial class MapController : Node
             n.Free();
         }
         // TODO generate this
-        //int[] floorSizes = { 1, 3, 5, 7, 6, 2, 1 };
-        int[] floorSizes = { 1, 3 };
+        int[] floorSizes = { 1, 3, 5, 7, 6, 2, 1 };
+        //int[] floorSizes = { 1, 3 };
         // add starting location
         currentNode = new MapNode(new List<MapNode>(), GenerateStartingLocationButton(mapRoot, new Vector2(900, 0)));
         MapNodes.Add(new List<MapNode>() { currentNode });
@@ -135,7 +135,7 @@ public partial class MapController : Node
             roomType = 2;
         }
 
-        return GenerateRandomButton(mapRoot, position, 1);
+        return GenerateRandomButton(mapRoot, position, roomType);
     }
 
     private Button GenerateRandomButton(Control mapRoot, Vector2 position, int roomType)

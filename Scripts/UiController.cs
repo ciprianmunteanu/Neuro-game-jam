@@ -63,6 +63,11 @@ public partial class UiController : Control
     [Export]
     public Label ItemStatsLabel { get; set; }
 
+    [Export]
+    public Control GameOverScreen { get; set; }
+    [Export]
+    public Button RetryButton { get; set; }
+
     private bool isMapShown = false;
     private GameState CurrentGameState = GameState.MAIN_MENU;
 
@@ -79,6 +84,7 @@ public partial class UiController : Control
         InventoryScreen.Hide();
         MainMenuScreen.Show();
         SettingsMenu.Hide();
+        GameOverScreen.Hide();
 
         MainMenuPlayButton.Pressed += Play;
         MainMenuExitButton.Pressed += Quit;
@@ -123,6 +129,8 @@ public partial class UiController : Control
         };
 
         FullScreenButton.Toggled += (toggleMode) => DisplayServer.WindowSetMode(toggleMode ? DisplayServer.WindowMode.Fullscreen : DisplayServer.WindowMode.Windowed);
+
+        RetryButton.Pressed += Reset;
     }
 
     private void Play()
@@ -131,6 +139,19 @@ public partial class UiController : Control
         MainMenuScreen.Hide();
         ShowMap(true);
         CurrentGameState = GameState.PLAYING;
+    }
+
+    private void Reset()
+    {
+        PlayerManager.Restart();
+        GameOverScreen.Hide();
+        CombatMenu.Hide();
+        foreach(var en in CombatManager.CombatEntities)
+        {
+            en.Hide();
+            en.QueueFree();
+        }
+        Play();
     }
 
     private void Quit()
@@ -293,5 +314,11 @@ public partial class UiController : Control
                 }
             }
         }
+    }
+
+    public void GameOver()
+    {
+        CombatMenu.Hide();
+        GameOverScreen.Show();
     }
 }
