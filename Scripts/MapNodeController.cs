@@ -11,6 +11,8 @@ public record Rewards
 
 public abstract class MapNodeController
 {
+    public event Action OnRoomClear;
+
     public abstract void StartEncounter(Node rootNode);
     public abstract void CleanupEncounter();
 
@@ -19,9 +21,24 @@ public abstract class MapNodeController
         typeof(Harpoon), typeof(BananaRum), typeof(Drones),
         typeof(RobotBody), typeof(ClownOutfit)
     };
-    private static Random random = new();
+    protected static Random random = new(Guid.NewGuid().GetHashCode());
 
-    public event Action OnRoomClear;
+    private Func<CombatEntityStats>[] itemModifierList =
+    {
+        () => new CombatEntityStats()
+        {
+            AttackDamage = 10
+        },
+        () => new CombatEntityStats()
+        {
+            MaxHealth = 10,
+            CurrentHealth = 10
+        },
+        () => new CombatEntityStats()
+        {
+            Speed = 10
+        },
+    };
 
     protected virtual void RoomCleared()
     {
@@ -71,9 +88,37 @@ public abstract class MapNodeController
         // step 1: Choose the base item
         var baseItemType = RewardableItemTypes[random.Next(RewardableItemTypes.Count())];
         var item = Activator.CreateInstance(baseItemType) as Item;
-        item.StatModifiers.AttackDamage = 10;
+
+        // step 2: roll for rarity
+        int nrOfModifiers = GetRandomItemRarity();
+
+        List<int> modifierIndexes = new() { 0, 1, 2 };
+        for(int i = 0; i<nrOfModifiers; i++)
+        {
+            int modifierIndex = modifierIndexes[random.Next(modifierIndexes.Count)];
+            item.StatModifiers = item.StatModifiers + itemModifierList[modifierIndex].Invoke();
+            modifierIndexes.Remove(modifierIndex);
+        }
 
         return item;
+    }
+
+    protected virtual int GetRandomItemRarity()
+    {
+        var randNr = random.Next(100);
+        if (randNr < 40)
+        {
+            return 1;
+        }
+        if (randNr < 70)
+        {
+            return 2;
+        }
+        if (randNr < 90)
+        {
+            return 3;
+        }
+        return 3;
     }
 
     protected abstract Rewards GetRewards();
