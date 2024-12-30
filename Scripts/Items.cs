@@ -33,6 +33,8 @@ public class Harpoon : Item
 {
     public Harpoon() : base(new CombatEntityStats() { AttackDamage = 20 }, "Harpoon", ItemType.WEAPON)
     {
+        SpritePath = "res://Assets/Weapon.png";
+
         // TODO this is supposed to use 2 actions
         var s1 = new CombatAction() { Name = "Shoot", Cooldown = 1};
         s1.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 3f });

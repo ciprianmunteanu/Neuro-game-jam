@@ -31,6 +31,15 @@ public partial class GhostEnemy : EnemyCombatEntity
                 Stats = Stats + item.StatModifiers;
             }
             CombatActions.AddRange(item.Skills);
+
+            if(item.Type == ItemType.WEAPON)
+            {
+                WeaponItem = item;
+            }
+            if(item.Type == ItemType.ARMOR)
+            {
+                ArmorItem = item;
+            }
         }
 
         Stats = Stats * StatModifier;

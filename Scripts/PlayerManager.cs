@@ -12,8 +12,8 @@ public static class PlayerManager
         Speed = 10
     };
 
-    public static string PlayerWeaponSpritePath { get; set; }
-    public static string PlayerArmorSpritePath { get; set; }
+    public static Item WeaponItem { get; set; }
+    public static Item ArmorItem { get; set; }
 
     public static CombatEntityStats Stats { get; private set; } = StartingPlayerStats;
 

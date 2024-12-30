@@ -29,6 +29,9 @@ public class Item
     [JsonIgnore]
     public CombatEntityStats BaseStats { get; set; }
 
+    [JsonIgnore]
+    public string SpritePath { get; set; } = "res://Assets/Weapon.png";
+
     public string Name { get; init; }
 
     [JsonIgnore]
@@ -59,6 +62,7 @@ public class Item
         Skills = baseItem.Skills;
         BaseStats = baseItem.BaseStats;
         Type = baseItem.Type;
+        SpritePath = baseItem.SpritePath;
     }
 }
 
@@ -86,19 +90,13 @@ public record ItemSlot(Vector2 Position, bool isEquipment)
                     newStats = newStats - heldItem.BaseStats;
                 }
 
-                string newSprite = null;
-                if(value != null)
-                {
-                    // TODO get the sprite path from the item
-                    newSprite = "res://Assets/Weapon.png";
-                }
                 if(Type == ItemType.WEAPON)
                 {
-                    PlayerManager.PlayerWeaponSpritePath = newSprite;
+                    PlayerManager.WeaponItem = value;
                 }
                 else if (Type == ItemType.ARMOR)
                 {
-                    PlayerManager.PlayerArmorSpritePath = newSprite;
+                    PlayerManager.ArmorItem = value;
                 }
 
                 PlayerManager.UpdateStats(newStats);

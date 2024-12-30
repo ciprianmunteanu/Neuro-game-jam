@@ -21,6 +21,10 @@ public partial class CombatEntity : Node2D
     public bool IsEnemy = true;
     public bool IsSummon = false;
 
+    public Item WeaponItem { get; set; }
+    public Item ArmorItem { get; set; }
+
+
     public Sprite2D WeaponSprite { get; set; }
     public Sprite2D ArmorSprite { get; set; }
 
@@ -75,18 +79,27 @@ public partial class CombatEntity : Node2D
         };
         Collider.AddChild(ColliderShape);
 
-        WeaponSprite = new Sprite2D()
-        {
-            Position = new Vector2(50, 0),
-            Scale = new Vector2(2, 2)
-        };
-        AddChild(WeaponSprite);
 
-        ArmorSprite = new Sprite2D()
+        if (WeaponItem != null)
         {
-            Scale = new Vector2(4,4)
-        };
-        AddChild(ArmorSprite);
+            WeaponSprite = new Sprite2D()
+            {
+                Position = new Vector2(50, 0),
+                Scale = new Vector2(2, 2),
+                Texture = GD.Load<Texture2D>(WeaponItem.SpritePath)
+            };
+            AddChild(WeaponSprite);
+        }
+
+        if(ArmorItem != null)
+        {
+            ArmorSprite = new Sprite2D()
+            {
+                Scale = new Vector2(4, 4),
+                Texture = GD.Load<Texture2D>(ArmorItem.SpritePath)
+            };
+            AddChild(ArmorSprite);
+        }
     }
 
     public void TakeDamage(double damage)
