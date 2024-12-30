@@ -132,21 +132,24 @@ public partial class InventoryController : Control
     // to get the center, add half the slot size
     private static readonly List<ItemSlot> inventorySlots = new()
     {
-        new ItemSlot(new Vector2(535, 241), false),
-        new ItemSlot(new Vector2(733,238), false),
-        new ItemSlot(new Vector2(942,234), false),
-        new ItemSlot(new Vector2(522,382), false),
-        new ItemSlot(new Vector2(726, 379), false),
-        new ItemSlot(new Vector2(932, 380), false),
-        new ItemSlot(new Vector2(529, 581), false),
-        new ItemSlot(new Vector2(723, 581), false),
-        new ItemSlot(new Vector2(932, 581), false),
+        new ItemSlot(new Vector2(500, 100), false),
+        new ItemSlot(new Vector2(720, 100), false),
+        new ItemSlot(new Vector2(940, 100), false),
+
+        new ItemSlot(new Vector2(500, 320), false),
+        new ItemSlot(new Vector2(720, 320), false),
+        new ItemSlot(new Vector2(940, 320), false),
+
+        new ItemSlot(new Vector2(500, 540), false),
+        new ItemSlot(new Vector2(720, 540), false),
+        new ItemSlot(new Vector2(940, 540), false),
+
         new ItemSlot(new Vector2(153, 143), true) {Type = ItemType.WEAPON},
         new ItemSlot(new Vector2(158, 374), true) {Type = ItemType.ARMOR},
         new ItemSlot(new Vector2(1018, 841), false) {IsTrash = true}
     };
 
-    private readonly int slotSizePx = 180;
+    private readonly int slotSizePx = 190;
 
     private List<Item> items = new();
 
@@ -197,16 +200,7 @@ public partial class InventoryController : Control
     {
         if (item.Button == null)
         {
-            var button = new Button()
-            {
-                Text = item.Name,
-                Size = new Vector2(slotSizePx, slotSizePx),
-                ActionMode = BaseButton.ActionModeEnum.Press
-            };
-            AddChild(button);
-            button.Pressed += () => OnItemPressed(item);
-
-            item.Button = button;
+            CreateButton(item);
         }
 
         // ignore cases where we're trying to equip the wrong item type
@@ -232,6 +226,24 @@ public partial class InventoryController : Control
         {
             SwapItemSlots(item, slot.HeldItem);
         }
+    }
+
+    private void CreateButton(Item item)
+    {
+        var button = new Button()
+        {
+            Text = item.Name,
+            Size = new Vector2(slotSizePx, slotSizePx),
+            ActionMode = BaseButton.ActionModeEnum.Press,
+            Icon = GD.Load<Texture2D>(item.SpritePath),
+            ExpandIcon = true,
+            IconAlignment = HorizontalAlignment.Center,
+            VerticalIconAlignment = VerticalAlignment.Top
+        };
+        AddChild(button);
+        button.Pressed += () => OnItemPressed(item);
+
+        item.Button = button;
     }
 
     private void SwapItemSlots(Item item1, Item item2)

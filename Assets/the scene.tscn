@@ -29,8 +29,8 @@ MapMenu = NodePath("Map")
 MapController = NodePath("../MapController")
 RewardsMenu = NodePath("Rewards screen")
 RewardsMenuOkButton = NodePath("Rewards screen/Ok Button")
-InventoryScreen = NodePath("Inventory")
-StatsDisplay = NodePath("Inventory/Stats")
+InventoryScreen = NodePath("Inventory screen")
+StatsDisplay = NodePath("Inventory screen/Stats")
 SelectTargetPrompt = NodePath("Select target")
 
 [node name="Select target" type="Label" parent="UI"]
@@ -107,41 +107,41 @@ offset_right = 816.0
 offset_bottom = 495.0
 text = "Ok"
 
-[node name="Inventory" type="Control" parent="UI"]
+[node name="Inventory screen" type="Control" parent="UI"]
 anchors_preset = 0
 offset_left = -906.0
 offset_top = -488.0
 offset_right = 899.0
 offset_bottom = 488.0
 
-[node name="Background" type="ColorRect" parent="UI/Inventory"]
+[node name="Background" type="ColorRect" parent="UI/Inventory screen"]
 layout_mode = 0
 offset_right = 1797.0
 offset_bottom = 960.0
 color = Color(0.101961, 0.101961, 0.101961, 1)
 
-[node name="Stats" type="Control" parent="UI/Inventory"]
+[node name="Stats" type="Control" parent="UI/Inventory screen"]
 anchors_preset = 0
 offset_right = 572.0
 offset_bottom = 965.0
 
-[node name="Inventory" type="Control" parent="UI/Inventory"]
+[node name="Inventory" type="Control" parent="UI/Inventory screen"]
 anchors_preset = 0
 offset_left = 610.0
 offset_top = -3.0
-offset_right = 1794.0
-offset_bottom = 964.0
+offset_right = 610.0
+offset_bottom = -3.0
 script = ExtResource("4_ook0n")
 
-[node name="TextureRect" type="TextureRect" parent="UI/Inventory/Inventory"]
+[node name="TextureRect" type="TextureRect" parent="UI/Inventory screen/Inventory"]
 layout_mode = 0
-offset_left = 522.0
-offset_top = 228.0
-offset_right = 1123.0
-offset_bottom = 753.0
+offset_left = 500.0
+offset_top = 100.0
+offset_right = 1140.0
+offset_bottom = 740.0
 texture = ExtResource("4_833bp")
 
-[node name="ColorRect" type="ColorRect" parent="UI/Inventory/Inventory"]
+[node name="ColorRect" type="ColorRect" parent="UI/Inventory screen/Inventory"]
 layout_mode = 0
 offset_left = 153.0
 offset_top = 143.0
@@ -149,13 +149,13 @@ offset_right = 329.0
 offset_bottom = 300.0
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="UI/Inventory/Inventory/ColorRect"]
+[node name="Label" type="Label" parent="UI/Inventory screen/Inventory/ColorRect"]
 layout_mode = 0
 offset_right = 159.0
 offset_bottom = 107.0
 text = "Weapon"
 
-[node name="ColorRect2" type="ColorRect" parent="UI/Inventory/Inventory"]
+[node name="ColorRect2" type="ColorRect" parent="UI/Inventory screen/Inventory"]
 layout_mode = 0
 offset_left = 158.0
 offset_top = 374.0
@@ -163,13 +163,13 @@ offset_right = 334.0
 offset_bottom = 531.0
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="UI/Inventory/Inventory/ColorRect2"]
+[node name="Label" type="Label" parent="UI/Inventory screen/Inventory/ColorRect2"]
 layout_mode = 0
 offset_right = 172.0
 offset_bottom = 146.0
 text = "Armor"
 
-[node name="ColorRect3" type="ColorRect" parent="UI/Inventory/Inventory"]
+[node name="ColorRect3" type="ColorRect" parent="UI/Inventory screen/Inventory"]
 layout_mode = 0
 offset_left = 1018.0
 offset_top = 841.0
@@ -177,8 +177,15 @@ offset_right = 1126.0
 offset_bottom = 947.0
 color = Color(0.796078, 0, 0.0196078, 0.658824)
 
-[node name="Label" type="Label" parent="UI/Inventory/Inventory/ColorRect3"]
+[node name="Label" type="Label" parent="UI/Inventory screen/Inventory/ColorRect3"]
 layout_mode = 0
 offset_right = 108.0
 offset_bottom = 65.0
 text = "Trash"
+
+[node name="Control" type="Control" parent="UI/Inventory screen/Inventory"]
+anchors_preset = 0
+offset_left = 502.0
+offset_top = 104.0
+offset_right = 542.0
+offset_bottom = 144.0
