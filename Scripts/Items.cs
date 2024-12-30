@@ -35,8 +35,8 @@ public class Harpoon : Item
     {
         SpritePath = "res://Assets/Harpoon.png";
 
-        var s1 = new CombatAction() { Name = "Shoot", Cooldown = 3, ActionCost = 2 , AnimationResourcePath = "res://Assets/Weapon_animations/Harpoon/ShootAnimation.tres", Description = "Deals 400% AD damage" };
-        s1.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 4f });
+        var s1 = new CombatAction() { Name = "Shoot", Cooldown = 3, ActionCost = 2 , AnimationResourcePath = "res://Assets/Weapon_animations/Harpoon/ShootAnimation.tres", Description = "Deals 300% AD damage" };
+        s1.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 3f });
         Skills.Add(s1);
 
         var s2 = new CombatAction() { Name = "Reel in", Cooldown = 2, AnimationResourcePath = "res://Assets/Weapon_animations/Harpoon/ReelInAnimation.tres", Description = "Reduces the target's damage to 0 for 1 turn"};
@@ -95,11 +95,11 @@ public class RobotBody : Item
         s1.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 1.5, DefenseAmp = 1.5, Duration = 2 } });
         Skills.Add(s1);
 
-        var s2 = new CombatAction() { Name = "Destroy you", Cooldown = 2, ActionCost = 2, AnimationResourcePath = "res://Assets/Weapon_animations/RobotBody/DestroyAnimation.tres", Description = "Deals 400% AD damage" };
+        var s2 = new CombatAction() { Name = "Destroy you", Cooldown = 2, ActionCost = 2, AnimationResourcePath = "res://Assets/Weapon_animations/RobotBody/DestroyAnimation.tres", Description = "Deals 300% AD damage" };
         //s2.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 4 });
         // TODO somehow make it check for buffs and remove the buff after use
         // until then, this is a generic damage skill
-        s2.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 4 });
+        s2.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 3 });
         Skills.Add(s2);
     }
 }

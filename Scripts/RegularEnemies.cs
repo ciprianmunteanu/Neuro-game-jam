@@ -4,8 +4,8 @@
     {
         MaxHealth = 10,
         CurrentHealth = 10,
-        AttackDamage = 100,
-        Speed = 1
+        AttackDamage = 7,
+        Speed = 2
     })
     {
         SpriteResourcePath = "res://Assets/EvilFumo.png";
@@ -19,8 +19,8 @@ public partial class DifficultTrashMob : EnemyCombatEntity
     {
         MaxHealth = 20,
         CurrentHealth = 20,
-        AttackDamage = 300,
-        Speed = 1
+        AttackDamage = 15,
+        Speed = 2
     })
     {
         SpriteResourcePath = "res://Assets/Evil.png";

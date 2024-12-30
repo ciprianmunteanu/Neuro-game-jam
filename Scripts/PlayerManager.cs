@@ -7,8 +7,8 @@ public static class PlayerManager
 {
     public static CombatEntityStats StartingPlayerStats => new CombatEntityStats()
     {
-        MaxHealth = 50,
-        CurrentHealth = 50,
+        MaxHealth = 70,
+        CurrentHealth = 70,
         AttackDamage = 10,
         Speed = 10
     };

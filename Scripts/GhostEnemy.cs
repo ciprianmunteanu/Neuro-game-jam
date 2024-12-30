@@ -8,7 +8,7 @@ internal record GhostData(string PlayerName, List<Item> Items);
 
 public partial class GhostEnemy : EnemyCombatEntity
 {
-    public const float StatModifier = 0.5f;
+    public const float StatModifier = 0.25f;
 
     public GhostEnemy() : base(new CombatEntityStats())
     {
