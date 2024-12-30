@@ -36,8 +36,8 @@ public class Harpoon : Item
         SpritePath = "res://Assets/Weapon.png";
 
         // TODO this is supposed to use 2 actions
-        var s1 = new CombatAction() { Name = "Shoot", Cooldown = 1};
-        s1.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 3f });
+        var s1 = new CombatAction() { Name = "Shoot", Cooldown = 3, ActionCost = 2 };
+        s1.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 4f });
         Skills.Add(s1);
 
         var s2 = new CombatAction() { Name = "Reel in", Cooldown = 2 };
@@ -90,7 +90,7 @@ public class RobotBody : Item
         s1.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 1.5, DefenseAmp = 1.25, Duration = 2 } });
         Skills.Add(s1);
 
-        var s2 = new CombatAction() { Name = "Destroy you", Cooldown = 2 };
+        var s2 = new CombatAction() { Name = "Destroy you", Cooldown = 2, ActionCost = 2 };
         //s2.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 4 });
         // TODO somehow make it check for buffs and remove the buff after use
         // until then, this is a generic damage skill
@@ -105,14 +105,11 @@ public class ClownOutfit : Item
     {
         // TODO this is supposed to remove actions, figure out later how to do that
         var s1 = new CombatAction() { Name = "Clowning around", Cooldown = 3 };
-        s1.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DefenseAmp = 1.33, Duration = 3 } });
+        s1.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 0, Duration = 1 } });
         Skills.Add(s1);
 
         // TODO this is supposed to be AOE def down
         var s2 = new CombatAction() { Name = "Honk", Cooldown = 2 };
-        //s2.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 4 });
-        // TODO somehow make it check for buffs and remove the buff after use
-        // until then, this is a generic damage skill
         s2.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DefenseAmp = 0.66, Duration = 2 } });
         Skills.Add(s2);
     }

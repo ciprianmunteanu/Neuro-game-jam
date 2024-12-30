@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -15,7 +16,11 @@ public record CombatEffect
 
 public partial class CombatEntity : Node2D
 {
+    public event Action OnTurnStart;
+
     public CombatEntityStats Stats { get; init; }
+    public int ActionsPerTurn { get; set; } = 2;
+    public int ActionsLeft { get; set; }
     public string SpriteResourcePath { get; set; } = "res://Assets/Player.png";
     public List<CombatEffect> CombatEffects = new();
     public bool IsEnemy = true;
@@ -40,6 +45,8 @@ public partial class CombatEntity : Node2D
 
     public virtual void TakeTurn() 
     {
+        ActionsLeft = ActionsPerTurn;
+        OnTurnStart?.Invoke();
     }
 
     public void OnTurnEnd()

@@ -1,6 +1,4 @@
-using Godot;
-using System.Diagnostics;
-using System.Linq;
+using System;
 
 public partial class PlayerCombatEntity : CombatEntity
 {
@@ -23,8 +21,11 @@ public partial class PlayerCombatEntity : CombatEntity
 
     public override void TakeTurn()
     {
-        if( UiController.Instance != null)
+        base.TakeTurn();
+
+        if(UiController.Instance != null)
         {
+            UiController.Instance.RefreshSkillButtonState();
             UiController.Instance.CombatMenu.Show();
         }
     }

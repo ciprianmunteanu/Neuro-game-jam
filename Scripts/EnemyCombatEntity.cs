@@ -13,33 +13,40 @@ public partial class EnemyCombatEntity : CombatEntity
 
     public EnemyCombatEntity(CombatEntityStats stats) : base(stats)
     {
+        ActionsPerTurn = 1;
     }
 
     public override void TakeTurn()
     {
-        var validActions = CombatActions.FindAll(a => a.remainingCooldown <= 0);
-        if(validActions.Any())
-        {
-            chosenCombatAction = validActions.OrderByDescending(a => a.Cooldown).First();
-            //chosenCombatAction = CombatActions.ElementAt(random.Next(CombatActions.Count));
-            chosenCombatAction.OnActionDone += OnCombatActionDone;
+        base.TakeTurn();
 
-            CombatEntity target;
-            if(IsEnemy)
+        while (ActionsLeft > 0)
+        {
+            var validActions = CombatActions.FindAll(a => a.CheckIfUsable(this));
+            if (validActions.Any())
             {
-                target = PlayerCombatEntity.Instance;
+                chosenCombatAction = validActions.OrderByDescending(a => a.Cooldown).First();
+                //chosenCombatAction = CombatActions.ElementAt(random.Next(CombatActions.Count));
+                chosenCombatAction.OnActionDone += OnCombatActionDone;
+
+                CombatEntity target;
+                if (IsEnemy)
+                {
+                    target = PlayerCombatEntity.Instance;
+                }
+                else
+                {
+                    var enemies = CombatManager.CombatEntities.FindAll(ce => ce.IsEnemy);
+                    target = enemies.ElementAt(random.Next(enemies.Count));
+                }
+
+                chosenCombatAction.Do(this, target, this);
             }
             else
             {
-                var enemies = CombatManager.CombatEntities.FindAll(ce => ce.IsEnemy);
-                target = enemies.ElementAt(random.Next(enemies.Count));
+                CombatManager.PassTurn();
+                break;
             }
-
-            chosenCombatAction.Do(this, target, this);
-        }
-        else
-        {
-            CombatManager.PassTurn();
         }
     }
 

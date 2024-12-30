@@ -27,13 +27,13 @@ public partial class CombatActionButton : Button
     public CombatActionButton(CombatAction action)
     {
         combatAction = action;
-        combatAction.OnCooldownChanged += OnActionCooldownChanged;
         Text = combatAction.Name;
     }
 
-    private void OnActionCooldownChanged(int newCooldown)
+
+    public void RefreshButtonState()
     {
-        if(newCooldown <= 0)
+        if(combatAction.CheckIfUsable(PlayerCombatEntity.Instance))
         {
             Disabled = false;
             Text = combatAction.Name;
@@ -41,7 +41,11 @@ public partial class CombatActionButton : Button
         else
         {
             Disabled = true;
-            Text = $"{combatAction.Name} ({newCooldown})";
+            Text = combatAction.Name;
+            if(combatAction.RemainingCooldown > 0)
+            {
+                Text += $" ({combatAction.RemainingCooldown})";
+            }
         }
     }
 
@@ -73,6 +77,8 @@ public partial class CombatActionButton : Button
                     {
                         combatAction.Do(PlayerCombatEntity.Instance, combatEntity, GetTree().Root);
 
+                        UiController.Instance.RefreshSkillButtonState();
+
                         IsSelectingTarget = false;
                     }
                 }
@@ -86,6 +92,5 @@ public partial class CombatActionButton : Button
     /// </summary>
     public void Cleanup()
     {
-        combatAction.OnCooldownChanged -= OnActionCooldownChanged;
     }
 }

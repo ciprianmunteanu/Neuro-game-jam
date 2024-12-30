@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 public partial class UiController : Control
 {
@@ -72,6 +73,17 @@ public partial class UiController : Control
         };
 
         PlayerManager.InitStatsDisplay();
+    }
+
+    public void RefreshSkillButtonState()
+    {
+        foreach (var child in UiController.Instance.SkillsMenu.GetChildren())
+        {
+            if (child is CombatActionButton actionButton)
+            {
+                actionButton.RefreshButtonState();
+            }
+        }
     }
 
     private void PopulateCombatMenu()

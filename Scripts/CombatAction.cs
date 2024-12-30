@@ -9,23 +9,18 @@ using System.Collections.Generic;
 public class CombatAction
 {
     public event Action OnActionDone;
-    public event Action<int> OnCooldownChanged;
 
     public string Name { get; set; } = "CombatAction";
     public string AnimationResourcePath { get; set; } = "res://Assets/Attack_animation/AttackAnimation.tres";
     public int Cooldown { get; set; } = 1;
     public List<ICombatActionEffect> CombatActionEffects = new();
-
-    public int remainingCooldown = 0;
-    protected int RemainingCooldown 
+    public int ActionCost { get; set; } = 1;
+    public bool CheckIfUsable(CombatEntity combatEntity)
     {
-        get => remainingCooldown;
-        set
-        {
-            remainingCooldown = value;
-            OnCooldownChanged?.Invoke(value);
-        }
+        return RemainingCooldown <= 0 && ActionCost <= combatEntity.ActionsLeft;
     }
+
+    public int RemainingCooldown { get; set; }
 
     public CombatAction()
     {
@@ -35,6 +30,9 @@ public class CombatAction
 
     public void Do(CombatEntity user, CombatEntity target, Node VfxParent)
     {
+        user.ActionsLeft -= ActionCost;
+        RemainingCooldown = Cooldown;
+
         var animation = new AnimatedSprite2D();
         VfxParent.AddChild(animation);
         animation.SpriteFrames = GD.Load<SpriteFrames>(AnimationResourcePath);
@@ -47,8 +45,6 @@ public class CombatAction
             {
                 eff.DoEffect(user, target);
             }
-
-            RemainingCooldown = Cooldown;
 
             animation.Stop();
             animation.Hide();

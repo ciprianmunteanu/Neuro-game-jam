@@ -10,6 +10,8 @@ public partial class GhostEnemy : EnemyCombatEntity
 
     public GhostEnemy() : base(new CombatEntityStats())
     {
+        ActionsPerTurn = 2;
+
         SpriteResourcePath = "res://Assets/Ghost.png";
 
         Stats = PlayerManager.StartingPlayerStats;
