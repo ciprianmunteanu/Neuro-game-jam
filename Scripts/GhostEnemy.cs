@@ -51,6 +51,13 @@ public partial class GhostEnemy : EnemyCombatEntity
     {
         // todo load all the saved ghosts, not just the first one
         using var ghostDataFile = FileAccess.Open("user://ghostData.json", FileAccess.ModeFlags.Read);
+        if(ghostDataFile == null)
+        {
+            GhostData dummyGhostData = new GhostData("Dummy", new List<Item>());
+            dummyGhostData.Items.Add(new Harpoon());
+            dummyGhostData.Items.Add(new RobotBody());
+            return dummyGhostData;
+        }
         var line = ghostDataFile.GetLine();
         var ghostData = JsonSerializer.Deserialize<GhostData>(line);
 
