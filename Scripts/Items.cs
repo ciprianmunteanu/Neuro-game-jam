@@ -35,7 +35,6 @@ public class Harpoon : Item
     {
         SpritePath = "res://Assets/Harpoon.png";
 
-        // TODO this is supposed to use 2 actions
         var s1 = new CombatAction() { Name = "Shoot", Cooldown = 3, ActionCost = 2 , AnimationResourcePath = "res://Assets/Weapon_animations/Harpoon/ShootAnimation.tres", Description = "Deals 400% AD damage" };
         s1.CombatActionEffects.Add(new DamageCombatAction() { DamageMultiplier = 4f });
         Skills.Add(s1);
@@ -52,7 +51,7 @@ public class BananaRum : Item
     {
         SpritePath = "res://Assets/Rum.png";
 
-        var s1 = new CombatAction() { Name = "Chug", Cooldown = 1, AnimationResourcePath = "res://Assets/Weapon_animations/Rum/ChugAnimation.tres", Description = "Heals 5HP, cleanses debuffs and reduces incoming damage by 30% for 2 turns" };
+        var s1 = new CombatAction() { Name = "Chug", Cooldown = 1, AnimationResourcePath = "res://Assets/Weapon_animations/Rum/ChugAnimation.tres", Description = "Heals 5HP, cleanses debuffs and reduces incoming damage by 30% for 2 turns", ShouldTargetOpponent = false };
         s1.CombatActionEffects.Add(new HealingCombatAction() { HealingAmount = 5 });
         s1.CombatActionEffects.Add(new CleanseCombatAction());
         s1.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 1.2, Duration = 2 } });
@@ -91,7 +90,7 @@ public class RobotBody : Item
     {
         SpritePath = "res://Assets/RobotBody.png";
 
-        var s1 = new CombatAction() { Name = "I don't need anybody", Cooldown = 5, AnimationResourcePath = "res://Assets/Weapon_animations/RobotBody/AnybodyAnimation.tres", Description = "Increases target's damage and defense by 50% for 2 turns." };
+        var s1 = new CombatAction() { Name = "I don't need anybody", Cooldown = 5, AnimationResourcePath = "res://Assets/Weapon_animations/RobotBody/AnybodyAnimation.tres", Description = "Increases target's damage and defense by 50% for 2 turns.", ShouldTargetOpponent = false };
         s1.CombatActionEffects.Add(new ApplyEffectCombatAction() { Effect = new CombatEffect() { DamageAmp = 1.5, DefenseAmp = 1.5, Duration = 2 } });
         Skills.Add(s1);
 

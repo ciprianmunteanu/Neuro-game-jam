@@ -30,7 +30,8 @@ public partial class EnemyCombatEntity : CombatEntity
                 chosenCombatAction.OnActionDone += OnCombatActionDone;
 
                 CombatEntity target;
-                if (IsEnemy)
+                bool shouldTargetPlayer = (IsEnemy && chosenCombatAction.ShouldTargetOpponent) || (!IsEnemy && !chosenCombatAction.ShouldTargetOpponent);
+                if (shouldTargetPlayer)
                 {
                     target = PlayerCombatEntity.Instance;
                 }

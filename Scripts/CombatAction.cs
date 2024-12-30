@@ -12,6 +12,7 @@ public class CombatAction
 
     public string Name { get; set; } = "CombatAction";
     public string Description { get; set; } = "";
+    public bool ShouldTargetOpponent { get; set; } = true;
     public string AnimationResourcePath { get; set; } = "res://Assets/Attack_animation/AttackAnimation.tres";
     public int Cooldown { get; set; } = 1;
     public List<ICombatActionEffect> CombatActionEffects = new();
