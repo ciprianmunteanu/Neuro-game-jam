@@ -63,6 +63,10 @@ public partial class UiController : Control
     private bool isMapShown = false;
     private GameState CurrentGameState = GameState.MAIN_MENU;
 
+    private Button SkillsButton { get; set; }
+    private Button PassButton { get; set; }
+    private Button SkillsBackButton { get; set; }
+
     public override void _Ready()
     {
         SelectTargetPrompt.Hide();
@@ -170,29 +174,29 @@ public partial class UiController : Control
         PositionCombatButton(BasicAttackButton, ref buttonPosition);
         BasicCombatActionsMenu.AddChild(BasicAttackButton);
 
-        var skillsButton = new Button()
+        SkillsButton = new Button()
         {
             Text = "Skills"
         };
-        PositionCombatButton(skillsButton, ref buttonPosition);
-        skillsButton.Pressed += () =>
+        PositionCombatButton(SkillsButton, ref buttonPosition);
+        SkillsButton.Pressed += () =>
         {
             SkillsMenu.Show();
             BasicCombatActionsMenu.Hide();
         };
 
-        BasicCombatActionsMenu.AddChild(skillsButton);
+        BasicCombatActionsMenu.AddChild(SkillsButton);
 
-        var passButton = new Button();
-        PositionCombatButton(passButton, ref buttonPosition);
-        passButton.Text = "Pass";
-        passButton.Pressed += () =>
+        PassButton = new Button();
+        PositionCombatButton(PassButton, ref buttonPosition);
+        PassButton.Text = "Pass";
+        PassButton.Pressed += () =>
         {
             CombatManager.PassTurn();
             CombatMenu.Hide();
             PlayerCombatEntity.Instance.OnTurnEnd();
         };
-        BasicCombatActionsMenu.AddChild(passButton);
+        BasicCombatActionsMenu.AddChild(PassButton);
     }
 
     private void PopulateSkillMenu()
@@ -209,13 +213,13 @@ public partial class UiController : Control
             }
         }
 
-        var backButton = new Button()
+        SkillsBackButton = new Button()
         {
             Text = "Back"
         };
-        PositionCombatButton(backButton, ref buttonPosition);
-        SkillsMenu.AddChild(backButton);
-        backButton.Pressed += () =>
+        PositionCombatButton(SkillsBackButton, ref buttonPosition);
+        SkillsMenu.AddChild(SkillsBackButton);
+        SkillsBackButton.Pressed += () =>
         {
             SkillsMenu.Hide();
             BasicCombatActionsMenu.Show();
@@ -260,6 +264,10 @@ public partial class UiController : Control
 
     public override void _Input(InputEvent @event)
     {
+        if ((SkillsBackButton?.IsHovered() ?? false) || (SkillsButton?.IsHovered() ?? false) || (PassButton?.IsHovered() ?? false))
+        {
+            SkillDescriptionLabel.Text = "";
+        }
         if(CurrentGameState == GameState.PLAYING)
         {
             if (@event.IsActionPressed("Map"))

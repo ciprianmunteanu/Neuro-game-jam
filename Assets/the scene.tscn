@@ -61,27 +61,27 @@ offset_bottom = 40.0
 
 [node name="Basic actions" type="Control" parent="UI/Combat"]
 anchors_preset = 0
-offset_left = -894.0
-offset_top = 260.0
-offset_right = 884.0
-offset_bottom = 339.0
+offset_left = -903.0
+offset_top = 309.0
+offset_right = 875.0
+offset_bottom = 388.0
 mouse_filter = 2
 
 [node name="Skills" type="Control" parent="UI/Combat"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -894.0
-offset_top = 260.0
-offset_right = 884.0
-offset_bottom = 337.0
+offset_left = -903.0
+offset_top = 309.0
+offset_right = 875.0
+offset_bottom = 386.0
 mouse_filter = 2
 
 [node name="Action points" type="Control" parent="UI/Combat"]
 anchors_preset = 0
-offset_left = -876.0
-offset_top = 206.0
-offset_right = 38.0
-offset_bottom = 281.0
+offset_left = -885.0
+offset_top = 255.0
+offset_right = 29.0
+offset_bottom = 330.0
 
 [node name="Label" type="Label" parent="UI/Combat/Action points"]
 layout_mode = 0
@@ -106,10 +106,10 @@ color = Color(0.33749, 0.315423, 0.321062, 1)
 
 [node name="Skill description" type="Control" parent="UI/Combat"]
 anchors_preset = 0
-offset_left = -890.0
-offset_top = 347.0
-offset_right = 894.0
-offset_bottom = 461.0
+offset_left = -899.0
+offset_top = 396.0
+offset_right = 885.0
+offset_bottom = 510.0
 
 [node name="ColorRect" type="ColorRect" parent="UI/Combat/Skill description"]
 layout_mode = 0
