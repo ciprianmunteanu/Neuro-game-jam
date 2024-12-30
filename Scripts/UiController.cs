@@ -120,6 +120,7 @@ public partial class UiController : Control
         MapController.GenerateMap();
         MainMenuScreen.Hide();
         ShowMap(true);
+        CurrentGameState = GameState.PLAYING;
     }
 
     private void Quit()
@@ -256,21 +257,24 @@ public partial class UiController : Control
 
     public override void _Input(InputEvent @event)
     {
-        if(@event.IsActionPressed("Map"))
+        if(CurrentGameState == GameState.PLAYING)
         {
-            ShowMap(!isMapShown);
-            if(isMapShown && isInventoryShown)
+            if (@event.IsActionPressed("Map"))
             {
-                ShowInventory(false);
+                ShowMap(!isMapShown);
+                if (isMapShown && isInventoryShown)
+                {
+                    ShowInventory(false);
+                }
             }
-        }
 
-        if (@event.IsActionPressed("Inventory"))
-        {
-            ShowInventory(!isInventoryShown);
-            if (isMapShown && isInventoryShown)
+            if (@event.IsActionPressed("Inventory"))
             {
-                ShowMap(false);
+                ShowInventory(!isInventoryShown);
+                if (isMapShown && isInventoryShown)
+                {
+                    ShowMap(false);
+                }
             }
         }
     }
