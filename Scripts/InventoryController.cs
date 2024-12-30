@@ -274,7 +274,27 @@ public partial class InventoryController : Control
 
     public override void _Input(InputEvent @event)
     {
-        if(isDragging)
+        bool hoveredSomething = false;
+        foreach(var slot in inventorySlots)
+        {
+            if(slot.HeldItem != null && slot.HeldItem.Button != null && slot.HeldItem.Button.IsHovered())
+            {
+                var itemStats = slot.HeldItem.BaseStats + slot.HeldItem.StatModifiers;
+                string labelText = "";
+                labelText += $"Max health: {itemStats.MaxHealth}\n";
+                labelText += $"Attack damage: {itemStats.AttackDamage}\n";
+                labelText += $"Speed: {itemStats.Speed}\n";
+
+                UiController.Instance.ItemStatsLabel.Text = labelText;
+                hoveredSomething = true;
+            }
+        }
+        if(!hoveredSomething)
+        {
+            UiController.Instance.ItemStatsLabel.Text = "";
+        }
+
+        if (isDragging)
         {
             if(Input.IsMouseButtonPressed(MouseButton.Left))
             {

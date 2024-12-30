@@ -16,7 +16,7 @@ texture = ExtResource("1_f6g1d")
 [node name="MapController" type="Node" parent="."]
 script = ExtResource("2_3jrdh")
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "BasicCombatActionsMenu", "SkillsMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt", "MainMenuScreen", "MainMenuPlayButton", "MainMenuSettingsButton", "MainMenuExitButton", "SettingsMenu", "FullScreenButton", "SettingsBackButton", "ActionPointRect1", "ActionPointRect2", "SkillDescriptionLabel")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("CombatMenu", "BasicCombatActionsMenu", "SkillsMenu", "MapMenu", "MapController", "RewardsMenu", "RewardsMenuOkButton", "InventoryScreen", "StatsDisplay", "SelectTargetPrompt", "MainMenuScreen", "MainMenuPlayButton", "MainMenuSettingsButton", "MainMenuExitButton", "SettingsMenu", "FullScreenButton", "SettingsBackButton", "ActionPointRect1", "ActionPointRect2", "SkillDescriptionLabel", "ItemStatsLabel")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -42,6 +42,7 @@ SettingsBackButton = NodePath("Settings menu/Button")
 ActionPointRect1 = NodePath("Combat/Action points/ColorRect")
 ActionPointRect2 = NodePath("Combat/Action points/ColorRect2")
 SkillDescriptionLabel = NodePath("Combat/Skill description/Label")
+ItemStatsLabel = NodePath("Inventory screen/Item stats")
 
 [node name="Select target" type="Label" parent="UI"]
 visible = false
@@ -167,7 +168,6 @@ offset_bottom = 495.0
 text = "Ok"
 
 [node name="Inventory screen" type="Control" parent="UI"]
-visible = false
 anchors_preset = 0
 offset_left = -906.0
 offset_top = -488.0
@@ -183,7 +183,7 @@ color = Color(0.101961, 0.101961, 0.101961, 1)
 [node name="Stats" type="Control" parent="UI/Inventory screen"]
 anchors_preset = 0
 offset_right = 572.0
-offset_bottom = 965.0
+offset_bottom = 519.0
 
 [node name="Inventory" type="Control" parent="UI/Inventory screen"]
 anchors_preset = 0
@@ -249,6 +249,13 @@ offset_left = 502.0
 offset_top = 104.0
 offset_right = 542.0
 offset_bottom = 144.0
+
+[node name="Item stats" type="Label" parent="UI/Inventory screen"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 500.0
+offset_right = 723.0
+offset_bottom = 967.0
 
 [node name="Main menu" type="Control" parent="UI"]
 visible = false

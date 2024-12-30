@@ -60,6 +60,9 @@ public partial class UiController : Control
     [Export]
     public Label SkillDescriptionLabel { get; set; }
 
+    [Export]
+    public Label ItemStatsLabel { get; set; }
+
     private bool isMapShown = false;
     private GameState CurrentGameState = GameState.MAIN_MENU;
 
